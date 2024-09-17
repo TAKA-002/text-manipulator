@@ -1,8 +1,8 @@
 import React, { createContext, useState } from "react";
 
 import InputArea from "./ui/InputArea";
-import ConversionOptions from "./ui/ConversionOptions";
-import ConversionButtons from "./ui/ConversionButtons";
+import ConvertionOptions from "./ui/ConvertionOptions";
+import ConvertionButtons from "./ui/ConvertionButtons";
 import OutputArea from "./ui/OutputArea";
 import CopyButton from "./ui/CopyButton";
 
@@ -11,12 +11,12 @@ export const MyContext = createContext();
 export function Container() {
   const [inputValue, setInputValue] = useState(""); // 入力欄に入れられた値
   const [convertedValue, setConvertedValue] = useState(""); // 変換された値
-  const [conversionDirection ,setConversionDirection] = useState("fullToHalf");
-  const [isConvertionAll, setIsConversionAll] = useState(true);
-  const [isConvertionEng, setIsConversionEng] = useState(false);
+  const [convertionDirection, setConvertionDirection] = useState("fullToHalf");
+  const [isConvertionAll, setIsConvertionAll] = useState(true);
+  const [isConvertionEng, setIsConvertionEng] = useState(false);
   const [isConvertionNum, setIsConvertionNum] = useState(false);
   const [isConvertionSpace, setIsConvertionSpace] = useState(false);
-  
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row gap-6">
@@ -26,22 +26,22 @@ export function Container() {
             setInputValue,
             convertedValue,
             setConvertedValue,
-            conversionDirection,
-            setConversionDirection,
+            convertionDirection,
+            setConvertionDirection,
             isConvertionAll,
-            setIsConversionAll,
+            setIsConvertionAll,
             isConvertionEng,
-            setIsConversionEng,
+            setIsConvertionEng,
             isConvertionNum,
             setIsConvertionNum,
             isConvertionSpace,
-            setIsConvertionSpace
+            setIsConvertionSpace,
           ]}
         >
           <div className="w-full md:w-1/2 space-y-6">
             <InputArea />
-            <ConversionButtons />
-            <ConversionOptions />
+            <ConvertionButtons />
+            <ConvertionOptions />
           </div>
           <div className="w-full md:w-1/2 space-y-6">
             <OutputArea />
