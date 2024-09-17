@@ -13,6 +13,9 @@ function createWindow() {
 
   // ここを修正
   win.loadFile(path.join(__dirname, "../../dist/index.html"));
+
+  // 開発ツールを開く（開発中は便利だが、製品版ではコメントアウトする）
+  win.webContents.openDevTools();
 }
 
 app.whenReady().then(createWindow);
