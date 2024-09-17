@@ -14,8 +14,8 @@ module.exports = [
       __dirname: false,
       __filename: false,
     },
- externals: {
-      fsevents: "require('fsevents')"
+    externals: {
+      fsevents: "require('fsevents')",
     },
   },
   {
