@@ -3,7 +3,6 @@ import { MyContext } from "../Container";
 
 export default function OutputArea() {
   const [, , convertedValue] = useContext(MyContext);
-  console.log("convertedValue: ", convertedValue);
 
   return (
     <div className="mb-4">
