@@ -13,6 +13,7 @@ export function App() {
   const [isConversionAll, setIsConversionAll] = useState(true);
   const [isConversionEng, setIsConversionEng] = useState(false);
   const [isConversionNum, setIsConversionNum] = useState(false);
+  const [isConversionSymbol, setIsConversionSymbol] = useState(false);
   const [isConversionSpace, setIsConversionSpace] = useState(false);
 
   useEffect(() => {
@@ -24,6 +25,7 @@ export function App() {
         result = convertFullWidthToHalfWidth(inputValue, {
           convertAlphabet: isConversionEng,
           convertNumber: isConversionNum,
+          convertSymbol: isConversionSymbol,
           convertSpace: isConversionSpace,
         });
       }
@@ -34,6 +36,7 @@ export function App() {
         result = convertHalfWidthToFullWidth(inputValue, {
           convertAlphabet: isConversionEng,
           convertNumber: isConversionNum,
+          convertSymbol: isConversionSymbol,
           convertSpace: isConversionSpace,
         });
       }
@@ -46,6 +49,7 @@ export function App() {
     isConversionAll,
     isConversionEng,
     isConversionNum,
+    isConversionSymbol,
     isConversionSpace,
   ]);
 
@@ -64,6 +68,8 @@ export function App() {
         setIsConversionEng,
         isConversionNum,
         setIsConversionNum,
+        isConversionSymbol,
+        setIsConversionSymbol,
         isConversionSpace,
         setIsConversionSpace,
       ]}

@@ -3,6 +3,7 @@ export function convertFullWidthToHalfWidth(
   options = {
     convertAlphabet: true,
     convertNumber: true,
+    convertSymbol: true,
     convertSpace: true,
   }
 ) {
@@ -25,7 +26,7 @@ export function convertFullWidthToHalfWidth(
   }
 
   // その他の文字（記号など）の変換
-  if (options.convertAlphabet && options.convertNumber) {
+  if (options.convertSymbol) {
     result = result.replace(/[！-／：-＠［-｀｛-～]/g, function (s) {
       return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
     });
@@ -39,6 +40,7 @@ export function convertHalfWidthToFullWidth(
   options = {
     convertAlphabet: true,
     convertNumber: true,
+    convertSymbol: true,
     convertSpace: true,
   }
 ) {
@@ -61,7 +63,7 @@ export function convertHalfWidthToFullWidth(
   }
 
   // その他の文字（記号など）の変換
-  if (options.convertAlphabet && options.convertNumber) {
+  if (options.convertSymbol) {
     result = result.replace(/[!-/:-@\[-`{-~]/g, function (s) {
       return String.fromCharCode(s.charCodeAt(0) + 0xfee0);
     });
