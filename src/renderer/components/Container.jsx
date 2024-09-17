@@ -8,16 +8,17 @@ import CopyButton from "./ui/CopyButton";
 
 export function Container() {
   return (
-    <div className="container">
-      <div className="column">
-        <InputArea />
-        <ConversionOptions />
-        <ConversionButtons />
-      </div>
-
-      <div className="column">
-        <OutputArea />
-        <CopyButton />
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex flex-col md:flex-row gap-8">
+        <div className="w-full md:w-1/2 space-y-6">
+          <InputArea />
+          <ConversionOptions />
+          <ConversionButtons />
+        </div>
+        <div className="w-full md:w-1/2 space-y-6">
+          <OutputArea />
+          <CopyButton />
+        </div>
       </div>
     </div>
   );
