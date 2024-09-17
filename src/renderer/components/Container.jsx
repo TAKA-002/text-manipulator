@@ -1,10 +1,11 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 import InputArea from "./ui/InputArea";
 import ConversionOptions from "./ui/ConversionOptions";
 import ConversionButtons from "./ui/ConversionButtons";
 import OutputArea from "./ui/OutputArea";
 import CopyButton from "./ui/CopyButton";
+import { convertFullWidthToHalfWidth, convertHalfWidthToFullWidth } from "./util/process";
 
 export const MyContext = createContext();
 
@@ -16,6 +17,40 @@ export function Container() {
   const [isConversionEng, setIsConversionEng] = useState(false);
   const [isConversionNum, setIsConversionNum] = useState(false);
   const [isConversionSpace, setIsConversionSpace] = useState(false);
+
+  useEffect(() => {
+    let result = inputValue;
+    if (conversionDirection === "fullToHalf") {
+      if (isConversionAll) {
+        result = convertFullWidthToHalfWidth(inputValue);
+      } else {
+        result = convertFullWidthToHalfWidth(inputValue, {
+          convertAlphabet: isConversionEng,
+          convertNumber: isConversionNum,
+          convertSpace: isConversionSpace,
+        });
+      }
+    } else if (conversionDirection === "halfToFull") {
+      if (isConversionAll) {
+        result = convertHalfWidthToFullWidth(inputValue);
+      } else {
+        result = convertHalfWidthToFullWidth(inputValue, {
+          convertAlphabet: isConversionEng,
+          convertNumber: isConversionNum,
+          convertSpace: isConversionSpace,
+        });
+      }
+    }
+
+    setConvertedValue(result);
+  }, [
+    inputValue,
+    conversionDirection,
+    isConversionAll,
+    isConversionEng,
+    isConversionNum,
+    isConversionSpace,
+  ]);
 
   return (
     <div className="container mx-auto px-4 py-8">
