@@ -4,7 +4,7 @@
   "main": "src/main/main.js",
   "scripts": {
     "start": "electron .",
-    "dev": "webpack --config webpack.config.js && electron .",
+    "dev": "NODE_ENV=development webpack --watch --config webpack.config.js & NODE_ENV=development electron .",
     "build": "webpack --config webpack.config.js --mode production"
   },
   "keywords": [],
