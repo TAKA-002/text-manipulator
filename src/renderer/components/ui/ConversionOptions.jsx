@@ -65,6 +65,7 @@ export default function ConversionOptions() {
             className="form-checkbox text-blue-600 rounded"
             checked={isConversionAll}
             onChange={handleChange}
+            tabIndex="3"
           />
           <span>すべて</span>
         </label>
@@ -77,6 +78,7 @@ export default function ConversionOptions() {
             className="form-checkbox text-blue-600 rounded"
             checked={isConversionEng}
             onChange={handleChange}
+            tabIndex="3"
           />
           <span>英字</span>
         </label>
@@ -89,6 +91,7 @@ export default function ConversionOptions() {
             className="form-checkbox text-blue-600 rounded"
             checked={isConversionNum}
             onChange={handleChange}
+            tabIndex="3"
           />
           <span>数字</span>
         </label>
@@ -101,6 +104,7 @@ export default function ConversionOptions() {
             className="form-checkbox text-blue-600 rounded"
             checked={isConversionSymbol}
             onChange={handleChange}
+            tabIndex="3"
           />
           <span>記号</span>
         </label>
@@ -113,6 +117,7 @@ export default function ConversionOptions() {
             className="form-checkbox text-blue-600 rounded"
             checked={isConversionSpace}
             onChange={handleChange}
+            tabIndex="3"
           />
           <span>スペース</span>
         </label>

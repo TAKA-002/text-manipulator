@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import InputArea from "./ui/InputArea";
 import ConversionOptions from "./ui/ConversionOptions";
@@ -7,6 +7,14 @@ import OutputArea from "./ui/OutputArea";
 import CopyButton from "./ui/CopyButton";
 
 export function Container() {
+  useEffect(() => {
+    // コンポーネントがマウントされた後にインプットエリアにフォーカス
+    const inputElement = document.getElementById("inputText");
+    if (inputElement) {
+      inputElement.focus();
+    }
+  }, []);
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row gap-6">
