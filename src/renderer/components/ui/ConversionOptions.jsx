@@ -24,8 +24,7 @@ export default function ConversionOptions() {
       setIsConversionEng(true);
       setIsConversionNum(true);
       setIsConversionSpace(true);
-    }
-    if (isConversionEng && isConversionNum && isConversionSpace) {
+    } else if (isConversionEng && isConversionNum && isConversionSpace) {
       setIsConversionAll(true);
     }
   }, [isConversionAll, isConversionEng, isConversionNum, isConversionSpace]);
@@ -38,15 +37,14 @@ export default function ConversionOptions() {
       setIsConversionEng(checked);
       setIsConversionNum(checked);
       setIsConversionSpace(checked);
-    } else if (value === "alphabet") {
+    } else {
+      const updateState = {
+        alphabet: setIsConversionEng,
+        number: setIsConversionNum,
+        space: setIsConversionSpace,
+      };
+      updateState[value](checked);
       setIsConversionAll(false);
-      setIsConversionEng((prev) => !prev);
-    } else if (value === "number") {
-      setIsConversionAll(false);
-      setIsConversionNum((prev) => !prev);
-    } else if (value === "space") {
-      setIsConversionAll(false);
-      setIsConversionSpace((prev) => !prev);
     }
   };
 
