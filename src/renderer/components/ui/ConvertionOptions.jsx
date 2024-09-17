@@ -44,7 +44,7 @@ export default function ConvertionOptions() {
         <label className="flex items-center space-x-2 cursor-pointer">
           <input
             type="checkbox"
-            name="conversionTarget"
+            name="convertionTarget"
             value="all"
             className="form-checkbox text-blue-600 rounded"
             checked={isConvertionAll}
@@ -55,7 +55,7 @@ export default function ConvertionOptions() {
         <label className="flex items-center space-x-2 cursor-pointer">
           <input
             type="checkbox"
-            name="conversionTarget"
+            name="convertionTarget"
             value="alphabet"
             className="form-checkbox text-blue-600 rounded"
             checked={isConvertionEng}
@@ -66,7 +66,7 @@ export default function ConvertionOptions() {
         <label className="flex items-center space-x-2 cursor-pointer">
           <input
             type="checkbox"
-            name="conversionTarget"
+            name="convertionTarget"
             value="number"
             className="form-checkbox text-blue-600 rounded"
             checked={isConvertionNum}
@@ -77,7 +77,7 @@ export default function ConvertionOptions() {
         <label className="flex items-center space-x-2 cursor-pointer">
           <input
             type="checkbox"
-            name="conversionTarget"
+            name="convertionTarget"
             value="space"
             className="form-checkbox text-blue-600 rounded"
             checked={isConvertionSpace}

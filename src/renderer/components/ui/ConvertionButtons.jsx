@@ -15,7 +15,7 @@ export default function ConvertionButtons() {
         <label className="flex items-center space-x-3 cursor-pointer">
           <input
             type="radio"
-            name="conversionDirection"
+            name="convertionDirection"
             value="fullToHalf"
             className="form-radio text-blue-600 h-5 w-5"
             checked={convertionDirection === "fullToHalf"}
@@ -26,7 +26,7 @@ export default function ConvertionButtons() {
         <label className="flex items-center space-x-3 cursor-pointer">
           <input
             type="radio"
-            name="conversionDirection"
+            name="convertionDirection"
             value="halfToFull"
             className="form-radio text-blue-600 h-5 w-5"
             checked={convertionDirection === "halfToFull"}
