@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { MyContext } from "../Container";
 
-export default function ConvertionOptions() {
+export default function ConversionOptions() {
   const [
     ,
     ,
@@ -9,44 +9,44 @@ export default function ConvertionOptions() {
     ,
     ,
     ,
-    isConvertionAll,
-    setIsConvertionAll,
-    isConvertionEng,
-    setIsConvertionEng,
-    isConvertionNum,
-    setIsConvertionNum,
-    isConvertionSpace,
-    setIsConvertionSpace,
+    isConversionAll,
+    setIsConversionAll,
+    isConversionEng,
+    setIsConversionEng,
+    isConversionNum,
+    setIsConversionNum,
+    isConversionSpace,
+    setIsConversionSpace,
   ] = useContext(MyContext);
 
   useEffect(() => {
-    if (isConvertionAll) {
-      setIsConvertionEng(true);
-      setIsConvertionNum(true);
-      setIsConvertionSpace(true);
+    if (isConversionAll) {
+      setIsConversionEng(true);
+      setIsConversionNum(true);
+      setIsConversionSpace(true);
     }
-    if (isConvertionEng && isConvertionNum && isConvertionSpace) {
-      setIsConvertionAll(true);
+    if (isConversionEng && isConversionNum && isConversionSpace) {
+      setIsConversionAll(true);
     }
-  }, [isConvertionAll, isConvertionEng, isConvertionNum, isConvertionSpace]);
+  }, [isConversionAll, isConversionEng, isConversionNum, isConversionSpace]);
 
   const handleChange = (event) => {
     const { value, checked } = event.target;
 
     if (value === "all") {
-      setIsConvertionAll(checked);
-      checked ? setIsConvertionEng(true) : setIsConvertionEng(false);
-      checked ? setIsConvertionNum(true) : setIsConvertionNum(false);
-      checked ? setIsConvertionSpace(true) : setIsConvertionSpace(false);
+      setIsConversionAll(checked);
+      checked ? setIsConversionEng(true) : setIsConversionEng(false);
+      checked ? setIsConversionNum(true) : setIsConversionNum(false);
+      checked ? setIsConversionSpace(true) : setIsConversionSpace(false);
     } else if (value === "alphabet") {
-      setIsConvertionAll(false);
-      setIsConvertionEng((prev) => !prev);
+      setIsConversionAll(false);
+      setIsConversionEng((prev) => !prev);
     } else if (value === "number") {
-      setIsConvertionAll(false);
-      setIsConvertionNum((prev) => !prev);
+      setIsConversionAll(false);
+      setIsConversionNum((prev) => !prev);
     } else if (value === "space") {
-      setIsConvertionAll(false);
-      setIsConvertionSpace((prev) => !prev);
+      setIsConversionAll(false);
+      setIsConversionSpace((prev) => !prev);
     }
   };
 
@@ -57,10 +57,10 @@ export default function ConvertionOptions() {
         <label className="flex items-center space-x-2 cursor-pointer">
           <input
             type="checkbox"
-            name="convertionTarget"
+            name="conversionTarget"
             value="all"
             className="form-checkbox text-blue-600 rounded"
-            checked={isConvertionAll}
+            checked={isConversionAll}
             onChange={handleChange}
           />
           <span>すべて</span>
@@ -68,10 +68,10 @@ export default function ConvertionOptions() {
         <label className="flex items-center space-x-2 cursor-pointer">
           <input
             type="checkbox"
-            name="convertionTarget"
+            name="conversionTarget"
             value="alphabet"
             className="form-checkbox text-blue-600 rounded"
-            checked={isConvertionEng}
+            checked={isConversionEng}
             onChange={handleChange}
           />
           <span>英字</span>
@@ -79,10 +79,10 @@ export default function ConvertionOptions() {
         <label className="flex items-center space-x-2 cursor-pointer">
           <input
             type="checkbox"
-            name="convertionTarget"
+            name="conversionTarget"
             value="number"
             className="form-checkbox text-blue-600 rounded"
-            checked={isConvertionNum}
+            checked={isConversionNum}
             onChange={handleChange}
           />
           <span>数字</span>
@@ -90,10 +90,10 @@ export default function ConvertionOptions() {
         <label className="flex items-center space-x-2 cursor-pointer">
           <input
             type="checkbox"
-            name="convertionTarget"
+            name="conversionTarget"
             value="space"
             className="form-checkbox text-blue-600 rounded"
-            checked={isConvertionSpace}
+            checked={isConversionSpace}
             onChange={handleChange}
           />
           <span>スペース</span>

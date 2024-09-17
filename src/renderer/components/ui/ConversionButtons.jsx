@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { MyContext } from "../Container";
 
-export default function ConvertionButtons() {
-  const [, , , , convertionDirection, setConvertionDirection] = useContext(MyContext);
+export default function ConversionButtons() {
+  const [, , , , conversionDirection, setConversionDirection] = useContext(MyContext);
 
   const handleChange = (event) => {
-    setConvertionDirection(event.target.value);
+    setConversionDirection(event.target.value);
   };
 
   return (
@@ -15,10 +15,10 @@ export default function ConvertionButtons() {
         <label className="flex items-center space-x-3 cursor-pointer">
           <input
             type="radio"
-            name="convertionDirection"
+            name="conversionDirection"
             value="fullToHalf"
             className="form-radio text-blue-600 h-5 w-5"
-            checked={convertionDirection === "fullToHalf"}
+            checked={conversionDirection === "fullToHalf"}
             onChange={handleChange}
           />
           <span className="text-gray-700">全角 → 半角</span>
@@ -26,10 +26,10 @@ export default function ConvertionButtons() {
         <label className="flex items-center space-x-3 cursor-pointer">
           <input
             type="radio"
-            name="convertionDirection"
+            name="conversionDirection"
             value="halfToFull"
             className="form-radio text-blue-600 h-5 w-5"
-            checked={convertionDirection === "halfToFull"}
+            checked={conversionDirection === "halfToFull"}
             onChange={handleChange}
           />
           <span className="text-gray-700">半角 → 全角</span>
