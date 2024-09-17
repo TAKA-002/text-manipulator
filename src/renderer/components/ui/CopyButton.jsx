@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
+import { MyContext } from "../Container";
 
 export default function CopyButton() {
+  const [, , convertedValue] = useContext(MyContext);
+
+  const handleCopy = () => {
+    navigator.clipboard
+      .writeText(convertedValue)
+      .then(() => {
+        alert("テキストがクリップボードにコピーされました。");
+      })
+      .catch((err) => {
+        console.error("コピーに失敗しました:", err);
+        alert("コピーに失敗しました。");
+      });
+  };
+
   return (
     <div className="mt-4">
       <button
         id="copyBtn"
+        onClick={handleCopy}
         className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center"
       >
         <svg
