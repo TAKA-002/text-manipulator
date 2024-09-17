@@ -14,14 +14,21 @@ export default function CopyButton() {
         console.error("コピーに失敗しました:", err);
         alert("コピーに失敗しました。");
       });
+
+    // ボタンをクリックしたらフォーカスをインプットエリアに移動
+    const inputElement = document.getElementById("inputText");
+    if (inputElement) {
+      inputElement.focus();
+    }
   };
 
   return (
     <div className="mt-4">
       <button
         id="copyBtn"
-        onClick={handleCopy}
         className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center"
+        onClick={handleCopy}
+        tabIndex="4"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
