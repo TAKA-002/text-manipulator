@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { MyContext } from "../Container";
 
 export default function OutputArea() {
+  const [, , convertedValue] = useContext(MyContext);
+  console.log("convertedValue: ", convertedValue);
+
   return (
     <div className="mb-4">
       <textarea
@@ -8,6 +12,7 @@ export default function OutputArea() {
         readOnly
         placeholder="変換結果がここに表示されます"
         className="w-full h-80 p-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none resize-none"
+        value={convertedValue}
       ></textarea>
     </div>
   );
