@@ -35,9 +35,9 @@ export default function ConversionOptions() {
 
     if (value === "all") {
       setIsConversionAll(checked);
-      checked ? setIsConversionEng(true) : setIsConversionEng(false);
-      checked ? setIsConversionNum(true) : setIsConversionNum(false);
-      checked ? setIsConversionSpace(true) : setIsConversionSpace(false);
+      setIsConversionEng(checked);
+      setIsConversionNum(checked);
+      setIsConversionSpace(checked);
     } else if (value === "alphabet") {
       setIsConversionAll(false);
       setIsConversionEng((prev) => !prev);
