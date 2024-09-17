@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { MyContext } from "../Container";
 
 export default function ConvertionOptions() {
@@ -19,19 +19,32 @@ export default function ConvertionOptions() {
     setIsConvertionSpace,
   ] = useContext(MyContext);
 
-  const handleClick = (event) => {
-    if (event.target.value === "all") {
-      setIsConvertionAll((prev) => !prev);
-      setIsConvertionEng(false);
-      setIsConvertionNum(false);
-      setIsConvertionSpace(false);
-    } else if (event.target.value === "alphabet") {
+  useEffect(() => {
+    if (isConvertionAll) {
+      setIsConvertionEng(true);
+      setIsConvertionNum(true);
+      setIsConvertionSpace(true);
+    }
+    if (isConvertionEng && isConvertionNum && isConvertionSpace) {
+      setIsConvertionAll(true);
+    }
+  }, [isConvertionAll, isConvertionEng, isConvertionNum, isConvertionSpace]);
+
+  const handleChange = (event) => {
+    const { value, checked } = event.target;
+
+    if (value === "all") {
+      setIsConvertionAll(checked);
+      checked ? setIsConvertionEng(true) : setIsConvertionEng(false);
+      checked ? setIsConvertionNum(true) : setIsConvertionNum(false);
+      checked ? setIsConvertionSpace(true) : setIsConvertionSpace(false);
+    } else if (value === "alphabet") {
       setIsConvertionAll(false);
       setIsConvertionEng((prev) => !prev);
-    } else if (event.target.value === "number") {
+    } else if (value === "number") {
       setIsConvertionAll(false);
       setIsConvertionNum((prev) => !prev);
-    } else if (event.target.value === "space") {
+    } else if (value === "space") {
       setIsConvertionAll(false);
       setIsConvertionSpace((prev) => !prev);
     }
@@ -48,7 +61,7 @@ export default function ConvertionOptions() {
             value="all"
             className="form-checkbox text-blue-600 rounded"
             checked={isConvertionAll}
-            onClick={handleClick}
+            onChange={handleChange}
           />
           <span>すべて</span>
         </label>
@@ -59,7 +72,7 @@ export default function ConvertionOptions() {
             value="alphabet"
             className="form-checkbox text-blue-600 rounded"
             checked={isConvertionEng}
-            onClick={handleClick}
+            onChange={handleChange}
           />
           <span>英字</span>
         </label>
@@ -70,7 +83,7 @@ export default function ConvertionOptions() {
             value="number"
             className="form-checkbox text-blue-600 rounded"
             checked={isConvertionNum}
-            onClick={handleClick}
+            onChange={handleChange}
           />
           <span>数字</span>
         </label>
@@ -81,7 +94,7 @@ export default function ConvertionOptions() {
             value="space"
             className="form-checkbox text-blue-600 rounded"
             checked={isConvertionSpace}
-            onClick={handleClick}
+            onChange={handleChange}
           />
           <span>スペース</span>
         </label>
