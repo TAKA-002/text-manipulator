@@ -7,7 +7,9 @@
     "dev": "NODE_ENV=development webpack --watch --config webpack.config.js & NODE_ENV=development electron .",
     "build": "webpack --config webpack.config.js --mode production",
     "fmt": "prettier --write \"src/**/*.{js,jsx,css,html}\"",
-    "fmt:conf": "prettier --write package.json postcss.config.js prettier.config.js tailwind.config.js webpack.config.js"
+    "fmt:conf": "prettier --write package.json postcss.config.js prettier.config.js tailwind.config.js webpack.config.js",
+    "package-mac-intel": "electron-packager . app-text-converter --overwrite --platform=darwin --arch=x64--prune=true --out=release-builds-intel",
+    "package-mac-arm64": "electron-packager . app-text-converter --overwrite --platform=darwin --arch=arm64 --prune=true --out=release-builds-m"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
     "babel-loader": "^9.2.1",
     "css-loader": "^7.1.2",
     "electron": "^32.1.0",
+    "electron-packager": "^17.1.2",
     "electron-reloader": "^1.2.3",
     "html-webpack-plugin": "^5.6.0",
     "postcss": "^8.4.47",
