@@ -1,4 +1,4 @@
-import "./styles/reset.css";
+import "./styles/index.css";
 import "./styles/styles.css";
 
 import React from "react";
