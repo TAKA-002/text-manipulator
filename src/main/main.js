@@ -1,11 +1,11 @@
 const { app, BrowserWindow } = require("electron");
-const electronReloader = require('electron-reloader');
+const electronReloader = require("electron-reloader");
 const path = require("path");
 
-if(process.env.NODE_ENV === "development"){
+if (process.env.NODE_ENV === "development") {
   electronReloader(module, {
     debug: true,
-    watchRenderer: true
+    watchRenderer: true,
   });
 }
 
