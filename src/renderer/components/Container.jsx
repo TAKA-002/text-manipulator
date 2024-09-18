@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 
 import InputArea from "./ui/InputArea";
+import RemoveOptions from "./ui/RemoveOptions";
 import ConversionOptions from "./ui/ConversionOptions";
 import ConversionButtons from "./ui/ConversionButtons";
 import OutputArea from "./ui/OutputArea";
 import CopyButton from "./ui/CopyButton";
-import RemoveOptions from "./ui/RemoveOptions";
+import ClearButton from "./ui/ClearButton";
 
 export function Container() {
   useEffect(() => {
@@ -28,6 +29,7 @@ export function Container() {
         <div className="w-full md:w-1/2 space-y-6">
           <OutputArea />
           <CopyButton />
+          <ClearButton />
         </div>
       </div>
     </div>
