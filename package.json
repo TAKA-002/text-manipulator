@@ -1,6 +1,6 @@
 {
   "name": "app-text-converter",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "main": "src/main/main.js",
   "scripts": {
     "start": "NODE_ENV=development webpack --watch --config webpack.config.js & NODE_ENV=development electron .",
