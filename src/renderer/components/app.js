@@ -53,9 +53,9 @@ export function App() {
     isConversionSpace,
   ]);
 
-  const handleCopy = () => {
+  const handleCopy = (textToCopy) => {
     navigator.clipboard
-      .writeText(convertedValue)
+      .writeText(textToCopy)
       .then(() => {
         alert("テキストがクリップボードにコピーされました。");
       })
