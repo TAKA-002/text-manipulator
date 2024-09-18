@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import { Heading } from "./heading";
+import { Version } from "./version";
 import { Container } from "./Container";
 import {
   convertFullWidthToHalfWidth,
@@ -153,6 +154,7 @@ export function App() {
       }}
     >
       <Heading />
+      <Version />
       <Container />
     </MyContext.Provider>
   );
