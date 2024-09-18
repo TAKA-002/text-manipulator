@@ -75,10 +75,10 @@ export function convertHalfWidthToFullWidth(
 export function removeLineBreaksAndSpaces(str, removeBr = true, removeSpaces = true) {
   let result = str;
   if (removeBr) {
-    result = result.replace(/[\r\n]+/g, "");
+    result = result.replace(/[\r\n]+/g, ""); // 改行のみを削除
   }
   if (removeSpaces) {
-    result = result.replace(/[\s　]/g, "");
+    result = result.replace(/[ 　]+/g, ""); // 半角スペースと全角スペースのみを削除
   }
   return result;
 }
