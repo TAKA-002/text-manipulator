@@ -50,7 +50,9 @@ export default function ConversionOptions() {
   return (
     <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
       <p className="font-semibold">変換対象：</p>
-      <small className="text-gray-400">※改行・スペースの削除のみ行いたいときはチェックをすべて外します。</small>
+      <small className="text-gray-400">
+        ※改行・スペースの削除のみ行いたいときはチェックをすべて外します。
+      </small>
       <div className="flex gap-4 mt-4">
         <label className="flex items-center space-x-2 cursor-pointer">
           <input
