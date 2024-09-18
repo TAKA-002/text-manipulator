@@ -53,6 +53,24 @@ export function App() {
     isConversionSpace,
   ]);
 
+  const handleCopy = () => {
+    navigator.clipboard
+      .writeText(convertedValue)
+      .then(() => {
+        alert("テキストがクリップボードにコピーされました。");
+      })
+      .catch((err) => {
+        console.error("コピーに失敗しました:", err);
+        alert("コピーに失敗しました。");
+      });
+
+    // ボタンをクリックしたらフォーカスをインプットエリアに移動
+    const inputElement = document.getElementById("inputText");
+    if (inputElement) {
+      inputElement.focus();
+    }
+  };
+
   return (
     <MyContext.Provider
       value={{

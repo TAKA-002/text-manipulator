@@ -4,23 +4,6 @@ import { MyContext } from "../app";
 export default function CopyButton() {
   const { convertedValue } = useContext(MyContext);
 
-  const handleCopy = () => {
-    navigator.clipboard
-      .writeText(convertedValue)
-      .then(() => {
-        alert("テキストがクリップボードにコピーされました。");
-      })
-      .catch((err) => {
-        console.error("コピーに失敗しました:", err);
-        alert("コピーに失敗しました。");
-      });
-
-    // ボタンをクリックしたらフォーカスをインプットエリアに移動
-    const inputElement = document.getElementById("inputText");
-    if (inputElement) {
-      inputElement.focus();
-    }
-  };
 
   return (
     <div className="mt-4">
