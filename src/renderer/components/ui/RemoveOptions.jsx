@@ -1,7 +1,18 @@
-import React from "react";
-// import { MyContext } from "../app";
+import React, { useContext } from "react";
+import { MyContext } from "../app";
 
 export default function RemoveOptions() {
+  const { isRemoveBr, setIsRemoveBr, isRemoveSpace, setIsRemoveSpace } = useContext(MyContext);
+
+  const handleChange = (e) => {
+    const { value, checked } = e.target;
+    if (value === "br") {
+      setIsRemoveBr(checked);
+    } else if (value === "space") {
+      setIsRemoveSpace(checked);
+    }
+  };
+
   return (
     <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
       <p className="font-semibold mb-2">削除：</p>
@@ -9,27 +20,27 @@ export default function RemoveOptions() {
         <label className="flex items-center space-x-2 cursor-pointer">
           <input
             type="checkbox"
-            name="conversionTarget"
-            value="all"
+            name="removeOption"
+            value="br"
             className="form-checkbox text-blue-600 rounded"
-            // checked={isConversionAll}
-            // onChange={handleChange}
-            tabIndex="3"
+            checked={isRemoveBr}
+            onChange={handleChange}
+            tabIndex="2"
           />
-          <span>なし</span>
+          <span>改行</span>
         </label>
 
         <label className="flex items-center space-x-2 cursor-pointer">
           <input
             type="checkbox"
-            name="conversionTarget"
-            value="alphabet"
+            name="removeOption"
+            value="space"
             className="form-checkbox text-blue-600 rounded"
-            // checked={isConversionEng}
-            // onChange={handleChange}
-            tabIndex="3"
+            checked={isRemoveSpace}
+            onChange={handleChange}
+            tabIndex="2"
           />
-          <span>改行</span>
+          <span>スペース</span>
         </label>
       </div>
     </div>

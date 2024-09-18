@@ -1,7 +1,6 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import { Heading } from "./heading";
 import { Container } from "./Container";
-
 import { convertFullWidthToHalfWidth, convertHalfWidthToFullWidth } from "./util/process";
 
 export const MyContext = createContext();
@@ -9,7 +8,15 @@ export const MyContext = createContext();
 export function App() {
   const [inputValue, setInputValue] = useState(""); // 入力欄に入れられた値
   const [convertedValue, setConvertedValue] = useState(""); // 変換された値
+
+  // 削除オプション
+  const [isRemoveBr, setIsRemoveBr] = useState(false);
+  const [isRemoveSpace, setIsRemoveSpace] = useState(false);
+
+  // 変換方向オプション
   const [conversionDirection, setConversionDirection] = useState("fullToHalf");
+
+  // 変換対象オプション
   const [isConversionAll, setIsConversionAll] = useState(true);
   const [isConversionEng, setIsConversionEng] = useState(false);
   const [isConversionNum, setIsConversionNum] = useState(false);
@@ -110,6 +117,10 @@ export function App() {
         setIsConversionSymbol,
         isConversionSpace,
         setIsConversionSpace,
+        isRemoveBr,
+        setIsRemoveBr,
+        isRemoveSpace,
+        setIsRemoveSpace,
         handleCopy,
       }}
     >
