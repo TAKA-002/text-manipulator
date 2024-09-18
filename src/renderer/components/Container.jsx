@@ -5,6 +5,7 @@ import ConversionOptions from "./ui/ConversionOptions";
 import ConversionButtons from "./ui/ConversionButtons";
 import OutputArea from "./ui/OutputArea";
 import CopyButton from "./ui/CopyButton";
+import RemoveOptions from "./ui/RemoveOptions";
 
 export function Container() {
   useEffect(() => {
@@ -20,6 +21,7 @@ export function Container() {
       <div className="flex flex-col md:flex-row gap-6">
         <div className="w-full md:w-1/2 space-y-6">
           <InputArea />
+          <RemoveOptions />
           <ConversionButtons />
           <ConversionOptions />
         </div>
