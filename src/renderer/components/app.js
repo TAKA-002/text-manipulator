@@ -56,6 +56,7 @@ export function App() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if(e.key === "Enter" && e.shiftKey){
+        e.preventDefault();
         console.log('shift+Enter');
       }
     }
