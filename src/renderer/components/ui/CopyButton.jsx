@@ -9,7 +9,7 @@ export default function CopyButton() {
       <button
         id="copyBtn"
         className="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center"
-        onClick={handleCopy}
+        onClick={() => handleCopy(convertedValue)}
         tabIndex="4"
       >
         <svg
