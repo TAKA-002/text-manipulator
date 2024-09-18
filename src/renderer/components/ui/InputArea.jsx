@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { MyContext } from "../app";
 
 export default function InputArea() {
-  const [inputValue, setInputValue] = useContext(MyContext);
+  const { setInputValue } = useContext(MyContext);
 
   const handleChange = (event) => {
     setInputValue(event.target.value);
