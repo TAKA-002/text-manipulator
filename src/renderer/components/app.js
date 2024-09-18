@@ -90,6 +90,7 @@ export function App() {
         setIsConversionSymbol,
         isConversionSpace,
         setIsConversionSpace,
+        handleCopy,
       }}
     >
       <Heading />
