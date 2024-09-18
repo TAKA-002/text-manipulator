@@ -1,15 +1,26 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import { Heading } from "./heading";
 import { Container } from "./Container";
-
-import { convertFullWidthToHalfWidth, convertHalfWidthToFullWidth } from "./util/process";
+import {
+  convertFullWidthToHalfWidth,
+  convertHalfWidthToFullWidth,
+  removeLineBreaksAndSpaces,
+} from "./util/process";
 
 export const MyContext = createContext();
 
 export function App() {
   const [inputValue, setInputValue] = useState(""); // 入力欄に入れられた値
   const [convertedValue, setConvertedValue] = useState(""); // 変換された値
+
+  // 削除オプション
+  const [isRemoveBr, setIsRemoveBr] = useState(false);
+  const [isRemoveSpace, setIsRemoveSpace] = useState(false);
+
+  // 変換方向オプション
   const [conversionDirection, setConversionDirection] = useState("fullToHalf");
+
+  // 変換対象オプション
   const [isConversionAll, setIsConversionAll] = useState(true);
   const [isConversionEng, setIsConversionEng] = useState(false);
   const [isConversionNum, setIsConversionNum] = useState(false);
@@ -18,11 +29,16 @@ export function App() {
 
   useEffect(() => {
     let result = inputValue;
+
+    // 削除
+    const processed = removeLineBreaksAndSpaces(result, isRemoveBr, isRemoveSpace);
+
+    // 全角半角切り替え
     if (conversionDirection === "fullToHalf") {
       if (isConversionAll) {
-        result = convertFullWidthToHalfWidth(inputValue);
+        result = convertFullWidthToHalfWidth(processed);
       } else {
-        result = convertFullWidthToHalfWidth(inputValue, {
+        result = convertFullWidthToHalfWidth(processed, {
           convertAlphabet: isConversionEng,
           convertNumber: isConversionNum,
           convertSymbol: isConversionSymbol,
@@ -31,9 +47,9 @@ export function App() {
       }
     } else if (conversionDirection === "halfToFull") {
       if (isConversionAll) {
-        result = convertHalfWidthToFullWidth(inputValue);
+        result = convertHalfWidthToFullWidth(processed);
       } else {
-        result = convertHalfWidthToFullWidth(inputValue, {
+        result = convertHalfWidthToFullWidth(processed, {
           convertAlphabet: isConversionEng,
           convertNumber: isConversionNum,
           convertSymbol: isConversionSymbol,
@@ -51,6 +67,8 @@ export function App() {
     isConversionNum,
     isConversionSymbol,
     isConversionSpace,
+    isRemoveBr,
+    isRemoveSpace,
   ]);
 
   // コンポーネントがマウントされるたびに、keydownイベントリスナーが追加
@@ -110,6 +128,10 @@ export function App() {
         setIsConversionSymbol,
         isConversionSpace,
         setIsConversionSpace,
+        isRemoveBr,
+        setIsRemoveBr,
+        isRemoveSpace,
+        setIsRemoveSpace,
         handleCopy,
       }}
     >
