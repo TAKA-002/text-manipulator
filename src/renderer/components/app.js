@@ -6,6 +6,7 @@ import {
   convertHalfWidthToFullWidth,
   removeLineBreaksAndSpaces,
 } from "./util/process";
+import { moveFocusToInit } from "./util/operation";
 
 export const MyContext = createContext();
 
@@ -88,6 +89,20 @@ export function App() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleCopy, convertedValue]);
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Backspace" && e.shiftKey) {
+        e.preventDefault();
+        handleClear();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    // クリーンアップ関数を返す
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleClear]);
+
   // stateが変更されるたび再レンダリングされる。
   // コンポーネント内で定義された関数も一緒に再作成されるが、関数は変化がないので無駄。
   // だからuseCallbackをしようして、関数のメモ化を実施。
@@ -102,11 +117,12 @@ export function App() {
         alert("コピーに失敗しました。");
       });
 
-    // ボタンをクリックしたらフォーカスをインプットエリアに移動
-    const inputElement = document.getElementById("inputText");
-    if (inputElement) {
-      inputElement.focus();
-    }
+    moveFocusToInit(); // インプットエリアにフォーカス
+  }, []);
+
+  const handleClear = useCallback(() => {
+    setInputValue("");
+    moveFocusToInit(); // インプットエリアにフォーカス
   }, []);
 
   return (
@@ -133,6 +149,7 @@ export function App() {
         isRemoveSpace,
         setIsRemoveSpace,
         handleCopy,
+        handleClear,
       }}
     >
       <Heading />
