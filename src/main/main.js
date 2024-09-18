@@ -1,14 +1,18 @@
 const { app, BrowserWindow } = require("electron");
-// const electronReloader = require("electron-reloader"); // アプリを作成するときにコメントアウト
 const path = require("path");
 
-// アプリ作成時にコメントアウト
-// if (process.env.NODE_ENV === "development") {
-//   electronReloader(module, {
-//     debug: true,
-//     watchRenderer: true,
-//   });
-// }
+// 開発環境でのみelectron-reloaderを読み込む
+if (process.env.NODE_ENV === "development") {
+  try {
+    const electronReloader = require("electron-reloader");
+    electronReloader(module, {
+      debug: true,
+      watchRenderer: true,
+    });
+  } catch (err) {
+    console.log("Error electron-reloader", err);
+  }
+}
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -21,8 +25,10 @@ function createWindow() {
   });
   win.loadFile(path.join(__dirname, "../../dist/index.html"));
 
-  // 開発ツールを開く（開発中は便利だが、アプリ作成時コメントアウトする）
-  // win.webContents.openDevTools();
+  // 開発環境でのみ開発者ツールを開く
+  if (process.env.NODE_ENV === "development") {
+    win.webContents.openDevTools();
+  }
 }
 
 app.whenReady().then(createWindow);
