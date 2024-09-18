@@ -1,7 +1,11 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import { Heading } from "./heading";
 import { Container } from "./Container";
-import { convertFullWidthToHalfWidth, convertHalfWidthToFullWidth } from "./util/process";
+import {
+  convertFullWidthToHalfWidth,
+  convertHalfWidthToFullWidth,
+  removeLineBreaksAndSpaces,
+} from "./util/process";
 
 export const MyContext = createContext();
 
@@ -25,11 +29,16 @@ export function App() {
 
   useEffect(() => {
     let result = inputValue;
+
+    // 削除
+    const processed = removeLineBreaksAndSpaces(result, isRemoveBr, isRemoveSpace);
+
+    // 全角半角切り替え
     if (conversionDirection === "fullToHalf") {
       if (isConversionAll) {
-        result = convertFullWidthToHalfWidth(inputValue);
+        result = convertFullWidthToHalfWidth(processed);
       } else {
-        result = convertFullWidthToHalfWidth(inputValue, {
+        result = convertFullWidthToHalfWidth(processed, {
           convertAlphabet: isConversionEng,
           convertNumber: isConversionNum,
           convertSymbol: isConversionSymbol,
@@ -38,9 +47,9 @@ export function App() {
       }
     } else if (conversionDirection === "halfToFull") {
       if (isConversionAll) {
-        result = convertHalfWidthToFullWidth(inputValue);
+        result = convertHalfWidthToFullWidth(processed);
       } else {
-        result = convertHalfWidthToFullWidth(inputValue, {
+        result = convertHalfWidthToFullWidth(processed, {
           convertAlphabet: isConversionEng,
           convertNumber: isConversionNum,
           convertSymbol: isConversionSymbol,
@@ -58,6 +67,8 @@ export function App() {
     isConversionNum,
     isConversionSymbol,
     isConversionSpace,
+    isRemoveBr,
+    isRemoveSpace,
   ]);
 
   // コンポーネントがマウントされるたびに、keydownイベントリスナーが追加
