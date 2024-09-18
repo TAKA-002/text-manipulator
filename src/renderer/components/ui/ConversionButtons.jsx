@@ -4,10 +4,6 @@ import { MyContext } from "../app";
 export default function ConversionButtons() {
   const { conversionDirection, setConversionDirection } = useContext(MyContext);
 
-  const handleChange = (event) => {
-    setConversionDirection(event.target.value);
-  };
-
   return (
     <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
       <p className="font-semibold mb-3">変換方向：</p>
@@ -19,7 +15,7 @@ export default function ConversionButtons() {
             value="fullToHalf"
             className="form-radio text-blue-600 h-5 w-5"
             checked={conversionDirection === "fullToHalf"}
-            onChange={handleChange}
+            onChange={(e) => setConversionDirection(e.target.value)}
             tabIndex="2"
           />
           <span className="text-gray-700">全角 → 半角</span>
@@ -31,7 +27,7 @@ export default function ConversionButtons() {
             value="halfToFull"
             className="form-radio text-blue-600 h-5 w-5"
             checked={conversionDirection === "halfToFull"}
-            onChange={handleChange}
+            onChange={(e) => setConversionDirection(e.target.value)}
             tabIndex="2"
           />
           <span className="text-gray-700">半角 → 全角</span>
