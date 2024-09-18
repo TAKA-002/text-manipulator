@@ -15,8 +15,9 @@ export default function RemoveOptions() {
 
   return (
     <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
-      <p className="font-semibold mb-2">削除：</p>
-      <div className="flex gap-4">
+      <p className="font-semibold">削除：</p>
+      <small className="text-gray-400">※改行・スペースの削除をしない場合はチェックは不要です。</small>
+      <div className="flex gap-4 mt-4">
         <label className="flex items-center space-x-2 cursor-pointer">
           <input
             type="checkbox"
