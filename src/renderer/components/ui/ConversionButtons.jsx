@@ -6,8 +6,8 @@ export default function ConversionButtons() {
 
   return (
     <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
-      <p className="font-semibold mb-3">変換方向：</p>
-      <div className="flex gap-4">
+      <p className="font-semibold">変換方向：</p>
+      <div className="flex gap-4 mt-4">
         <label className="flex items-center space-x-3 cursor-pointer">
           <input
             type="radio"
