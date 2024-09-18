@@ -16,7 +16,7 @@ export default function ConversionButtons() {
             className="form-radio text-blue-600 h-5 w-5"
             checked={conversionDirection === "fullToHalf"}
             onChange={(e) => setConversionDirection(e.target.value)}
-            tabIndex="2"
+            tabIndex="3"
           />
           <span className="text-gray-700">全角 → 半角</span>
         </label>
@@ -28,7 +28,7 @@ export default function ConversionButtons() {
             className="form-radio text-blue-600 h-5 w-5"
             checked={conversionDirection === "halfToFull"}
             onChange={(e) => setConversionDirection(e.target.value)}
-            tabIndex="2"
+            tabIndex="3"
           />
           <span className="text-gray-700">半角 → 全角</span>
         </label>
