@@ -1,7 +1,8 @@
 const { app, BrowserWindow } = require("electron");
-const electronReloader = require("electron-reloader");
+const electronReloader = require("electron-reloader"); // アプリを作成するときにコメントアウト
 const path = require("path");
 
+// アプリ作成時にコメントアウト
 if (process.env.NODE_ENV === "development") {
   electronReloader(module, {
     debug: true,
@@ -18,11 +19,9 @@ function createWindow() {
       contextIsolation: false,
     },
   });
-
-  // ここを修正
   win.loadFile(path.join(__dirname, "../../dist/index.html"));
 
-  // 開発ツールを開く（開発中は便利だが、製品版ではコメントアウトする）
+  // 開発ツールを開く（開発中は便利だが、アプリ作成時コメントアウトする）
   win.webContents.openDevTools();
 }
 
