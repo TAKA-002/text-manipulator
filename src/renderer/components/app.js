@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useEffect, useState } from "react";
 import { Heading } from "./heading";
 import { Container } from "./Container";
 
@@ -53,6 +53,44 @@ export function App() {
     isConversionSpace,
   ]);
 
+  // コンポーネントがマウントされるたびに、keydownイベントリスナーが追加
+  // handleCopyかconvertedValueが更新されると古いイベントリスナーが削除され、新しいイベントリスナーが登録される。
+  // 使用しておわったイベントリスナーを削除する。
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Enter" && e.shiftKey) {
+        e.preventDefault();
+        handleCopy(convertedValue);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    // クリーンアップ関数を返す
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleCopy, convertedValue]);
+
+  // stateが変更されるたび再レンダリングされる。
+  // コンポーネント内で定義された関数も一緒に再作成されるが、関数は変化がないので無駄。
+  // だからuseCallbackをしようして、関数のメモ化を実施。
+  const handleCopy = useCallback((textToCopy) => {
+    navigator.clipboard
+      .writeText(textToCopy)
+      .then(() => {
+        alert("テキストがクリップボードにコピーされました。");
+      })
+      .catch((err) => {
+        console.error("コピーに失敗しました:", err);
+        alert("コピーに失敗しました。");
+      });
+
+    // ボタンをクリックしたらフォーカスをインプットエリアに移動
+    const inputElement = document.getElementById("inputText");
+    if (inputElement) {
+      inputElement.focus();
+    }
+  }, []);
+
   return (
     <MyContext.Provider
       value={{
@@ -72,6 +110,7 @@ export function App() {
         setIsConversionSymbol,
         isConversionSpace,
         setIsConversionSpace,
+        handleCopy,
       }}
     >
       <Heading />
