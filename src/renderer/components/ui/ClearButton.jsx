@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
+import { MyContext } from "../app";
 
 export default function ClearButton() {
+  const { handleClear } = useContext(MyContext);
+
   return (
     <div className="mt-4">
       <button
         id="clearBtn"
         className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center"
         tabIndex="4"
+        onClick={handleClear}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
