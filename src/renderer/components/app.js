@@ -53,6 +53,9 @@ export function App() {
     isConversionSpace,
   ]);
 
+  // コンポーネントがマウントされるたびに、keydownイベントリスナーが追加
+  // handleCopyかconvertedValueが更新されると古いイベントリスナーが削除され、新しいイベントリスナーが登録される。
+  // 使用しておわったイベントリスナーを削除する。
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Enter" && e.shiftKey) {
@@ -62,6 +65,9 @@ export function App() {
     };
 
     window.addEventListener("keydown", handleKeyDown);
+
+    // クリーンアップ関数を返す
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleCopy, convertedValue]);
 
   // stateが変更されるたび再レンダリングされる。
