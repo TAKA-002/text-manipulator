@@ -53,6 +53,16 @@ export function App() {
     isConversionSpace,
   ]);
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if(e.key === "Enter" && e.shiftKey){
+        console.log('shift+Enter');
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+  }, [])
+
   // stateが変更されるたび再レンダリングされる。
   // コンポーネント内で定義された関数も一緒に再作成されるが、関数は変化がないので無駄。
   // だからuseCallbackをしようして、関数のメモ化を実施。
