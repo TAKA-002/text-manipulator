@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useEffect, useState } from "react";
 import { Heading } from "./heading";
 import { Container } from "./Container";
 
@@ -53,7 +53,10 @@ export function App() {
     isConversionSpace,
   ]);
 
-  const handleCopy = (textToCopy) => {
+  // stateが変更されるたび再レンダリングされる。
+  // コンポーネント内で定義された関数も一緒に再作成されるが、関数は変化がないので無駄。
+  // だからuseCallbackをしようして、関数のメモ化を実施。
+  const handleCopy = useCallback((textToCopy) => {
     navigator.clipboard
       .writeText(textToCopy)
       .then(() => {
@@ -69,7 +72,7 @@ export function App() {
     if (inputElement) {
       inputElement.focus();
     }
-  };
+  }, []);
 
   return (
     <MyContext.Provider
