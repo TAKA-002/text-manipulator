@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import { Heading } from "./heading";
+import { Version } from "./version";
 import { Container } from "./Container";
 import {
   convertFullWidthToHalfWidth,
@@ -9,6 +10,7 @@ import {
 import { moveFocusToInit } from "./util/operation";
 
 export const MyContext = createContext();
+const APP_VERSION = "1.1.2";
 
 export function App() {
   const [inputValue, setInputValue] = useState(""); // 入力欄に入れられた値
@@ -153,6 +155,7 @@ export function App() {
       }}
     >
       <Heading />
+      <Version version={APP_VERSION} />
       <Container />
     </MyContext.Provider>
   );
