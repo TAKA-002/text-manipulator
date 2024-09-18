@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { MyContext } from "../app";
 
 export default function ConversionButtons() {
-  const [, , , , conversionDirection, setConversionDirection] = useContext(MyContext);
+  const { conversionDirection, setConversionDirection } = useContext(MyContext);
 
   const handleChange = (event) => {
     setConversionDirection(event.target.value);

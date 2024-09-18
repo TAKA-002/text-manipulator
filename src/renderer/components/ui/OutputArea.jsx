@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { MyContext } from "../app";
 
 export default function OutputArea() {
-  const [, , convertedValue] = useContext(MyContext);
+  const { convertedValue } = useContext(MyContext);
 
   return (
     <div className="mb-4">

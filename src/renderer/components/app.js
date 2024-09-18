@@ -55,7 +55,7 @@ export function App() {
 
   return (
     <MyContext.Provider
-      value={[
+      value={{
         inputValue,
         setInputValue,
         convertedValue,
@@ -72,7 +72,7 @@ export function App() {
         setIsConversionSymbol,
         isConversionSpace,
         setIsConversionSpace,
-      ]}
+      }}
     >
       <Heading />
       <Container />

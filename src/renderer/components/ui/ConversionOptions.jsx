@@ -2,13 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { MyContext } from "../app";
 
 export default function ConversionOptions() {
-  const [
-    ,
-    ,
-    ,
-    ,
-    ,
-    ,
+  const {
     isConversionAll,
     setIsConversionAll,
     isConversionEng,
@@ -19,7 +13,7 @@ export default function ConversionOptions() {
     setIsConversionSymbol,
     isConversionSpace,
     setIsConversionSpace,
-  ] = useContext(MyContext);
+  } = useContext(MyContext);
 
   useEffect(() => {
     if (isConversionAll) {

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { MyContext } from "../app";
 
 export default function CopyButton() {
-  const [, , convertedValue] = useContext(MyContext);
+  const { convertedValue } = useContext(MyContext);
 
   const handleCopy = () => {
     navigator.clipboard
