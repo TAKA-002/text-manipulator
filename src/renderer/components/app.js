@@ -10,6 +10,7 @@ import {
 import { moveFocusToInit } from "./util/operation";
 
 export const MyContext = createContext();
+const APP_VERSION = "1.1.2";
 
 export function App() {
   const [inputValue, setInputValue] = useState(""); // 入力欄に入れられた値
@@ -154,7 +155,7 @@ export function App() {
       }}
     >
       <Heading />
-      <Version />
+      <Version version={APP_VERSION} />
       <Container />
     </MyContext.Provider>
   );
