@@ -6,6 +6,7 @@ import {
   convertHalfWidthToFullWidth,
   removeLineBreaksAndSpaces,
 } from "./util/process";
+import { moveFocusToInit } from "./util/operation";
 
 export const MyContext = createContext();
 
@@ -116,21 +117,12 @@ export function App() {
         alert("コピーに失敗しました。");
       });
 
-    // ボタンをクリックしたらフォーカスをインプットエリアに移動
-    const inputElement = document.getElementById("inputText");
-    if (inputElement) {
-      inputElement.focus();
-    }
+    moveFocusToInit(); // インプットエリアにフォーカス
   }, []);
 
   const handleClear = useCallback(() => {
     setInputValue("");
-
-    // ボタンをクリックしたらフォーカスをインプットエリアに移動
-    const inputElement = document.getElementById("inputText");
-    if (inputElement) {
-      inputElement.focus();
-    }
+    moveFocusToInit(); // インプットエリアにフォーカス
   }, []);
 
   return (

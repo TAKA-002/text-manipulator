@@ -7,14 +7,11 @@ import ConversionButtons from "./ui/ConversionButtons";
 import OutputArea from "./ui/OutputArea";
 import CopyButton from "./ui/CopyButton";
 import ClearButton from "./ui/ClearButton";
+import { moveFocusToInit } from "./util/operation";
 
 export function Container() {
   useEffect(() => {
-    // コンポーネントがマウントされた後にインプットエリアにフォーカス
-    const inputElement = document.getElementById("inputText");
-    if (inputElement) {
-      inputElement.focus();
-    }
+    moveFocusToInit(); // インプットエリアにフォーカス
   }, []);
 
   return (
