@@ -55,14 +55,14 @@ export function App() {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if(e.key === "Enter" && e.shiftKey){
+      if (e.key === "Enter" && e.shiftKey) {
         e.preventDefault();
-        console.log('shift+Enter');
+        handleCopy(convertedValue);
       }
-    }
+    };
 
     window.addEventListener("keydown", handleKeyDown);
-  }, [])
+  }, [handleCopy, convertedValue]);
 
   // stateが変更されるたび再レンダリングされる。
   // コンポーネント内で定義された関数も一緒に再作成されるが、関数は変化がないので無駄。
