@@ -24,7 +24,7 @@ export function App() {
   const [conversionDirection, setConversionDirection] = useState("fullToHalf");
 
   // 変換対象オプション
-  const [isConversionAll, setIsConversionAll] = useState(true);
+  const [isConversionAll, setIsConversionAll] = useState(false);
   const [isConversionEng, setIsConversionEng] = useState(false);
   const [isConversionNum, setIsConversionNum] = useState(false);
   const [isConversionSymbol, setIsConversionSymbol] = useState(false);
