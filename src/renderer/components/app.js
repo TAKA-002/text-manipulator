@@ -10,7 +10,7 @@ import {
 import { moveFocusToInit } from "./util/operation";
 
 export const MyContext = createContext();
-const APP_VERSION = "1.1.3";
+const APP_VERSION = "1.1.4";
 
 export function App() {
   const [inputValue, setInputValue] = useState(""); // 入力欄に入れられた値
@@ -24,7 +24,7 @@ export function App() {
   const [conversionDirection, setConversionDirection] = useState("fullToHalf");
 
   // 変換対象オプション
-  const [isConversionAll, setIsConversionAll] = useState(true);
+  const [isConversionAll, setIsConversionAll] = useState(false);
   const [isConversionEng, setIsConversionEng] = useState(false);
   const [isConversionNum, setIsConversionNum] = useState(false);
   const [isConversionSymbol, setIsConversionSymbol] = useState(false);
@@ -75,35 +75,26 @@ export function App() {
   ]);
 
   // コンポーネントがマウントされるたびに、keydownイベントリスナーが追加
-  // handleCopyかconvertedValueが更新されると古いイベントリスナーが削除され、新しいイベントリスナーが登録される。
+  // 依存配列が更新されると古いイベントリスナーが削除され、新しいイベントリスナーが登録される。
   // 使用しておわったイベントリスナーを削除する。
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === "Enter" && e.shiftKey) {
-        e.preventDefault();
-        handleCopy(convertedValue);
+      if (e.shiftKey) {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          handleCopy(convertedValue);
+        } else if (e.key === "Backspace") {
+          e.preventDefault();
+          handleClear();
+        }
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
 
-    // クリーンアップ関数を返す
+    // クリーンアップ関数：コンポーネントのアンマウント時やdependenciesが変更されたときに実行
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleCopy, convertedValue]);
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Backspace" && e.shiftKey) {
-        e.preventDefault();
-        handleClear();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    // クリーンアップ関数を返す
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleClear]);
+  }, [handleCopy, convertedValue, handleClear]);
 
   // stateが変更されるたび再レンダリングされる。
   // コンポーネント内で定義された関数も一緒に再作成されるが、関数は変化がないので無駄。
