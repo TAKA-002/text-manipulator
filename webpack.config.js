@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { type } = require("os");
 
 module.exports = [
   {
@@ -25,6 +26,7 @@ module.exports = [
     output: {
       path: path.resolve(__dirname, "dist"),
       filename: "renderer.js",
+      assetModuleFilename: 'images/[hash][ext][query]',
     },
     module: {
       rules: [
@@ -42,6 +44,10 @@ module.exports = [
           test: /\.css$/,
           use: ["style-loader", "css-loader", "postcss-loader"],
         },
+        {
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          type: "asset/resource",
+        }
       ],
     },
     plugins: [
