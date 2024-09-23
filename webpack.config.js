@@ -52,6 +52,7 @@ module.exports = [
     plugins: [
       new HtmlWebpackPlugin({
         template: "./src/renderer/index.html",
+        favicon: "./src/assets/icon.ico",
       }),
     ],
     resolve: {
