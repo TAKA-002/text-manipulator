@@ -10,10 +10,10 @@ export function Heading() {
           src={icon}
           width="400"
           height="400"
-          alt="Text Manipulation App Logo"
+          alt="Text Manipulater App Logo"
         />
       </figure>
-      <h1 className="text-3xl font-bold text-gray-600">Text Manipulation App</h1>
+      <h1 className="text-3xl font-bold text-gray-600">Text Manipulater App</h1>
     </div>
   );
 }
