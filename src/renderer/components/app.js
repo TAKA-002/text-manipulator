@@ -10,7 +10,7 @@ import {
 import { moveFocusToInit } from "./util/operation";
 
 export const MyContext = createContext();
-const APP_VERSION = "1.1.4";
+const APP_VERSION = "1.1.6";
 
 export function App() {
   const [inputValue, setInputValue] = useState(""); // 入力欄に入れられた値
