@@ -3,7 +3,7 @@
 </p>
 <h1 align="center">Text Manipulator</h1>
 <p align="center">
-  テキスト操作タスクを実行できる、ElectronとReactベースのデスクトップアプリケーション
+  テキスト操作タスクを実行できる、ElectronとReactベースのWEBアプリケーション・デスクトップアプリケーション
 </p>
 
 <br />

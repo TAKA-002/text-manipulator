@@ -7,6 +7,9 @@
 
 <br />
 
+### WEB APP URL
+https://miu-parts.work/text-manipulator/
+
 ### Added
 - 初回公開リリース
 - テキストから改行、スペースを除去する機能
