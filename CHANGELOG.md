@@ -5,11 +5,6 @@
 
 ## [1.1.6] - 2024-09-26
 
-<br />
-
-### WEB APP URL
-https://miu-parts.work/text-manipulator/
-
 ### Added
 - 初回公開リリース
 - テキストから改行、スペースを除去する機能
@@ -22,3 +17,11 @@ https://miu-parts.work/text-manipulator/
 
 ### Fixed
 - N/A
+
+<br />
+
+## ウェブアプリケーション
+
+Text Manipulatorのウェブ版は以下のURLでアクセスできます：
+
+[https://miu-parts.work/text-manipulator/](https://miu-parts.work/text-manipulator/)

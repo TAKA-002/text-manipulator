@@ -14,6 +14,14 @@ Text Manipulatorは、テキスト編集作業を効率的に行い、生産性�
 
 <br />
 
+## ウェブアプリケーション
+
+Text Manipulatorのウェブ版は以下のURLでアクセスできます。
+
+[https://miu-parts.work/text-manipulator/](https://miu-parts.work/text-manipulator/)
+
+<br />
+
 ## 機能
 
 Text Manipulatorは以下の主要機能を提供します：
