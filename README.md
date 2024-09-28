@@ -37,6 +37,55 @@ Text Manipulatorは以下の主要機能を提供します：
 
 <br />
 
+## インストール
+
+Text Manipulatorをローカルでアプリ生成するには、以下の手順に従ってください。
+
+### 前提条件
+
+- Node.js(バージョン v20.11.1)
+- npm (通常Node.jsと一緒にインストールされます)
+- Git
+
+### 手順
+
+- リポジトリをクローンします：
+
+```
+git clone https://github.com/yourusername/text-manipulator.git
+cd text-manipulator
+```
+
+- 必要な依存パッケージをインストールします：
+
+```
+npm install
+```
+
+- アプリをビルドします。
+
+```
+npm run build
+```
+
+- アプリケーションを生成します。
+
+《 intel Macの場合 》
+
+```
+npm run package-mac-intel
+```
+
+《 M系 Macの場合 》
+
+```
+npm run package-mac-m
+```
+
+生成された「Text Manipulator.app」を「アプリケーションフォルダ」に移動してご使用ください。
+
+<br />
+
 ## 依存パッケージとライセンス
 
 このプロジェクトは以下のライセンスを持つ依存パッケージを使用しています。
