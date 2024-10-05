@@ -6,6 +6,7 @@ import {
   convertFullWidthToHalfWidth,
   convertHalfWidthToFullWidth,
   removeLineBreaksAndSpaces,
+  replaceStrings,
 } from "./util/process";
 import { moveFocusToInit } from "./util/operation";
 
@@ -15,6 +16,9 @@ const APP_VERSION = "1.1.6";
 export function App() {
   const [inputValue, setInputValue] = useState(""); // 入力欄に入れられた値
   const [convertedValue, setConvertedValue] = useState(""); // 変換された値
+
+  // 置換オプション
+  const [isReplace, setIsReplace] = useState(false);
 
   // 削除オプション
   const [isRemoveBr, setIsRemoveBr] = useState(false);
@@ -32,6 +36,9 @@ export function App() {
 
   useEffect(() => {
     let result = inputValue;
+
+    // 置換
+result = replaceStrings(result, isReplace);
 
     // 削除
     const processed = removeLineBreaksAndSpaces(result, isRemoveBr, isRemoveSpace);
@@ -72,6 +79,7 @@ export function App() {
     isConversionSpace,
     isRemoveBr,
     isRemoveSpace,
+    isReplace,
   ]);
 
   // コンポーネントがマウントされるたびに、keydownイベントリスナーが追加
