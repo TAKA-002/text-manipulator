@@ -10,7 +10,13 @@
     "package-mac-intel": "NODE_ENV=production electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=release-builds-intel --icon=src/assets/icon.icns --app-name=\"Text Manipulator\"",
     "package-mac-arm64": "NODE_ENV=production electron-packager . --overwrite --platform=darwin --arch=arm64 --prune=true --out=release-builds-m --icon=src/assets/icon.icns --app-name=\"Text Manipulator\""
   },
-  "keywords": ["text", "manipulator", "converter", "electron", "react"],
+  "keywords": [
+    "text",
+    "manipulator",
+    "converter",
+    "electron",
+    "react"
+  ],
   "author": "miura",
   "license": "MIT",
   "description": "A desktop application for performing various text manipulation tasks, built with Electron and React.",

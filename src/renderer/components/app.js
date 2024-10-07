@@ -38,7 +38,7 @@ export function App() {
     let result = inputValue;
 
     // 置換
-result = replaceStrings(result, isReplace);
+    result = replaceStrings(result, isReplace);
 
     // 削除
     const processed = removeLineBreaksAndSpaces(result, isRemoveBr, isRemoveSpace);
