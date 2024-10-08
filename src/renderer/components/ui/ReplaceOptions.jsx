@@ -1,8 +1,9 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
+import { debounce } from "lodash";
 import { MyContext } from "../app";
 
 export default function ReplaceOptions() {
-  const {replaceObject, setReplaceObject} = useContext(MyContext);
+  const { replaceObject, setReplaceObject } = useContext(MyContext);
 
   const handleReplaceObjectChange = (e) => {
     // replaceObjectを新たに展開。
@@ -11,7 +12,7 @@ export default function ReplaceOptions() {
     setReplaceObject({ ...replaceObject, [e.target.name]: e.target.value });
   };
 
-  console.log('replaceObject: ', replaceObject);
+  console.log("replaceObject: ", replaceObject);
 
   // nameをuseStateのオブジェクトのキーと同じにする。
   // handleReplaceObjectChangeで、...replaceObjectのキー名として「e.target.name」で指定しているから。
