@@ -19,6 +19,7 @@ export function App() {
 
   // 置換オプション
   const [isReplace, setIsReplace] = useState(false);
+  const [replaceObject, setReplaceObject] = useState({ from: "", to: "" });
 
   // 削除オプション
   const [isRemoveBr, setIsRemoveBr] = useState(false);
@@ -133,6 +134,8 @@ export function App() {
         setInputValue,
         convertedValue,
         setConvertedValue,
+        replaceObject,
+        setReplaceObject,
         conversionDirection,
         setConversionDirection,
         isConversionAll,

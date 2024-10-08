@@ -1,6 +1,20 @@
-import React from "react";
+import React, {useContext} from "react";
+import { MyContext } from "../app";
 
 export default function ReplaceOptions() {
+  const {replaceObject, setReplaceObject} = useContext(MyContext);
+
+  const handleReplaceObjectChange = (e) => {
+    // replaceObjectを新たに展開。
+    // その中にkeyをinputのname属性で。valueをinputのvalue値で追加。
+    // つまりそれ以外はもとのreplaceObjectのkey valueのまま。
+    setReplaceObject({ ...replaceObject, [e.target.name]: e.target.value });
+  };
+
+  console.log('replaceObject: ', replaceObject);
+
+  // nameをuseStateのオブジェクトのキーと同じにする。
+  // handleReplaceObjectChangeで、...replaceObjectのキー名として「e.target.name」で指定しているから。
   return (
     <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
       <p className="font-semibold">置換：</p>
@@ -10,16 +24,20 @@ export default function ReplaceOptions() {
       <div className="flex items-center mt-4">
         <input
           type="text"
-          name="replaceOption"
+          name="from"
           className="w-10/12 rounded-lg"
           placeholder="※変更対象"
+          value={replaceObject.from}
+          onChange={handleReplaceObjectChange}
         />
         <span className="w-2/12 text-center">⇒</span>
         <input
           type="text"
-          name="replaceOption"
+          name="to"
           className="w-10/12 rounded-lg"
           placeholder="※変更後"
+          value={replaceObject.to}
+          onChange={handleReplaceObjectChange}
         />
       </div>
     </div>
