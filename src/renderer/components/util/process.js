@@ -83,7 +83,6 @@ export function removeLineBreaksAndSpaces(str, removeBr = true, removeSpaces = t
   return result;
 }
 
-export function replaceStrings(strings, isReplace = false) {
-  let result = [{ original: "", changed: "" }];
+export function replaceStrings(strings) {
   return strings;
 }

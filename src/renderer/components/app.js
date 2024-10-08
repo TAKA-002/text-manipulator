@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
+import { debounce } from "lodash";
 import { Heading } from "./heading";
 import { Version } from "./version";
 import { Container } from "./Container";
@@ -18,7 +19,6 @@ export function App() {
   const [convertedValue, setConvertedValue] = useState(""); // 変換された値
 
   // 置換オプション
-  const [isReplace, setIsReplace] = useState(false);
   const [replaceObject, setReplaceObject] = useState({ from: "", to: "" });
 
   // 削除オプション
@@ -39,7 +39,7 @@ export function App() {
     let result = inputValue;
 
     // 置換
-    result = replaceStrings(result, isReplace);
+    result = replaceStrings(result);
 
     // 削除
     const processed = removeLineBreaksAndSpaces(result, isRemoveBr, isRemoveSpace);
@@ -80,7 +80,7 @@ export function App() {
     isConversionSpace,
     isRemoveBr,
     isRemoveSpace,
-    isReplace,
+    replaceObject,
   ]);
 
   // コンポーネントがマウントされるたびに、keydownイベントリスナーが追加

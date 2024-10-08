@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { debounce } from "lodash";
+import React, { useContext , useEffect} from "react";
 import { MyContext } from "../app";
 
 export default function ReplaceOptions() {
@@ -11,8 +10,6 @@ export default function ReplaceOptions() {
     // つまりそれ以外はもとのreplaceObjectのkey valueのまま。
     setReplaceObject({ ...replaceObject, [e.target.name]: e.target.value });
   };
-
-  console.log("replaceObject: ", replaceObject);
 
   // nameをuseStateのオブジェクトのキーと同じにする。
   // handleReplaceObjectChangeで、...replaceObjectのキー名として「e.target.name」で指定しているから。
