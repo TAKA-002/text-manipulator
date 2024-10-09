@@ -7,7 +7,7 @@ import {
   convertFullWidthToHalfWidth,
   convertHalfWidthToFullWidth,
   removeLineBreaksAndSpaces,
-  replaceStrings,
+  performReplace,
 } from "./util/process";
 import { moveFocusToInit } from "./util/operation";
 
@@ -39,7 +39,7 @@ export function App() {
     let result = inputValue;
 
     // 置換
-    result = replaceStrings(result);
+    result = performReplace(result);
 
     // 削除
     const processed = removeLineBreaksAndSpaces(result, isRemoveBr, isRemoveSpace);
@@ -72,6 +72,7 @@ export function App() {
     setConvertedValue(result);
   }, [
     inputValue,
+    replaceObject,
     conversionDirection,
     isConversionAll,
     isConversionEng,
@@ -80,7 +81,6 @@ export function App() {
     isConversionSpace,
     isRemoveBr,
     isRemoveSpace,
-    replaceObject,
   ]);
 
   // コンポーネントがマウントされるたびに、keydownイベントリスナーが追加
