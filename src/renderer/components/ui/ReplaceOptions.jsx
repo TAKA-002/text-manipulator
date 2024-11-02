@@ -1,14 +1,15 @@
-import React, { useContext , useEffect} from "react";
+import React, { useContext, useEffect } from "react";
 import { MyContext } from "../app";
 
 export default function ReplaceOptions() {
   const { replaceObject, setReplaceObject } = useContext(MyContext);
 
   const handleReplaceObjectChange = (e) => {
-    // replaceObjectを新たに展開。
-    // その中にkeyをinputのname属性で。valueをinputのvalue値で追加。
-    // つまりそれ以外はもとのreplaceObjectのkey valueのまま。
-    setReplaceObject({ ...replaceObject, [e.target.name]: e.target.value });
+    // オブジェクトの中に、key valueをもたせる。
+    // keyをinputのname属性で。valueをinputのvalue値で追加。
+    // デフォルトから考えると、{from: "", to: ""}をまず展開する。
+    // input要素のnameはtoかfromにしてある。onChangeでイベントが発火したinput要素のnameのkey valueを作成して展開したオブジェクトを上書き
+    setReplaceObject({ ...replaceObject, [e.target.name]: e.target.value }); 
   };
 
   // nameをuseStateのオブジェクトのキーと同じにする。

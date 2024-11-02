@@ -83,6 +83,13 @@ export function removeLineBreaksAndSpaces(str, removeBr = true, removeSpaces = t
   return result;
 }
 
-export function performReplace(strings) {
-  return strings;
+export function performReplace(strings, replaceObject) {
+  const {from, to} = replaceObject;
+  console.log('from: ', from);
+  console.log('to: ', to);
+  console.log('strings: ', strings);
+
+const result = strings.replaceAll(from, to);
+console.log('result: ', result);
+  return result;
 }

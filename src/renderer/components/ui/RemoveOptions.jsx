@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { MyContext } from "../app";
 
+// 削除用のチェックボックスのコンポーネント
+// チェックボックスにチェックを入れるとそのinputのvalue値によって、改行、スペースを削除するかstateにbool値をもたせることで判断できるようにしている
 export default function RemoveOptions() {
   const { isRemoveBr, setIsRemoveBr, isRemoveSpace, setIsRemoveSpace } = useContext(MyContext);
 

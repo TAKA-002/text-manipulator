@@ -12,18 +12,21 @@ import {
 import { moveFocusToInit } from "./util/operation";
 
 export const MyContext = createContext();
-const APP_VERSION = "1.1.6";
+
+const APP_VERSION = "1.2.0";
+const TYPING_DONE_INTERVAL = 1000;
 
 export function App() {
-  const [inputValue, setInputValue] = useState(""); // 入力欄に入れられた値
-  const [convertedValue, setConvertedValue] = useState(""); // 変換された値
+  const [inputValue, setInputValue] = useState(""); // 入力欄に入れられた値を格納するためのstate
+  const [convertedValue, setConvertedValue] = useState(""); // 変換された値を格納するためのstate
 
   // 置換オプション
-  const [replaceObject, setReplaceObject] = useState({ from: "", to: "" });
+  const [replaceObject, setReplaceObject] = useState({ from: "", to: "" }); // fromには置換対象の文字列を格納して、toには、変換後の文字列を格納する
+  const [replaceTypingTimer, setReplaceTypingTimer] = useState(null);
 
   // 削除オプション
-  const [isRemoveBr, setIsRemoveBr] = useState(false);
-  const [isRemoveSpace, setIsRemoveSpace] = useState(false);
+  const [isRemoveBr, setIsRemoveBr] = useState(false); // RemoveOptionコンポーネントで使用。改行を除去する状態かをstateにbool値を持たせて管理する。trueならチェックボックスにchecked属性がある
+  const [isRemoveSpace, setIsRemoveSpace] = useState(false); // RemoveOptionコンポーネントで使用。スペースを除去する状態かをstateにbool値を持たせて管理する。trueならチェックボックスにchecked属性がある
 
   // 変換方向オプション
   const [conversionDirection, setConversionDirection] = useState("fullToHalf");
@@ -39,7 +42,12 @@ export function App() {
     let result = inputValue;
 
     // 置換
-    result = performReplace(result);
+    const newTimer = setTimeout(() => {
+      if (replaceObject.from !== "") {
+        console.log("タイピングが完了したと判断");
+        result = performReplace(result, replaceObject);
+      }
+    }, TYPING_DONE_INTERVAL);
 
     // 削除
     const processed = removeLineBreaksAndSpaces(result, isRemoveBr, isRemoveSpace);
@@ -70,6 +78,8 @@ export function App() {
     }
 
     setConvertedValue(result);
+
+    return () => clearTimeout(newTimer);
   }, [
     inputValue,
     replaceObject,
