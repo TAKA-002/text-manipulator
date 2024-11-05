@@ -30,7 +30,7 @@ export default function RemoveOptions() {
             className="form-checkbox text-blue-600 rounded"
             checked={isRemoveBr}
             onChange={handleChange}
-            tabIndex="2"
+            tabIndex="3"
           />
           <span>改行</span>
         </label>
@@ -43,7 +43,7 @@ export default function RemoveOptions() {
             className="form-checkbox text-blue-600 rounded"
             checked={isRemoveSpace}
             onChange={handleChange}
-            tabIndex="2"
+            tabIndex="3"
           />
           <span>スペース</span>
         </label>

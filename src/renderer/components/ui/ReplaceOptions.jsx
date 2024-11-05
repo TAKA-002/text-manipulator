@@ -28,6 +28,7 @@ export default function ReplaceOptions() {
           placeholder="※変更対象"
           value={replaceObject.from}
           onChange={handleReplaceObjectChange}
+          tabIndex="2"
         />
         <span className="w-2/12 text-center">⇒</span>
         <input
@@ -37,6 +38,7 @@ export default function ReplaceOptions() {
           placeholder="※変更後"
           value={replaceObject.to}
           onChange={handleReplaceObjectChange}
+          tabIndex="2"
         />
       </div>
     </div>
