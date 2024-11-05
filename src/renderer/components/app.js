@@ -9,11 +9,9 @@ import {
   performReplace,
 } from "./util/process";
 import { moveFocusToInit } from "./util/operation";
+import { TYPING_DONE_INTERVAL } from "./util/constants";
 
 export const MyContext = createContext();
-
-const APP_VERSION = "1.2.0";
-const TYPING_DONE_INTERVAL = 1000;
 
 export function App() {
   const [inputValue, setInputValue] = useState(""); // 入力欄に入れられた値を格納するためのstate
@@ -184,7 +182,7 @@ export function App() {
       }}
     >
       <Heading />
-      <Version version={APP_VERSION} />
+      <Version />
       <Container />
     </MyContext.Provider>
   );

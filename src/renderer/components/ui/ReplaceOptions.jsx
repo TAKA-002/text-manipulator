@@ -9,7 +9,7 @@ export default function ReplaceOptions() {
     // keyをinputのname属性で。valueをinputのvalue値で追加。
     // デフォルトから考えると、{from: "", to: ""}をまず展開する。
     // input要素のnameはtoかfromにしてある。onChangeでイベントが発火したinput要素のnameのkey valueを作成して展開したオブジェクトを上書き
-    setReplaceObject({ ...replaceObject, [e.target.name]: e.target.value }); 
+    setReplaceObject({ ...replaceObject, [e.target.name]: e.target.value });
   };
 
   // nameをuseStateのオブジェクトのキーと同じにする。
