@@ -1,5 +1,4 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
-import { debounce } from "lodash";
 import { Heading } from "./heading";
 import { Version } from "./version";
 import { Container } from "./Container";
@@ -22,7 +21,8 @@ export function App() {
 
   // 置換オプション
   const [replaceObject, setReplaceObject] = useState({ from: "", to: "" }); // fromには置換対象の文字列を格納して、toには、変換後の文字列を格納する
-  const [replaceTypingTimer, setReplaceTypingTimer] = useState(null);
+  const [replacedValue, setReplacedValue] = useState(""); // 置換した文字列を格納する
+  const [isReplace, setIsReplace] = useState(false); // 置換を実施したか管理
 
   // 削除オプション
   const [isRemoveBr, setIsRemoveBr] = useState(false); // RemoveOptionコンポーネントで使用。改行を除去する状態かをstateにbool値を持たせて管理する。trueならチェックボックスにchecked属性がある
@@ -38,16 +38,33 @@ export function App() {
   const [isConversionSymbol, setIsConversionSymbol] = useState(false);
   const [isConversionSpace, setIsConversionSpace] = useState(false);
 
+  // テキスト置換
+  // replaceObjectの変更が行われたら発火する
   useEffect(() => {
-    let result = inputValue;
-
-    // 置換
-    const newTimer = setTimeout(() => {
-      if (replaceObject.from !== "") {
+    // 置換が行われる場合がこちら。
+    if (
+      (replaceObject.from !== "" && replaceObject.to !== "") ||
+      (replaceObject.from !== "" && replaceObject.to === "")
+    ) {
+      const newTimer = setTimeout(() => {
         console.log("タイピングが完了したと判断");
-        result = performReplace(result, replaceObject);
-      }
-    }, TYPING_DONE_INTERVAL);
+        setReplacedValue(performReplace(inputValue, replaceObject));
+        setIsReplace(true);
+      }, TYPING_DONE_INTERVAL);
+      return () => clearTimeout(newTimer);
+    }
+
+    // 置換が行われない場合がこちらで、isReplaceがfalseになるとinputValueが置換される前の文字列のままになる
+    else if (
+      (replaceObject.from === "" && replaceObject.to !== "") ||
+      (replaceObject.from === "" && replaceObject.to === "")
+    ) {
+      setIsReplace(false);
+    }
+  }, [replaceObject]);
+
+  useEffect(() => {
+    let result = isReplace ? replacedValue : inputValue;
 
     // 削除
     const processed = removeLineBreaksAndSpaces(result, isRemoveBr, isRemoveSpace);
@@ -78,10 +95,10 @@ export function App() {
     }
 
     setConvertedValue(result);
-
-    return () => clearTimeout(newTimer);
   }, [
     inputValue,
+    replacedValue,
+    isReplace,
     replaceObject,
     conversionDirection,
     isConversionAll,
