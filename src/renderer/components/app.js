@@ -6,19 +6,25 @@ import {
   convertFullWidthToHalfWidth,
   convertHalfWidthToFullWidth,
   removeLineBreaksAndSpaces,
+  performReplace,
 } from "./util/process";
 import { moveFocusToInit } from "./util/operation";
+import { TYPING_DONE_INTERVAL } from "./util/constants";
 
 export const MyContext = createContext();
-const APP_VERSION = "1.1.6";
 
 export function App() {
-  const [inputValue, setInputValue] = useState(""); // 入力欄に入れられた値
-  const [convertedValue, setConvertedValue] = useState(""); // 変換された値
+  const [inputValue, setInputValue] = useState(""); // 入力欄に入れられた値を格納するためのstate
+  const [convertedValue, setConvertedValue] = useState(""); // 変換された値を格納するためのstate
+
+  // 置換オプション
+  const [replaceObject, setReplaceObject] = useState({ from: "", to: "" }); // fromには置換対象の文字列を格納して、toには、変換後の文字列を格納する
+  const [replacedValue, setReplacedValue] = useState(""); // 置換した文字列を格納する
+  const [isReplace, setIsReplace] = useState(false); // 置換を実施したか管理
 
   // 削除オプション
-  const [isRemoveBr, setIsRemoveBr] = useState(false);
-  const [isRemoveSpace, setIsRemoveSpace] = useState(false);
+  const [isRemoveBr, setIsRemoveBr] = useState(false); // RemoveOptionコンポーネントで使用。改行を除去する状態かをstateにbool値を持たせて管理する。trueならチェックボックスにchecked属性がある
+  const [isRemoveSpace, setIsRemoveSpace] = useState(false); // RemoveOptionコンポーネントで使用。スペースを除去する状態かをstateにbool値を持たせて管理する。trueならチェックボックスにchecked属性がある
 
   // 変換方向オプション
   const [conversionDirection, setConversionDirection] = useState("fullToHalf");
@@ -30,8 +36,32 @@ export function App() {
   const [isConversionSymbol, setIsConversionSymbol] = useState(false);
   const [isConversionSpace, setIsConversionSpace] = useState(false);
 
+  // テキスト置換
+  // replaceObjectの変更が行われたら発火する
   useEffect(() => {
-    let result = inputValue;
+    // 置換が行われる場合がこちら。
+    if (
+      (replaceObject.from !== "" && replaceObject.to !== "") ||
+      (replaceObject.from !== "" && replaceObject.to === "")
+    ) {
+      const newTimer = setTimeout(() => {
+        setReplacedValue(performReplace(inputValue, replaceObject));
+        setIsReplace(true);
+      }, TYPING_DONE_INTERVAL);
+      return () => clearTimeout(newTimer);
+    }
+
+    // 置換が行われない場合がこちらで、isReplaceがfalseになるとinputValueが置換される前の文字列のままになる
+    else if (
+      (replaceObject.from === "" && replaceObject.to !== "") ||
+      (replaceObject.from === "" && replaceObject.to === "")
+    ) {
+      setIsReplace(false);
+    }
+  }, [replaceObject]);
+
+  useEffect(() => {
+    let result = isReplace ? replacedValue : inputValue;
 
     // 削除
     const processed = removeLineBreaksAndSpaces(result, isRemoveBr, isRemoveSpace);
@@ -64,6 +94,9 @@ export function App() {
     setConvertedValue(result);
   }, [
     inputValue,
+    replacedValue,
+    isReplace,
+    replaceObject,
     conversionDirection,
     isConversionAll,
     isConversionEng,
@@ -125,6 +158,8 @@ export function App() {
         setInputValue,
         convertedValue,
         setConvertedValue,
+        replaceObject,
+        setReplaceObject,
         conversionDirection,
         setConversionDirection,
         isConversionAll,
@@ -146,7 +181,7 @@ export function App() {
       }}
     >
       <Heading />
-      <Version version={APP_VERSION} />
+      <Version />
       <Container />
     </MyContext.Provider>
   );

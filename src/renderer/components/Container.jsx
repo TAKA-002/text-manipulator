@@ -7,6 +7,7 @@ import ConversionButtons from "./ui/ConversionButtons";
 import OutputArea from "./ui/OutputArea";
 import CopyButton from "./ui/CopyButton";
 import ClearButton from "./ui/ClearButton";
+import ReplaceOptions from "./ui/ReplaceOptions";
 import { moveFocusToInit } from "./util/operation";
 
 export function Container() {
@@ -19,6 +20,7 @@ export function Container() {
       <div className="flex flex-col md:flex-row gap-6">
         <div className="w-full md:w-1/2 space-y-6">
           <InputArea />
+          <ReplaceOptions />
           <RemoveOptions />
           <ConversionButtons />
           <ConversionOptions />

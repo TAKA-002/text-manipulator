@@ -82,3 +82,7 @@ export function removeLineBreaksAndSpaces(str, removeBr = true, removeSpaces = t
   }
   return result;
 }
+
+export function performReplace(strings, replaceObject) {
+  return strings.replaceAll(replaceObject.from, replaceObject.to);
+}
