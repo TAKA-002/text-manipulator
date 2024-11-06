@@ -45,7 +45,6 @@ export function App() {
       (replaceObject.from !== "" && replaceObject.to === "")
     ) {
       const newTimer = setTimeout(() => {
-        console.log("タイピングが完了したと判断");
         setReplacedValue(performReplace(inputValue, replaceObject));
         setIsReplace(true);
       }, TYPING_DONE_INTERVAL);

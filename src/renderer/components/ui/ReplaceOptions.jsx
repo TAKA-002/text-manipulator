@@ -18,14 +18,16 @@ export default function ReplaceOptions() {
     <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
       <p className="font-semibold">置換：</p>
       <small className="text-gray-400">
-        ※「変更後の文字列入力欄」を未入力のままにすると削除されます。
+        ※「対象」：入力必須
+        <br />
+        ※「置換後」：未入力のままにすると削除
       </small>
       <div className="flex items-center mt-4">
         <input
           type="text"
           name="from"
           className="w-10/12 rounded-lg"
-          placeholder="※変更対象"
+          placeholder="※対象"
           value={replaceObject.from}
           onChange={handleReplaceObjectChange}
           tabIndex="2"
@@ -35,7 +37,7 @@ export default function ReplaceOptions() {
           type="text"
           name="to"
           className="w-10/12 rounded-lg"
-          placeholder="※変更後"
+          placeholder="※置換後"
           value={replaceObject.to}
           onChange={handleReplaceObjectChange}
           tabIndex="2"
