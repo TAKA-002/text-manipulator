@@ -18,9 +18,9 @@ export default function ReplaceOptions() {
     <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
       <p className="font-semibold">置換：</p>
       <small className="text-gray-400">
-        ※「対象」：入力必須
+        ※「対象」：操作前のテキストの中にある文字列を入力します。
         <br />
-        ※「置換後」：未入力のままにすると削除
+        ※「置換後」：未入力のままにすると削除となります。
       </small>
       <div className="flex items-center mt-4">
         <input
