@@ -54,7 +54,7 @@ Text Manipulatorをローカルでアプリ生成するには、以下の手順�
 - リポジトリをクローンします：
 
 ```
-git clone https://github.com/yourusername/text-manipulator.git
+git clone https://github.com/TAKA-002/text-manipulator.git
 cd text-manipulator
 ```
 
