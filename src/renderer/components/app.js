@@ -147,7 +147,9 @@ export function App() {
   }, []);
 
   const handleClear = useCallback(() => {
-    setInputValue("");
+    setIsReplace(false); // replaceしないフラグへ戻す
+    setReplaceObject({ from: "", to: "" }); // 置換入力欄をデフォルトに戻す
+    setInputValue(""); // 入力欄を空欄にする
     moveFocusToInit(); // インプットエリアにフォーカス
   }, []);
 
