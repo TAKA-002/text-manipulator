@@ -1,6 +1,8 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 
+app.disableHardwareAcceleration();
+
 // 開発環境でのみelectron-reloaderを読み込む
 if (process.env.NODE_ENV === "development") {
   try {
