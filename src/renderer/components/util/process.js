@@ -86,3 +86,40 @@ export function removeLineBreaksAndSpaces(str, removeBr = true, removeSpaces = t
 export function performReplace(strings, replaceObject) {
   return strings.replaceAll(replaceObject.from, replaceObject.to);
 }
+
+// クリップボード操作のユーティリティ関数
+export const copyToClipboard = async (text) => {
+  // 最新のClipboard APIを試す
+  if (navigator.clipboard && window.isSecureContext) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (err) {
+      console.warn("Clipboard API failed:", err);
+    }
+  }
+
+  try {
+    // フォールバック(代替手段): 非表示のテキストエリアを使用
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+
+    // テキストエリアを画面外に配置
+    textArea.style.position = "fixed";
+    textArea.style.left = "-999999px";
+    textArea.style.top = "-999999px";
+    document.body.appendChild(textArea);
+
+    // テキストを選択してコピー
+    textArea.focus();
+    textArea.select();
+    document.execCommand("copy");
+
+    // クリーンアップ
+    textArea.remove();
+    return true;
+  } catch (err) {
+    console.error("Fallback clipboard copy failed:", err);
+    return false;
+  }
+};
