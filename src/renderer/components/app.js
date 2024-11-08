@@ -7,6 +7,7 @@ import {
   convertHalfWidthToFullWidth,
   removeLineBreaksAndSpaces,
   performReplace,
+  copyToClipboard,
 } from "./util/process";
 import { moveFocusToInit } from "./util/operation";
 import { TYPING_DONE_INTERVAL } from "./util/constants";
@@ -132,17 +133,13 @@ export function App() {
   // stateが変更されるたび再レンダリングされる。
   // コンポーネント内で定義された関数も一緒に再作成されるが、関数は変化がないので無駄。
   // だからuseCallbackをしようして、関数のメモ化を実施。
-  const handleCopy = useCallback((textToCopy) => {
-    navigator.clipboard
-      .writeText(textToCopy)
-      .then(() => {
-        alert("テキストがクリップボードにコピーされました。");
-      })
-      .catch((err) => {
-        console.error("コピーに失敗しました:", err);
-        alert("コピーに失敗しました。");
-      });
-
+  const handleCopy = useCallback(async (textToCopy) => {
+    const success = await copyToClipboard(textToCopy);
+    if (success) {
+      alert("テキストがクリップボードにコピーされました。");
+    } else {
+      alert("コピーに失敗しました。");
+    }
     moveFocusToInit(); // インプットエリアにフォーカス
   }, []);
 
