@@ -11,6 +11,7 @@ import {
 } from "./util/process";
 import { moveFocusToInit } from "./util/operation";
 import { TYPING_DONE_INTERVAL } from "./util/constants";
+import Toast from "./ui/Toast";
 
 export const MyContext = createContext();
 
@@ -36,6 +37,10 @@ export function App() {
   const [isConversionNum, setIsConversionNum] = useState(false);
   const [isConversionSymbol, setIsConversionSymbol] = useState(false);
   const [isConversionSpace, setIsConversionSpace] = useState(false);
+
+  // トースト通知
+  const [toastKind, setToastKind] = useState("");
+  const [isToast, setIsToast] = useState(false);
 
   // テキスト置換
   // replaceObjectの変更が行われたら発火する
@@ -136,9 +141,11 @@ export function App() {
   const handleCopy = useCallback(async (textToCopy) => {
     const success = await copyToClipboard(textToCopy);
     if (success) {
-      alert("テキストがクリップボードにコピーされました。");
+      setToastKind("success");
+      setIsToast(true);
     } else {
-      alert("コピーに失敗しました。");
+      setToastKind("failed");
+      setIsToast(true);
     }
     moveFocusToInit(); // インプットエリアにフォーカス
   }, []);
@@ -148,7 +155,22 @@ export function App() {
     setReplaceObject({ from: "", to: "" }); // 置換入力欄をデフォルトに戻す
     setInputValue(""); // 入力欄を空欄にする
     moveFocusToInit(); // インプットエリアにフォーカス
+    setToastKind("clear");
+    setIsToast(true);
   }, []);
+
+  useEffect(() => {
+    let timer;
+
+    if (isToast) {
+      timer = setTimeout(() => {
+        setIsToast(false);
+        setToastKind("");
+      }, 1000);
+    }
+
+    return () => clearTimeout(timer);
+  }, [isToast]);
 
   return (
     <MyContext.Provider
@@ -179,6 +201,7 @@ export function App() {
         handleClear,
       }}
     >
+      <Toast isToast={isToast} toastKind={toastKind} />
       <Heading />
       <Version />
       <Container />
