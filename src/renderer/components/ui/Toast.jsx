@@ -1,17 +1,6 @@
 import React from "react";
 
 export default function Toast({ isToast, toastKind }) {
-  const toastColor = (function (toastKind) {
-    switch (toastKind) {
-      case "success":
-        return "green";
-      case "failed":
-        return "red";
-      case "clear":
-        return "blue";
-    }
-  })(toastKind);
-
   const toastText = (function (toastKind) {
     switch (toastKind) {
       case "success":
@@ -25,7 +14,15 @@ export default function Toast({ isToast, toastKind }) {
 
   return (
     <div
-      className={`absolute top-0 right-0 min-w-96 bg-${toastColor}-50 border border-${toastColor}-100 text-sm rounded-lg shadow-lg opacity-0 transition-all duration-500 ${isToast ? "opacity-100" : ""}`}
+      className={`absolute top-0 right-0 min-w-96 text-sm rounded-lg shadow-lg opacity-0 transition-all duration-500 ${
+        toastKind === "success"
+          ? "bg-green-50 border-green-100"
+          : toastKind === "failed"
+            ? "bg-red-50 border-red-100"
+            : toastKind === "clear"
+              ? "bg-blue-50 border-blue-100"
+              : ""
+      } ${isToast ? "opacity-100" : ""}`}
       role="alert"
       aria-live="polite"
     >
@@ -73,7 +70,19 @@ export default function Toast({ isToast, toastKind }) {
             <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
           </svg>
         )}
-        <p className={`text-${toastColor}-900 font-medium truncate`}>{toastText}</p>
+        <p
+          className={`font-medium truncate ${
+            toastKind === "success"
+              ? "text-green-900"
+              : toastKind === "failed"
+                ? "text-red-900"
+                : toastKind === "clear"
+                  ? "text-blue-900"
+                  : ""
+          }`}
+        >
+          {toastText}
+        </p>
       </div>
     </div>
   );

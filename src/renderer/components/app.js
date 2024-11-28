@@ -166,7 +166,7 @@ export function App() {
       timer = setTimeout(() => {
         setIsToast(false);
         setToastKind("");
-      }, 1000);
+      }, 1500);
     }
 
     return () => clearTimeout(timer);
