@@ -14,7 +14,7 @@ export default function Toast({ isToast, toastKind }) {
 
   return (
     <div
-      className={`absolute top-0 right-0 min-w-96 text-sm rounded-lg shadow-lg opacity-0 transition-all duration-500 ${
+      className={`absolute top-4 left-1/2 translate-x-[-50%] w-11/12 text-sm rounded-lg shadow-xl opacity-0 transition-all duration-500 ${
         toastKind === "success"
           ? "bg-green-50 border-green-100"
           : toastKind === "failed"
@@ -26,7 +26,7 @@ export default function Toast({ isToast, toastKind }) {
       role="alert"
       aria-live="polite"
     >
-      <div className="flex items-center p-4 gap-3">
+      <div className="flex items-center justify-center p-4 gap-3">
         {toastKind === "success" && (
           <svg
             className="text-green-600 size-5 shrink-0"
