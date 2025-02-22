@@ -21,7 +21,7 @@ export default function RemoveOptions() {
       <small className="text-gray-400">
         ※改行・スペースの削除をしない場合はチェックは不要です。
       </small>
-      <div className="flex gap-4 mt-4">
+      <div className="flex flex-wrap gap-4 mt-4">
         <label className="flex items-center space-x-2 cursor-pointer">
           <input
             type="checkbox"
