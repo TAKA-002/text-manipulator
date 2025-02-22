@@ -13,7 +13,9 @@ export function Footer() {
           alt="Text Manipulater App Logo"
         />
       </figure>
-      <small className="text-[min(3.2vw,12px)]">Copyright © TAKAYUKI MIURA {new Date().getFullYear()} - All right reserved</small>
+      <small className="text-[min(3.2vw,12px)]">
+        Copyright © TAKAYUKI MIURA {new Date().getFullYear()} - All right reserved
+      </small>
     </footer>
   );
 }
