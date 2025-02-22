@@ -10,7 +10,7 @@ export default function ConversionButtons() {
       <small className="text-gray-400">
         ※変換対象にチェックがついていない場合、変換はされません。
       </small>
-      <div className="flex gap-4 mt-4">
+      <div className="flex flex-wrap gap-4 mt-4">
         <label className="flex items-center space-x-3 cursor-pointer">
           <input
             type="radio"

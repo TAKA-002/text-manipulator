@@ -10,7 +10,7 @@ export default function OutputArea() {
         id="outputText"
         readOnly
         placeholder="結果がここに表示されます"
-        className="w-full p-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none resize-none"
+        className="w-full min-h-[360px] p-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none resize-none"
         style={{ fieldSizing: "content" }}
         value={convertedValue}
       ></textarea>

@@ -12,6 +12,7 @@ import {
 import { moveFocusToInit } from "./util/operation";
 import { TYPING_DONE_INTERVAL } from "./util/constants";
 import Toast from "./ui/Toast";
+import { Footer } from "./footer";
 
 export const MyContext = createContext();
 
@@ -205,6 +206,7 @@ export function App() {
       <Heading />
       <Version />
       <Container />
+      <Footer />
     </MyContext.Provider>
   );
 }
