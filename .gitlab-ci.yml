@@ -1,0 +1,23 @@
+# stagesは、パイプラインの実行順序を明示している
+# buildのstageが完了しなければ、deployのstageは実行されない。
+stages:
+  - build
+  - deploy
+
+build: # ここはjob名
+  stage: build # ここが上に書いているstagesの中の名前に該当する
+  image: node:20.11.1
+  script:
+    - npm install
+    - npm run build # package.jsonのbuildコマンドが使用される。
+  artifacts:
+    paths:
+      - dist/ # buildの結果出力されるファイルの出力先。buildがwebpackの設定に基づくから、webpack.config.js記載の出力先にする。
+
+deploy:
+  stage: deploy
+  only:
+    - main # mainブランチが変更された場合のみ、deployが走る。
+  script:
+    - apt-get update -qq && apt-get install -y -qq lftp
+    - lftp -c "open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; set ssl:verify-certificate no; mirror -Rev dist/ $FTP_PATH --ignore-time --parallel=10 --exclude-glob .git* --exclude .git/"
