@@ -3,7 +3,7 @@ import icon from "../images/m_icon.png";
 
 export function Footer() {
   return (
-    <footer className="flex items-center justify-center gap-3 py-3 bg-neutral-300 text-stone-500">
+    <footer className="flex items-center justify-center gap-3 mt-12 py-3 bg-neutral-300 text-stone-500">
       <figure className="aspect-square max-w-[min(3.7vw,28px)] h-full">
         <img
           className="w-full h-full"
