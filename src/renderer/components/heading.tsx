@@ -1,7 +1,7 @@
 import React from "react";
 import icon from "../images/m_icon.png";
 
-export function Heading() {
+export function Heading(): React.JSX.Element {
   return (
     <header className="flex items-center gap-3 justify-center mt-6">
       <figure className="aspect-square max-w-[min(14.9vw,56px)] h-full">
