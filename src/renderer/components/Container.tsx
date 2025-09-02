@@ -10,9 +10,9 @@ import ClearButton from "./ui/ClearButton";
 import ReplaceOptions from "./ui/ReplaceOptions";
 import { moveFocusToInit } from "./util/operation";
 
-export function Container() {
+export function Container(): React.JSX.Element {
   useEffect(() => {
-    moveFocusToInit(); // インプットエリアにフォーカス
+    moveFocusToInit();
   }, []);
 
   return (
