@@ -17,31 +17,36 @@ import { Footer } from "./footer";
 export const MyContext = createContext();
 
 export function App() {
-  const [inputValue, setInputValue] = useState(""); // 入力欄に入れられた値を格納するためのstate
-  const [convertedValue, setConvertedValue] = useState(""); // 変換された値を格納するためのstate
+  const [inputValue, setInputValue] = useState<string>(""); // 入力欄に入れられた値を格納するためのstate
+  const [convertedValue, setConvertedValue] = useState<string>(""); // 変換された値を格納するためのstate
 
   // 置換オプション
-  const [replaceObject, setReplaceObject] = useState({ from: "", to: "" }); // fromには置換対象の文字列を格納して、toには、変換後の文字列を格納する
-  const [replacedValue, setReplacedValue] = useState(""); // 置換した文字列を格納する
-  const [isReplace, setIsReplace] = useState(false); // 置換を実施したか管理
+  const [replaceObject, setReplaceObject] = useState<{ from: string; to: string }>({
+    from: "",
+    to: "",
+  }); // fromには置換対象の文字列を格納して、toには、変換後の文字列を格納する
+  const [replacedValue, setReplacedValue] = useState<string>(""); // 置換した文字列を格納する
+  const [isReplace, setIsReplace] = useState<boolean>(false); // 置換を実施したか管理
 
   // 削除オプション
-  const [isRemoveBr, setIsRemoveBr] = useState(false); // RemoveOptionコンポーネントで使用。改行を除去する状態かをstateにbool値を持たせて管理する。trueならチェックボックスにchecked属性がある
-  const [isRemoveSpace, setIsRemoveSpace] = useState(false); // RemoveOptionコンポーネントで使用。スペースを除去する状態かをstateにbool値を持たせて管理する。trueならチェックボックスにchecked属性がある
+  const [isRemoveBr, setIsRemoveBr] = useState<boolean>(false); // RemoveOptionコンポーネントで使用。改行を除去する状態かをstateにbool値を持たせて管理する。trueならチェックボックスにchecked属性がある
+  const [isRemoveSpace, setIsRemoveSpace] = useState<boolean>(false); // RemoveOptionコンポーネントで使用。スペースを除去する状態かをstateにbool値を持たせて管理する。trueならチェックボックスにchecked属性がある
 
   // 変換方向オプション
-  const [conversionDirection, setConversionDirection] = useState("fullToHalf");
+  const [conversionDirection, setConversionDirection] = useState<"fullToHalf" | "halfToFull">(
+    "fullToHalf"
+  );
 
   // 変換対象オプション
-  const [isConversionAll, setIsConversionAll] = useState(false);
-  const [isConversionEng, setIsConversionEng] = useState(false);
-  const [isConversionNum, setIsConversionNum] = useState(false);
-  const [isConversionSymbol, setIsConversionSymbol] = useState(false);
-  const [isConversionSpace, setIsConversionSpace] = useState(false);
+  const [isConversionAll, setIsConversionAll] = useState<boolean>(false);
+  const [isConversionEng, setIsConversionEng] = useState<boolean>(false);
+  const [isConversionNum, setIsConversionNum] = useState<boolean>(false);
+  const [isConversionSymbol, setIsConversionSymbol] = useState<boolean>(false);
+  const [isConversionSpace, setIsConversionSpace] = useState<boolean>(false);
 
   // トースト通知
-  const [toastKind, setToastKind] = useState("");
-  const [isToast, setIsToast] = useState(false);
+  const [toastKind, setToastKind] = useState<"success" | "failed" | "clear">("");
+  const [isToast, setIsToast] = useState<boolean>(false);
 
   // テキスト置換
   // replaceObjectの変更が行われたら発火する
