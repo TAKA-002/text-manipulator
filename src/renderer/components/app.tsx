@@ -45,7 +45,7 @@ export function App() {
   const [isConversionSpace, setIsConversionSpace] = useState<boolean>(false);
 
   // トースト通知
-  const [toastKind, setToastKind] = useState<"success" | "failed" | "clear">("");
+  const [toastKind, setToastKind] = useState<"success" | "failed" | "clear" | "">("");
   const [isToast, setIsToast] = useState<boolean>(false);
 
   // テキスト置換

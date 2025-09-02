@@ -1,6 +1,6 @@
 import React from "react";
 
-type ToastKind = "success" | "failed" | "clear";
+type ToastKind = "success" | "failed" | "clear" | "";
 
 export default function Toast({
   isToast,
@@ -9,14 +9,22 @@ export default function Toast({
   isToast: boolean;
   toastKind: ToastKind;
 }): React.JSX.Element {
-  const toastText = (function (toastKind) {
+  const toastText = ((toastKind) => {
     switch (toastKind) {
       case "success":
         return "クリップボードへのコピーが成功しました。";
+
       case "failed":
         return "クリップボードへのコピーに失敗しました。";
+
       case "clear":
         return "入力エリアをクリアしました。";
+
+      case "":
+        return "エラーのため再起動をお願いします。";
+
+      default:
+        return "エラーのため再起動をお願いします。";
     }
   })(toastKind);
 
@@ -35,6 +43,20 @@ export default function Toast({
       aria-live="polite"
     >
       <div className="flex items-center justify-center p-4 gap-3">
+        {toastKind === "" && (
+          <svg
+            className="text-yellow-600 size-5 shrink-0"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        )}
+
         {toastKind === "success" && (
           <svg
             className="text-green-600 size-5 shrink-0"
