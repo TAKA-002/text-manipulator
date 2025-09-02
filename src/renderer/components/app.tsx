@@ -178,7 +178,7 @@ export function App() {
   // 依存配列が更新されると古いイベントリスナーが削除され、新しいイベントリスナーが登録される。
   // 使用しておわったイベントリスナーを削除する。
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.shiftKey) {
         if (e.key === "Enter") {
           e.preventDefault();
