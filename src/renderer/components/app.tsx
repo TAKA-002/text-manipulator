@@ -48,6 +48,30 @@ export function App() {
   const [toastKind, setToastKind] = useState<"success" | "failed" | "clear" | "">("");
   const [isToast, setIsToast] = useState<boolean>(false);
 
+  // stateが変更されるたび再レンダリングされる。
+  // コンポーネント内で定義された関数も一緒に再作成されるが、関数は変化がないので無駄。
+  // だからuseCallbackをしようして、関数のメモ化を実施。
+  const handleCopy = useCallback(async (textToCopy) => {
+    const success = await copyToClipboard(textToCopy);
+    if (success) {
+      setToastKind("success");
+      setIsToast(true);
+    } else {
+      setToastKind("failed");
+      setIsToast(true);
+    }
+    moveFocusToInit(); // インプットエリアにフォーカス
+  }, []);
+
+  const handleClear = useCallback(() => {
+    setIsReplace(false); // replaceしないフラグへ戻す
+    setReplaceObject({ from: "", to: "" }); // 置換入力欄をデフォルトに戻す
+    setInputValue(""); // 入力欄を空欄にする
+    moveFocusToInit(); // インプットエリアにフォーカス
+    setToastKind("clear");
+    setIsToast(true);
+  }, []);
+
   // テキスト置換
   // replaceObjectの変更が行われたら発火する
   useEffect(() => {
@@ -140,30 +164,6 @@ export function App() {
     // クリーンアップ関数：コンポーネントのアンマウント時やdependenciesが変更されたときに実行
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleCopy, convertedValue, handleClear]);
-
-  // stateが変更されるたび再レンダリングされる。
-  // コンポーネント内で定義された関数も一緒に再作成されるが、関数は変化がないので無駄。
-  // だからuseCallbackをしようして、関数のメモ化を実施。
-  const handleCopy = useCallback(async (textToCopy) => {
-    const success = await copyToClipboard(textToCopy);
-    if (success) {
-      setToastKind("success");
-      setIsToast(true);
-    } else {
-      setToastKind("failed");
-      setIsToast(true);
-    }
-    moveFocusToInit(); // インプットエリアにフォーカス
-  }, []);
-
-  const handleClear = useCallback(() => {
-    setIsReplace(false); // replaceしないフラグへ戻す
-    setReplaceObject({ from: "", to: "" }); // 置換入力欄をデフォルトに戻す
-    setInputValue(""); // 入力欄を空欄にする
-    moveFocusToInit(); // インプットエリアにフォーカス
-    setToastKind("clear");
-    setIsToast(true);
-  }, []);
 
   useEffect(() => {
     let timer;
