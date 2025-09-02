@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { MyContext } from "../app";
 
-export default function InputArea() {
+export default function InputArea(): React.JSX.Element {
   const { inputValue, setInputValue } = useContext(MyContext);
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(event.target.value);
   };
 
@@ -17,7 +17,7 @@ export default function InputArea() {
         value={inputValue}
         onChange={handleChange}
         placeholder="ここにテキストを入力してください"
-        tabIndex="1"
+        tabIndex={1}
       ></textarea>
     </div>
   );
