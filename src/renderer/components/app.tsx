@@ -14,7 +14,39 @@ import { TYPING_DONE_INTERVAL } from "./util/constants";
 import Toast from "./ui/Toast";
 import { Footer } from "./footer";
 
-export const MyContext = createContext();
+type MyContextType = {
+  inputValue: string;
+  setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  convertedValue: string;
+  setConvertedValue: React.Dispatch<React.SetStateAction<string>>;
+  replaceObject: { from: string; to: string };
+  setReplaceObject: React.Dispatch<
+    React.SetStateAction<{
+      from: string;
+      to: string;
+    }>
+  >;
+  conversionDirection: "fullToHalf" | "halfToFull";
+  setConversionDirection: React.Dispatch<React.SetStateAction<"fullToHalf" | "halfToFull">>;
+  isConversionAll: boolean;
+  setIsConversionAll: React.Dispatch<React.SetStateAction<boolean>>;
+  isConversionEng: boolean;
+  setIsConversionEng: React.Dispatch<React.SetStateAction<boolean>>;
+  isConversionNum: boolean;
+  setIsConversionNum: React.Dispatch<React.SetStateAction<boolean>>;
+  isConversionSymbol: boolean;
+  setIsConversionSymbol: React.Dispatch<React.SetStateAction<boolean>>;
+  isConversionSpace: boolean;
+  setIsConversionSpace: React.Dispatch<React.SetStateAction<boolean>>;
+  isRemoveBr: boolean;
+  setIsRemoveBr: React.Dispatch<React.SetStateAction<boolean>>;
+  isRemoveSpace: boolean;
+  setIsRemoveSpace: React.Dispatch<React.SetStateAction<boolean>>;
+  handleCopy: (textToCopy: string) => Promise<void>;
+  handleClear: () => void;
+};
+
+export const MyContext = createContext<MyContextType | null>(null);
 
 export function App() {
   const [inputValue, setInputValue] = useState<string>(""); // 入力欄に入れられた値を格納するためのstate
@@ -51,7 +83,7 @@ export function App() {
   // stateが変更されるたび再レンダリングされる。
   // コンポーネント内で定義された関数も一緒に再作成されるが、関数は変化がないので無駄。
   // だからuseCallbackをしようして、関数のメモ化を実施。
-  const handleCopy = useCallback(async (textToCopy) => {
+  const handleCopy = useCallback(async (textToCopy: string) => {
     const success = await copyToClipboard(textToCopy);
     if (success) {
       setToastKind("success");
