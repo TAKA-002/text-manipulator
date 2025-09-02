@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { MyContext } from "../app";
 
-export default function ConversionOptions() {
+export default function ConversionOptions(): React.JSX.Element {
   const {
     isConversionAll,
     setIsConversionAll,
@@ -26,24 +26,27 @@ export default function ConversionOptions() {
     }
   }, [isConversionAll, isConversionEng, isConversionNum, isConversionSymbol, isConversionSpace]);
 
-  const handleChange = (event) => {
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     const { value, checked } = event.target;
 
-    if (value === "all") {
-      setIsConversionAll(checked);
-      setIsConversionEng(checked);
-      setIsConversionNum(checked);
-      setIsConversionSymbol(checked);
-      setIsConversionSpace(checked);
-    } else {
-      const updateState = {
-        alphabet: setIsConversionEng,
-        number: setIsConversionNum,
-        symbol: setIsConversionSymbol,
-        space: setIsConversionSpace,
-      };
-      updateState[value](checked);
-      setIsConversionAll(false);
+    switch (value) {
+      case "all":
+        setIsConversionAll(checked);
+        setIsConversionEng(checked);
+        setIsConversionNum(checked);
+        setIsConversionSymbol(checked);
+        setIsConversionSpace(checked);
+        break;
+
+      default:
+        const updateState = {
+          alphabet: setIsConversionEng,
+          number: setIsConversionNum,
+          symbol: setIsConversionSymbol,
+          space: setIsConversionSpace,
+        };
+        updateState[value](checked);
+        setIsConversionAll(false);
     }
   };
 
@@ -62,7 +65,7 @@ export default function ConversionOptions() {
             className="form-checkbox text-blue-600 rounded"
             checked={isConversionAll}
             onChange={handleChange}
-            tabIndex="5"
+            tabIndex={5}
           />
           <span>すべて</span>
         </label>
@@ -75,7 +78,7 @@ export default function ConversionOptions() {
             className="form-checkbox text-blue-600 rounded"
             checked={isConversionEng}
             onChange={handleChange}
-            tabIndex="5"
+            tabIndex={5}
           />
           <span>英字</span>
         </label>
@@ -88,7 +91,7 @@ export default function ConversionOptions() {
             className="form-checkbox text-blue-600 rounded"
             checked={isConversionNum}
             onChange={handleChange}
-            tabIndex="5"
+            tabIndex={5}
           />
           <span>数字</span>
         </label>
@@ -101,7 +104,7 @@ export default function ConversionOptions() {
             className="form-checkbox text-blue-600 rounded"
             checked={isConversionSymbol}
             onChange={handleChange}
-            tabIndex="5"
+            tabIndex={5}
           />
           <span>記号</span>
         </label>
@@ -114,7 +117,7 @@ export default function ConversionOptions() {
             className="form-checkbox text-blue-600 rounded"
             checked={isConversionSpace}
             onChange={handleChange}
-            tabIndex="5"
+            tabIndex={5}
           />
           <span>スペース</span>
         </label>
