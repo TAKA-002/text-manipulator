@@ -4,7 +4,7 @@ import { MyContext } from "../app";
 export default function InputArea(): React.JSX.Element {
   const { inputValue, setInputValue } = useContext(MyContext);
 
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event) => {
     setInputValue(event.target.value);
   };
 
