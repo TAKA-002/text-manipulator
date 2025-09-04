@@ -1,12 +1,19 @@
+type Options = {
+  convertAlphabet: boolean,
+  convertNumber: boolean,
+  convertSymbol: boolean,
+  convertSpace: boolean,
+}
+
 export function convertFullWidthToHalfWidth(
-  str,
-  options = {
+  str: string,
+  options: Options = {
     convertAlphabet: true,
     convertNumber: true,
     convertSymbol: true,
     convertSpace: true,
   }
-) {
+): string {
   let result = str;
 
   if (options.convertAlphabet) {
@@ -36,14 +43,14 @@ export function convertFullWidthToHalfWidth(
 }
 
 export function convertHalfWidthToFullWidth(
-  str,
-  options = {
+  str: string,
+  options: Options = {
     convertAlphabet: true,
     convertNumber: true,
     convertSymbol: true,
     convertSpace: true,
   }
-) {
+): string {
   let result = str;
 
   if (options.convertAlphabet) {
@@ -72,7 +79,11 @@ export function convertHalfWidthToFullWidth(
   return result;
 }
 
-export function removeLineBreaksAndSpaces(str, removeBr = true, removeSpaces = true) {
+export function removeLineBreaksAndSpaces(
+  str: string,
+  removeBr: boolean = true,
+  removeSpaces: boolean = true
+): string {
   let result = str;
   if (removeBr) {
     result = result.replace(/[\r\n]+/g, ""); // 改行のみを削除
@@ -83,12 +94,12 @@ export function removeLineBreaksAndSpaces(str, removeBr = true, removeSpaces = t
   return result;
 }
 
-export function performReplace(strings, replaceObject) {
+export function performReplace(strings, replaceObject): string {
   return strings.replaceAll(replaceObject.from, replaceObject.to);
 }
 
 // クリップボード操作のユーティリティ関数
-export const copyToClipboard = async (text) => {
+export const copyToClipboard = async (text: string) => {
   // 最新のClipboard APIを試す
   if (navigator.clipboard && window.isSecureContext) {
     try {
@@ -118,7 +129,8 @@ export const copyToClipboard = async (text) => {
     // クリーンアップ
     textArea.remove();
     return true;
-  } catch (err) {
+  }
+  catch (err) {
     console.error("Fallback clipboard copy failed:", err);
     return false;
   }
