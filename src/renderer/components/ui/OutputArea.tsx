@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { MyContext } from "../app";
 
-export default function OutputArea() {
+export default function OutputArea(): React.JSX.Element {
   const { convertedValue } = useContext(MyContext);
 
   return (
