@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { MyContext } from "../app";
 
-export default function ClearButton() {
+export default function ClearButton(): React.JSX.Element {
   const { handleClear } = useContext(MyContext);
 
   return (
@@ -9,7 +9,7 @@ export default function ClearButton() {
       <button
         id="clearBtn"
         className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center"
-        tabIndex="4"
+        tabIndex={4}
         onClick={handleClear}
       >
         <svg
