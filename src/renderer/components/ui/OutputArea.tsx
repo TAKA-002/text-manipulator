@@ -11,7 +11,7 @@ export default function OutputArea(): React.JSX.Element {
         readOnly
         placeholder="結果がここに表示されます"
         className="w-full min-h-[360px] p-3 bg-gray-100 border border-gray-300 rounded-lg text-gray-700 focus:outline-none resize-none"
-        style={{ fieldSizing: "content" }}
+        style={{ fieldSizing: "content" } as any}
         value={convertedValue}
       ></textarea>
     </div>
