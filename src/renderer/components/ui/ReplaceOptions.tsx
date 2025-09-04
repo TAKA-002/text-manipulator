@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import { MyContext } from "../app";
 
-export default function ReplaceOptions() {
+export default function ReplaceOptions(): React.JSX.Element {
   const { replaceObject, setReplaceObject } = useContext(MyContext);
 
-  const handleReplaceObjectChange = (e) => {
+  const handleReplaceObjectChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     // オブジェクトの中に、key valueをもたせる。
     // keyをinputのname属性で。valueをinputのvalue値で追加。
     // デフォルトから考えると、{from: "", to: ""}をまず展開する。
@@ -30,7 +30,7 @@ export default function ReplaceOptions() {
           placeholder="※対象"
           value={replaceObject.from}
           onChange={handleReplaceObjectChange}
-          tabIndex="2"
+          tabIndex={2}
         />
         <span className="w-2/12 text-center">⇒</span>
         <input
@@ -40,7 +40,7 @@ export default function ReplaceOptions() {
           placeholder="※置換後"
           value={replaceObject.to}
           onChange={handleReplaceObjectChange}
-          tabIndex="2"
+          tabIndex={2}
         />
       </div>
     </div>
