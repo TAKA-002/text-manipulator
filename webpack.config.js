@@ -20,7 +20,7 @@ module.exports = [
   },
   {
     mode: "development",
-    entry: "./src/renderer/index.js",
+    entry: "./src/renderer/index.tsx",
     target: "electron-renderer",
     output: {
       path: path.resolve(__dirname, "dist"),
