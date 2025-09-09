@@ -1,5 +1,5 @@
 import React from "react";
-import ConvertionLabel from "./ConversionLabel";
+import ConversionRadio from "./ConversionRadio";
 
 export default function ConversionButtons(): React.JSX.Element {
   return (
@@ -9,8 +9,8 @@ export default function ConversionButtons(): React.JSX.Element {
         ※変換対象にチェックがついていない場合、変換はされません。
       </small>
       <div className="flex flex-wrap gap-4 mt-4">
-        <ConvertionLabel convertWord="全角 → 半角" direction="fullToHalf" />
-        <ConvertionLabel convertWord="半角 → 全角" direction="halfToFull" />
+        <ConversionRadio convertWord="全角 → 半角" direction="fullToHalf" />
+        <ConversionRadio convertWord="半角 → 全角" direction="halfToFull" />
       </div>
     </div>
   );

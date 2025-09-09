@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { MyContext } from "../app";
 import { DirectionType } from "../../../types";
 
-export default function ConvertionLabel({
+export default function ConvertionRadio({
   convertWord,
   direction,
 }: {
