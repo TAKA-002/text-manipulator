@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
-import { MyContext } from "../app";
+import React from "react";
+import ConvertionLabel from "./ConversionLabel";
 
-export default function ConversionButtons() {
-  const { conversionDirection, setConversionDirection } = useContext(MyContext);
-
+export default function ConversionButtons(): React.JSX.Element {
   return (
     <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
       <p className="font-semibold">変換方向：</p>
@@ -11,30 +9,8 @@ export default function ConversionButtons() {
         ※変換対象にチェックがついていない場合、変換はされません。
       </small>
       <div className="flex flex-wrap gap-4 mt-4">
-        <label className="flex items-center space-x-3 cursor-pointer">
-          <input
-            type="radio"
-            name="conversionDirection"
-            value="fullToHalf"
-            className="form-radio text-blue-600 h-5 w-5"
-            checked={conversionDirection === "fullToHalf"}
-            onChange={(e) => setConversionDirection("fullToHalf")}
-            tabIndex={4}
-          />
-          <span className="text-gray-700">全角 → 半角</span>
-        </label>
-        <label className="flex items-center space-x-3 cursor-pointer">
-          <input
-            type="radio"
-            name="conversionDirection"
-            value="halfToFull"
-            className="form-radio text-blue-600 h-5 w-5"
-            checked={conversionDirection === "halfToFull"}
-            onChange={(e) => setConversionDirection("halfToFull")}
-            tabIndex={4}
-          />
-          <span className="text-gray-700">半角 → 全角</span>
-        </label>
+        <ConvertionLabel convertWord="全角 → 半角" direction="fullToHalf" />
+        <ConvertionLabel convertWord="半角 → 全角" direction="halfToFull" />
       </div>
     </div>
   );
