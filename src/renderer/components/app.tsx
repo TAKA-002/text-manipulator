@@ -13,7 +13,7 @@ import { moveFocusToInit } from "./util/operation";
 import { TYPING_DONE_INTERVAL } from "./util/constants";
 import Toast from "./ui/Toast";
 import { Footer } from "./footer";
-import { Direction } from "../../types";
+import { DirectionType, ToastKindType } from "../../types";
 
 type MyContextType = {
   inputValue: string;
@@ -27,8 +27,8 @@ type MyContextType = {
       to: string;
     }>
   >;
-  conversionDirection: Direction;
-  setConversionDirection: React.Dispatch<React.SetStateAction<Direction>>;
+  conversionDirection: DirectionType;
+  setConversionDirection: React.Dispatch<React.SetStateAction<DirectionType>>;
   isConversionAll: boolean;
   setIsConversionAll: React.Dispatch<React.SetStateAction<boolean>>;
   isConversionEng: boolean;
@@ -66,9 +66,7 @@ export function App() {
   const [isRemoveSpace, setIsRemoveSpace] = useState<boolean>(false); // RemoveOptionコンポーネントで使用。スペースを除去する状態か管理。trueならチェックボックスにchecked属性がある
 
   // 変換方向オプション
-  const [conversionDirection, setConversionDirection] = useState<"fullToHalf" | "halfToFull">(
-    "fullToHalf"
-  );
+  const [conversionDirection, setConversionDirection] = useState<DirectionType>("fullToHalf");
 
   // 変換対象オプション
   const [isConversionAll, setIsConversionAll] = useState<boolean>(false);
@@ -78,7 +76,7 @@ export function App() {
   const [isConversionSpace, setIsConversionSpace] = useState<boolean>(false);
 
   // トースト通知
-  const [toastKind, setToastKind] = useState<"success" | "failed" | "clear" | "">("");
+  const [toastKind, setToastKind] = useState<ToastKindType>("");
   const [isToast, setIsToast] = useState<boolean>(false);
 
   // stateが変更されるたび再レンダリングされるが、コンポーネント内で定義された関数も一緒に再作成されるが、関数は変化がないので無駄。

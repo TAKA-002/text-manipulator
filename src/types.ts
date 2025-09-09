@@ -1,3 +1,4 @@
 // アプリケーション独自の型定義
 
-export type Direction = "fullToHalf" | "halfToFull";
+export type DirectionType = "fullToHalf" | "halfToFull";
+export type ToastKindType = "success" | "failed" | "clear" | "";

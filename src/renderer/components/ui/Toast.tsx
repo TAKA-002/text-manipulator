@@ -1,13 +1,12 @@
 import React from "react";
-
-type ToastKind = "success" | "failed" | "clear" | "";
+import { ToastKindType } from "../../../types";
 
 export default function Toast({
   isToast,
   toastKind,
 }: {
   isToast: boolean;
-  toastKind: ToastKind;
+  toastKind: ToastKindType;
 }): React.JSX.Element {
   const toastText = ((toastKind) => {
     switch (toastKind) {
