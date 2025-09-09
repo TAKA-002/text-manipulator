@@ -1,5 +1,5 @@
 import React from "react";
-import icon from "../images/m_icon.png";
+const icon = require("../images/m_icon.png");
 
 export function Footer(): React.JSX.Element {
   return (
