@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { MyContext } from "../app";
+import { Direction } from "../../../types";
 
 export default function ConvertionLabel({
   convertWord,
   direction,
 }: {
   convertWord: string;
-  direction: string;
+  direction: Direction;
 }): React.JSX.Element {
   const { conversionDirection, setConversionDirection } = useContext(MyContext);
 

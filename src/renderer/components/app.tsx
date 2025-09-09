@@ -13,6 +13,7 @@ import { moveFocusToInit } from "./util/operation";
 import { TYPING_DONE_INTERVAL } from "./util/constants";
 import Toast from "./ui/Toast";
 import { Footer } from "./footer";
+import { Direction } from "../../types";
 
 type MyContextType = {
   inputValue: string;
@@ -26,8 +27,8 @@ type MyContextType = {
       to: string;
     }>
   >;
-  conversionDirection: "fullToHalf" | "halfToFull";
-  setConversionDirection: React.Dispatch<React.SetStateAction<"fullToHalf" | "halfToFull">>;
+  conversionDirection: Direction;
+  setConversionDirection: React.Dispatch<React.SetStateAction<Direction>>;
   isConversionAll: boolean;
   setIsConversionAll: React.Dispatch<React.SetStateAction<boolean>>;
   isConversionEng: boolean;
