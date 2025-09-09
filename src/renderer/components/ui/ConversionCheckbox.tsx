@@ -1,16 +1,18 @@
 import React from "react";
 
+interface ConversionCheckboxProps {
+  labelName: string;
+  value: string;
+  handler: React.ChangeEventHandler<HTMLInputElement>;
+  isConversion: boolean;
+}
+
 export default function ConversionCheckbox({
   labelName,
   value,
   handler,
   isConversion,
-}: {
-  labelName: string;
-  value: string;
-  handler: React.ChangeEventHandler;
-  isConversion: boolean;
-}): React.JSX.Element {
+}: ConversionCheckboxProps): React.JSX.Element {
   return (
     <label className="flex items-center space-x-2 cursor-pointer">
       <input

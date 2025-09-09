@@ -1,13 +1,12 @@
 import React from "react";
 import { ToastKindType } from "../../../types";
 
-export default function Toast({
-  isToast,
-  toastKind,
-}: {
+interface ToastProps {
   isToast: boolean;
   toastKind: ToastKindType;
-}): React.JSX.Element {
+}
+
+export default function Toast({ isToast, toastKind }: ToastProps): React.JSX.Element {
   const toastText = ((toastKind) => {
     switch (toastKind) {
       case "success":

@@ -2,13 +2,15 @@ import React, { useContext } from "react";
 import { MyContext } from "../app";
 import { DirectionType } from "../../../types";
 
-export default function ConvertionRadio({
-  convertWord,
-  direction,
-}: {
+interface ConversionRadioProps {
   convertWord: string;
   direction: DirectionType;
-}): React.JSX.Element {
+}
+
+export default function ConversionRadio({
+  convertWord,
+  direction,
+}: ConversionRadioProps): React.JSX.Element {
   const { conversionDirection, setConversionDirection } = useContext(MyContext);
 
   return (
