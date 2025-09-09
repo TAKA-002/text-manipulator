@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { MyContext } from "../app";
+import ConversionCheckbox from "./ConversionCheckbox";
 
 export default function ConversionOptions(): React.JSX.Element {
   const {
@@ -57,70 +58,40 @@ export default function ConversionOptions(): React.JSX.Element {
         ※改行・スペースの削除のみ行いたいときはチェックをすべて外します。
       </small>
       <div className="flex flex-wrap gap-4 mt-4">
-        <label className="flex items-center space-x-2 cursor-pointer">
-          <input
-            type="checkbox"
-            name="conversionTarget"
-            value="all"
-            className="form-checkbox text-blue-600 rounded"
-            checked={isConversionAll}
-            onChange={handleChange}
-            tabIndex={5}
-          />
-          <span>すべて</span>
-        </label>
+        <ConversionCheckbox
+          labelName="すべて"
+          value="all"
+          handler={handleChange}
+          isConversion={isConversionAll}
+        />
 
-        <label className="flex items-center space-x-2 cursor-pointer">
-          <input
-            type="checkbox"
-            name="conversionTarget"
-            value="alphabet"
-            className="form-checkbox text-blue-600 rounded"
-            checked={isConversionEng}
-            onChange={handleChange}
-            tabIndex={5}
-          />
-          <span>英字</span>
-        </label>
+        <ConversionCheckbox
+          labelName="英字"
+          value="alphabet"
+          handler={handleChange}
+          isConversion={isConversionEng}
+        />
 
-        <label className="flex items-center space-x-2 cursor-pointer">
-          <input
-            type="checkbox"
-            name="conversionTarget"
-            value="number"
-            className="form-checkbox text-blue-600 rounded"
-            checked={isConversionNum}
-            onChange={handleChange}
-            tabIndex={5}
-          />
-          <span>数字</span>
-        </label>
+        <ConversionCheckbox
+          labelName="数字"
+          value="number"
+          handler={handleChange}
+          isConversion={isConversionNum}
+        />
 
-        <label className="flex items-center space-x-2 cursor-pointer">
-          <input
-            type="checkbox"
-            name="conversionTarget"
-            value="symbol"
-            className="form-checkbox text-blue-600 rounded"
-            checked={isConversionSymbol}
-            onChange={handleChange}
-            tabIndex={5}
-          />
-          <span>記号</span>
-        </label>
+        <ConversionCheckbox
+          labelName="記号"
+          value="symbol"
+          handler={handleChange}
+          isConversion={isConversionSymbol}
+        />
 
-        <label className="flex items-center space-x-2 cursor-pointer">
-          <input
-            type="checkbox"
-            name="conversionTarget"
-            value="space"
-            className="form-checkbox text-blue-600 rounded"
-            checked={isConversionSpace}
-            onChange={handleChange}
-            tabIndex={5}
-          />
-          <span>スペース</span>
-        </label>
+        <ConversionCheckbox
+          labelName="スペース"
+          value="space"
+          handler={handleChange}
+          isConversion={isConversionSpace}
+        />
       </div>
     </div>
   );
