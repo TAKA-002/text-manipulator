@@ -196,7 +196,7 @@ export function App() {
   }, [handleCopy, convertedValue, handleClear]);
 
   useEffect(() => {
-    let timer;
+    let timer: NodeJS.Timeout | undefined = undefined;
 
     if (isToast) {
       timer = setTimeout(() => {
