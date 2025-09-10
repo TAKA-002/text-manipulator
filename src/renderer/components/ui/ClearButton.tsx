@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
-import { MyContext } from "../app";
+import React from "react";
+import { useMyContext } from "../../hooks/useMyContext";
 
-export default function ClearButton() {
-  const { handleClear } = useContext(MyContext);
+export default function ClearButton(): React.JSX.Element {
+  const { handleClear } = useMyContext();
 
   return (
     <div className="mt-4">
       <button
         id="clearBtn"
         className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-300 flex items-center justify-center"
-        tabIndex="4"
+        tabIndex={4}
         onClick={handleClear}
       >
         <svg

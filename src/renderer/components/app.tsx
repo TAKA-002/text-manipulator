@@ -13,40 +13,94 @@ import { moveFocusToInit } from "./util/operation";
 import { TYPING_DONE_INTERVAL } from "./util/constants";
 import Toast from "./ui/Toast";
 import { Footer } from "./footer";
+import { DirectionType, ToastKindType, ReplaceObjectType } from "../../types";
 
-export const MyContext = createContext();
+type MyContextType = {
+  inputValue: string;
+  setInputValue: React.Dispatch<React.SetStateAction<string>>;
+  convertedValue: string;
+  setConvertedValue: React.Dispatch<React.SetStateAction<string>>;
+  replaceObject: ReplaceObjectType;
+  setReplaceObject: React.Dispatch<React.SetStateAction<ReplaceObjectType>>;
+  conversionDirection: DirectionType;
+  setConversionDirection: React.Dispatch<React.SetStateAction<DirectionType>>;
+  isConversionAll: boolean;
+  setIsConversionAll: React.Dispatch<React.SetStateAction<boolean>>;
+  isConversionEng: boolean;
+  setIsConversionEng: React.Dispatch<React.SetStateAction<boolean>>;
+  isConversionNum: boolean;
+  setIsConversionNum: React.Dispatch<React.SetStateAction<boolean>>;
+  isConversionSymbol: boolean;
+  setIsConversionSymbol: React.Dispatch<React.SetStateAction<boolean>>;
+  isConversionSpace: boolean;
+  setIsConversionSpace: React.Dispatch<React.SetStateAction<boolean>>;
+  isRemoveBr: boolean;
+  setIsRemoveBr: React.Dispatch<React.SetStateAction<boolean>>;
+  isRemoveSpace: boolean;
+  setIsRemoveSpace: React.Dispatch<React.SetStateAction<boolean>>;
+  handleCopy: (textToCopy: string) => Promise<void>;
+  handleClear: () => void;
+};
+
+export const MyContext = createContext<MyContextType | null>(null);
 
 export function App() {
-  const [inputValue, setInputValue] = useState(""); // 入力欄に入れられた値を格納するためのstate
-  const [convertedValue, setConvertedValue] = useState(""); // 変換された値を格納するためのstate
+  const [inputValue, setInputValue] = useState<string>("");
+  const [convertedValue, setConvertedValue] = useState<string>("");
 
   // 置換オプション
-  const [replaceObject, setReplaceObject] = useState({ from: "", to: "" }); // fromには置換対象の文字列を格納して、toには、変換後の文字列を格納する
-  const [replacedValue, setReplacedValue] = useState(""); // 置換した文字列を格納する
-  const [isReplace, setIsReplace] = useState(false); // 置換を実施したか管理
+  const [replaceObject, setReplaceObject] = useState<ReplaceObjectType>({
+    from: "",
+    to: "",
+  });
+  const [replacedValue, setReplacedValue] = useState<string>("");
+  const [isReplace, setIsReplace] = useState<boolean>(false);
 
   // 削除オプション
-  const [isRemoveBr, setIsRemoveBr] = useState(false); // RemoveOptionコンポーネントで使用。改行を除去する状態かをstateにbool値を持たせて管理する。trueならチェックボックスにchecked属性がある
-  const [isRemoveSpace, setIsRemoveSpace] = useState(false); // RemoveOptionコンポーネントで使用。スペースを除去する状態かをstateにbool値を持たせて管理する。trueならチェックボックスにchecked属性がある
+  const [isRemoveBr, setIsRemoveBr] = useState<boolean>(false); // RemoveOptionコンポーネントで使用。改行を除去する状態か管理。trueならチェックボックスにchecked属性がある
+  const [isRemoveSpace, setIsRemoveSpace] = useState<boolean>(false); // RemoveOptionコンポーネントで使用。スペースを除去する状態か管理。trueならチェックボックスにchecked属性がある
 
   // 変換方向オプション
-  const [conversionDirection, setConversionDirection] = useState("fullToHalf");
+  const [conversionDirection, setConversionDirection] = useState<DirectionType>("fullToHalf");
 
   // 変換対象オプション
-  const [isConversionAll, setIsConversionAll] = useState(false);
-  const [isConversionEng, setIsConversionEng] = useState(false);
-  const [isConversionNum, setIsConversionNum] = useState(false);
-  const [isConversionSymbol, setIsConversionSymbol] = useState(false);
-  const [isConversionSpace, setIsConversionSpace] = useState(false);
+  const [isConversionAll, setIsConversionAll] = useState<boolean>(false);
+  const [isConversionEng, setIsConversionEng] = useState<boolean>(false);
+  const [isConversionNum, setIsConversionNum] = useState<boolean>(false);
+  const [isConversionSymbol, setIsConversionSymbol] = useState<boolean>(false);
+  const [isConversionSpace, setIsConversionSpace] = useState<boolean>(false);
 
   // トースト通知
-  const [toastKind, setToastKind] = useState("");
-  const [isToast, setIsToast] = useState(false);
+  const [toastKind, setToastKind] = useState<ToastKindType>("");
+  const [isToast, setIsToast] = useState<boolean>(false);
+
+  // stateが変更されるたび再レンダリングされるが、コンポーネント内で定義された関数も一緒に再作成されるが、関数は変化がないので無駄。
+  // だからuseCallbackをしようして、関数のメモ化を実施。
+  const handleCopy = useCallback(async (textToCopy: string) => {
+    const success = await copyToClipboard(textToCopy);
+    if (success) {
+      setToastKind("success");
+      setIsToast(true);
+    } else {
+      setToastKind("failed");
+      setIsToast(true);
+    }
+    moveFocusToInit();
+  }, []);
+
+  const handleClear = useCallback(() => {
+    setIsReplace(false);
+    setReplaceObject({ from: "", to: "" });
+    setInputValue("");
+    moveFocusToInit();
+    setToastKind("clear");
+    setIsToast(true);
+  }, []);
 
   // テキスト置換
   // replaceObjectの変更が行われたら発火する
   useEffect(() => {
-    // 置換が行われる場合がこちら。
+    // 置換が行われる場合
     if (
       (replaceObject.from !== "" && replaceObject.to !== "") ||
       (replaceObject.from !== "" && replaceObject.to === "")
@@ -58,7 +112,7 @@ export function App() {
       return () => clearTimeout(newTimer);
     }
 
-    // 置換が行われない場合がこちらで、isReplaceがfalseになるとinputValueが置換される前の文字列のままになる
+    // 置換が行われない場合、isReplaceがfalseになるとinputValueが置換される前の文字列のままになる
     else if (
       (replaceObject.from === "" && replaceObject.to !== "") ||
       (replaceObject.from === "" && replaceObject.to === "")
@@ -118,7 +172,7 @@ export function App() {
   // 依存配列が更新されると古いイベントリスナーが削除され、新しいイベントリスナーが登録される。
   // 使用しておわったイベントリスナーを削除する。
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.shiftKey) {
         if (e.key === "Enter") {
           e.preventDefault();
@@ -136,32 +190,8 @@ export function App() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleCopy, convertedValue, handleClear]);
 
-  // stateが変更されるたび再レンダリングされる。
-  // コンポーネント内で定義された関数も一緒に再作成されるが、関数は変化がないので無駄。
-  // だからuseCallbackをしようして、関数のメモ化を実施。
-  const handleCopy = useCallback(async (textToCopy) => {
-    const success = await copyToClipboard(textToCopy);
-    if (success) {
-      setToastKind("success");
-      setIsToast(true);
-    } else {
-      setToastKind("failed");
-      setIsToast(true);
-    }
-    moveFocusToInit(); // インプットエリアにフォーカス
-  }, []);
-
-  const handleClear = useCallback(() => {
-    setIsReplace(false); // replaceしないフラグへ戻す
-    setReplaceObject({ from: "", to: "" }); // 置換入力欄をデフォルトに戻す
-    setInputValue(""); // 入力欄を空欄にする
-    moveFocusToInit(); // インプットエリアにフォーカス
-    setToastKind("clear");
-    setIsToast(true);
-  }, []);
-
   useEffect(() => {
-    let timer;
+    let timer: NodeJS.Timeout | undefined = undefined;
 
     if (isToast) {
       timer = setTimeout(() => {
