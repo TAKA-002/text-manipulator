@@ -13,20 +13,15 @@ import { moveFocusToInit } from "./util/operation";
 import { TYPING_DONE_INTERVAL } from "./util/constants";
 import Toast from "./ui/Toast";
 import { Footer } from "./footer";
-import { DirectionType, ToastKindType } from "../../types";
+import { DirectionType, ToastKindType, ReplaceObjectType } from "../../types";
 
 type MyContextType = {
   inputValue: string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
   convertedValue: string;
   setConvertedValue: React.Dispatch<React.SetStateAction<string>>;
-  replaceObject: { from: string; to: string };
-  setReplaceObject: React.Dispatch<
-    React.SetStateAction<{
-      from: string;
-      to: string;
-    }>
-  >;
+  replaceObject: ReplaceObjectType;
+  setReplaceObject: React.Dispatch<React.SetStateAction<ReplaceObjectType>>;
   conversionDirection: DirectionType;
   setConversionDirection: React.Dispatch<React.SetStateAction<DirectionType>>;
   isConversionAll: boolean;
@@ -54,7 +49,7 @@ export function App() {
   const [convertedValue, setConvertedValue] = useState<string>("");
 
   // 置換オプション
-  const [replaceObject, setReplaceObject] = useState<{ from: string; to: string }>({
+  const [replaceObject, setReplaceObject] = useState<ReplaceObjectType>({
     from: "",
     to: "",
   });

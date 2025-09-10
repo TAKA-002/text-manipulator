@@ -1,3 +1,5 @@
+import { ReplaceObjectType } from "../../../types";
+
 type Options = {
   convertAlphabet: boolean,
   convertNumber: boolean,
@@ -94,7 +96,7 @@ export function removeLineBreaksAndSpaces(
   return result;
 }
 
-export function performReplace(strings, replaceObject): string {
+export function performReplace(strings: string, replaceObject: ReplaceObjectType): string {
   return strings.replaceAll(replaceObject.from, replaceObject.to);
 }
 
