@@ -40,6 +40,8 @@ export default function ConversionOptions(): React.JSX.Element {
         break;
 
       default:
+        // Record はTypeScriptの組み込み型で、オブジェクトの型を定義するためのユーティリティ型
+        // Record<Key, Value> の意味
         const updateState: Record<string, React.Dispatch<React.SetStateAction<boolean>>> = {
           alphabet: setIsConversionEng,
           number: setIsConversionNum,
