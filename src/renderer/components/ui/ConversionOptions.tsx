@@ -40,7 +40,7 @@ export default function ConversionOptions(): React.JSX.Element {
         break;
 
       default:
-        const updateState = {
+        const updateState: Record<string, React.Dispatch<React.SetStateAction<boolean>>> = {
           alphabet: setIsConversionEng,
           number: setIsConversionNum,
           symbol: setIsConversionSymbol,
