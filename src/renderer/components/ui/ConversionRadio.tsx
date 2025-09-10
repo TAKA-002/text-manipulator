@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { MyContext } from "../app";
+import React from "react";
+import { useMyContext } from "../../hooks/useMyContext";
 import { DirectionType } from "../../../types";
 
 interface ConversionRadioProps {
@@ -11,7 +11,7 @@ export default function ConversionRadio({
   convertWord,
   direction,
 }: ConversionRadioProps): React.JSX.Element {
-  const { conversionDirection, setConversionDirection } = useContext(MyContext);
+  const { conversionDirection, setConversionDirection } = useMyContext();
 
   return (
     <label className="flex items-center space-x-3 cursor-pointer">

@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import { MyContext } from "../app";
+import React from "react";
+import { useMyContext } from "../../hooks/useMyContext";
 
 // 削除用のチェックボックスのコンポーネント
 // チェックボックスにチェックを入れるとそのinputのvalue値によって、改行、スペースを削除するかstateにbool値をもたせることで判断できるようにしている
 export default function RemoveOptions(): React.JSX.Element {
-  const { isRemoveBr, setIsRemoveBr, isRemoveSpace, setIsRemoveSpace } = useContext(MyContext);
+  const { isRemoveBr, setIsRemoveBr, isRemoveSpace, setIsRemoveSpace } = useMyContext();
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const { value, checked } = e.target;

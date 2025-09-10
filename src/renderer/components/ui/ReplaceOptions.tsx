@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { MyContext } from "../app";
+import React from "react";
+import { useMyContext } from "../../hooks/useMyContext";
 
 export default function ReplaceOptions(): React.JSX.Element {
-  const { replaceObject, setReplaceObject } = useContext(MyContext);
+  const { replaceObject, setReplaceObject } = useMyContext();
 
   const handleReplaceObjectChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     // オブジェクトの中に、key valueをもたせる。

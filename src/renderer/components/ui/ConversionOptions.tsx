@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { MyContext } from "../app";
+import React, { useEffect } from "react";
+import { useMyContext } from "../../hooks/useMyContext";
 import ConversionCheckbox from "./ConversionCheckbox";
 
 export default function ConversionOptions(): React.JSX.Element {
@@ -14,7 +14,7 @@ export default function ConversionOptions(): React.JSX.Element {
     setIsConversionSymbol,
     isConversionSpace,
     setIsConversionSpace,
-  } = useContext(MyContext);
+  } = useMyContext();
 
   useEffect(() => {
     if (isConversionAll) {

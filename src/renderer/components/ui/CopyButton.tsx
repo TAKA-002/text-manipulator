@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { MyContext } from "../app";
+import React from "react";
+import { useMyContext } from "../../hooks/useMyContext";
 
 export default function CopyButton(): React.JSX.Element {
-  const { convertedValue, handleCopy } = useContext(MyContext);
+  const { convertedValue, handleCopy } = useMyContext();
 
   return (
     <div className="mt-4">

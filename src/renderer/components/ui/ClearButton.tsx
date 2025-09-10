@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { MyContext } from "../app";
+import React from "react";
+import { useMyContext } from "../../hooks/useMyContext";
 
 export default function ClearButton(): React.JSX.Element {
-  const { handleClear } = useContext(MyContext);
+  const { handleClear } = useMyContext();
 
   return (
     <div className="mt-4">

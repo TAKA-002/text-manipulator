@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { MyContext } from "../app";
+import React from "react";
+import { useMyContext } from "../../hooks/useMyContext";
 
 export default function InputArea(): React.JSX.Element {
-  const { inputValue, setInputValue } = useContext(MyContext);
+  const { inputValue, setInputValue } = useMyContext();
 
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event) => {
     setInputValue(event.target.value);
