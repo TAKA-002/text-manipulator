@@ -26,8 +26,13 @@ export function Container(): React.JSX.Element {
         </div>
         <div className="w-full md:w-1/2 space-y-6">
           <OutputArea />
-          <ActionButton type="copy" />
-          <ActionButton type="clear" />
+          <ActionButton type="copyBtn" text="コピー" shortcut="Shift + Enter" tabIndex={4} />
+          <ActionButton
+            type="clearBtn"
+            text="入力エリアクリア"
+            shortcut="Shift + BS"
+            tabIndex={4}
+          />
         </div>
       </div>
     </div>
