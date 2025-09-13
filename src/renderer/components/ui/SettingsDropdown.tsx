@@ -1,14 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
-export default function SettingsDropdown() {
+export default function SettingsDropdown(): React.JSX.Element {
+  const componentRef = useRef<HTMLDivElement | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleToggleDropdown = () => {
-    setIsOpen((prev) => !prev);
-  };
+  const handleToggleDropdown = () => setIsOpen((prev) => !prev);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      /**
+       * event.target => mousedownイベントが発生した要素
+       * componentRef.current => refの要素
+       * Node: containsメソッド => 引数のNodeが子要素に存在するか。存在したらtrueを返す。
+       *
+       * refの要素が存在 && refの要素の子要素にクリックした要素が存在していない => refの要素の外側の要素
+       */
+      if (componentRef.current && !componentRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    // ドロップダウンが開いているときだけ登録
+    if (isOpen) {
+      // documentの中でマウスをクリックした場合にそのeventを引数に持ってhandleClickOutsideが実行
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
   return (
-    <div className="relative">
+    <div ref={componentRef} className="relative">
       <button
         type="button"
         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-5 py-2.5 text-center inline-flex items-center"
