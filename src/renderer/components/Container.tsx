@@ -5,8 +5,7 @@ import RemoveOptions from "./ui/RemoveOptions";
 import ConversionOptions from "./ui/ConversionOptions";
 import ConversionButtons from "./ui/ConversionButtons";
 import OutputArea from "./ui/OutputArea";
-import CopyButton from "./ui/CopyButton";
-import ClearButton from "./ui/ClearButton";
+import ActionButton from "./ui/ActionButton";
 import ReplaceOptions from "./ui/ReplaceOptions";
 import { moveFocusToInit } from "./util/operation";
 
@@ -27,8 +26,8 @@ export function Container(): React.JSX.Element {
         </div>
         <div className="w-full md:w-1/2 space-y-6">
           <OutputArea />
-          <CopyButton />
-          <ClearButton />
+          <ActionButton type="copy" />
+          <ActionButton type="clear" />
         </div>
       </div>
     </div>
