@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 
 import InputArea from "./ui/InputArea";
+import SettingsDropdown from "./ui/SettingsDropdown";
 import RemoveOptions from "./ui/RemoveOptions";
 import ConversionOptions from "./ui/ConversionOptions";
 import ConversionButtons from "./ui/ConversionButtons";
@@ -19,6 +20,7 @@ export function Container(): React.JSX.Element {
       <div className="flex flex-col md:flex-row gap-6">
         <div className="w-full md:w-1/2 space-y-6">
           <InputArea />
+          <SettingsDropdown />
           <ReplaceOptions />
           <RemoveOptions />
           <ConversionButtons />
