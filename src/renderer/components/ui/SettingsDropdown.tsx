@@ -1,11 +1,27 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useMyContext } from "../../hooks/useMyContext";
 
 export default function SettingsDropdown(): React.JSX.Element {
   const componentRef = useRef<HTMLDivElement | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const {
+    setReplaceObject,
+    setIsRemoveBr,
+    setIsRemoveSpace,
+    setConversionDirection,
+    setIsConversionAll,
+    setIsConversionEng,
+    setIsConversionNum,
+    setIsConversionSymbol,
+    setIsConversionSpace,
+  } = useMyContext();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleToggleDropdown = () => setIsOpen((prev) => !prev);
 
+  /**
+   * React がレンダリングを完了してブラウザに描画した後のタイミング
+   * 「HTML 解析 → React レンダリング → DOM 更新 → 画面描画 → useEffect」という流れ
+   */
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       /**
@@ -26,10 +42,22 @@ export default function SettingsDropdown(): React.JSX.Element {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
+
+  // デフォルト設定
+  const resetSettings = () => {
+    setReplaceObject({ from: "", to: "" });
+    setIsRemoveBr(false);
+    setIsRemoveSpace(false);
+    setConversionDirection("fullToHalf");
+    setIsConversionAll(false);
+    setIsConversionEng(false);
+    setIsConversionNum(false);
+    setIsConversionSymbol(false);
+    setIsConversionSpace(false);
+    setIsOpen(false);
+  };
 
   return (
     <div ref={componentRef} className="relative">
@@ -60,11 +88,14 @@ export default function SettingsDropdown(): React.JSX.Element {
         <div className="z-10 absolute bg-white mt-2 divide-y divide-gray-100 rounded shadow-lg w-48 border">
           <ul className="py-2 text-sm text-gray-700">
             <li>
-              <button className="block px-4 py-2 w-full text-left hover:bg-gray-100">
+              <button
+                className="block px-4 py-2 w-full text-left hover:bg-gray-100"
+                onClick={resetSettings}
+              >
                 デフォルト設定
               </button>
             </li>
-            <li>
+            {/* <li>
               <button className="block px-4 py-2 w-full text-left hover:bg-gray-100">
                 コーディング用
               </button>
@@ -73,7 +104,7 @@ export default function SettingsDropdown(): React.JSX.Element {
               <button className="block px-4 py-2 w-full text-left hover:bg-gray-100">
                 文書整形用
               </button>
-            </li>
+            </li> */}
             <hr className="my-1" />
             <li>
               <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 text-blue-600 font-medium">
