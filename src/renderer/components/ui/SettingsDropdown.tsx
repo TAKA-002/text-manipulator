@@ -1,17 +1,29 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useMyContext } from "../../hooks/useMyContext";
+import { formatDateTime } from "../util/process";
+
+const LOCAL_STORAGE_KEY = "Text-Manipulator-settings";
 
 export default function SettingsDropdown(): React.JSX.Element {
   const componentRef = useRef<HTMLDivElement | null>(null);
   const {
+    replaceObject,
     setReplaceObject,
+    isRemoveBr,
     setIsRemoveBr,
+    isRemoveSpace,
     setIsRemoveSpace,
+    conversionDirection,
     setConversionDirection,
+    isConversionAll,
     setIsConversionAll,
+    isConversionEng,
     setIsConversionEng,
+    isConversionNum,
     setIsConversionNum,
+    isConversionSymbol,
     setIsConversionSymbol,
+    isConversionSpace,
     setIsConversionSpace,
   } = useMyContext();
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -45,8 +57,39 @@ export default function SettingsDropdown(): React.JSX.Element {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
-  // デフォルト設定
+  const saveSettings = () => {
+    // 現在の状態を取得
+    const curSettings = {
+      id: new Date().getTime().toString(),
+      name: "",
+      settings: {
+        replaceObject,
+        isRemoveBr,
+        isRemoveSpace,
+        conversionDirection,
+        isConversionAll,
+        isConversionEng,
+        isConversionNum,
+        isConversionSymbol,
+        isConversionSpace,
+      },
+      createdAt: formatDateTime(Date.now()),
+    };
+
+    // 現在の状態をローカルストレージに追加
+    let savedSettings = [];
+    const settingsList = localStorage.getItem(LOCAL_STORAGE_KEY) as string | null;
+    if (settingsList === null) {
+      savedSettings = [curSettings];
+    } else {
+      savedSettings = [...JSON.parse(settingsList), curSettings];
+    }
+
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(savedSettings));
+  };
+
   const resetSettings = () => {
+    // デフォルト設定
     setReplaceObject({ from: "", to: "" });
     setIsRemoveBr(false);
     setIsRemoveSpace(false);
@@ -107,7 +150,10 @@ export default function SettingsDropdown(): React.JSX.Element {
             </li> */}
             <hr className="my-1" />
             <li>
-              <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 text-blue-600 font-medium">
+              <button
+                className="block px-4 py-2 w-full text-left hover:bg-gray-100 text-blue-600 font-medium"
+                onClick={saveSettings}
+              >
                 現在の設定を保存...
               </button>
             </li>
