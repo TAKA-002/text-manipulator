@@ -1,4 +1,5 @@
-import { ReplaceObjectType } from "../../../types";
+import { ReplaceObjectType, ConvertSettings } from "../../../types";
+import { TEXT_MANIPULATOR_SETTINGS_KEY } from "./constants";
 
 type Options = {
   convertAlphabet: boolean,
@@ -149,3 +150,19 @@ export function formatDateTime(timestamp: number): string {
     second: '2-digit'
   }).replace(/\//g, '-');
 };
+
+export function createId(): string {
+  return new Date().getTime().toString();
+}
+
+export function getSettingsList(): string | null {
+  return localStorage.getItem(TEXT_MANIPULATOR_SETTINGS_KEY);
+}
+
+export function getMergedSettings(settingsList: string | null, curSettings: ConvertSettings): ConvertSettings[] {
+  return settingsList === null ? [curSettings] : [...JSON.parse(settingsList), curSettings]
+}
+
+export function setLocalStorage(mergedSettings: ConvertSettings[]): void {
+  localStorage.setItem(TEXT_MANIPULATOR_SETTINGS_KEY, JSON.stringify(mergedSettings));
+}

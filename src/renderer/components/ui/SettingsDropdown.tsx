@@ -1,8 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, ReactEventHandler } from "react";
 import { useMyContext } from "../../hooks/useMyContext";
-import { formatDateTime } from "../util/process";
-
-const LOCAL_STORAGE_KEY = "Text-Manipulator-settings";
+import { ConvertSettings } from "../../../types";
+import {
+  formatDateTime,
+  createId,
+  getSettingsList,
+  getMergedSettings,
+  setLocalStorage,
+} from "../util/process";
 
 export default function SettingsDropdown(): React.JSX.Element {
   const componentRef = useRef<HTMLDivElement | null>(null);
@@ -57,10 +62,9 @@ export default function SettingsDropdown(): React.JSX.Element {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
-  const saveSettings = () => {
-    // 現在の状態を取得
-    const curSettings = {
-      id: new Date().getTime().toString(),
+  const handleClickSaveSettings = () => {
+    const curSettings: ConvertSettings = {
+      id: createId(),
       name: "",
       settings: {
         replaceObject,
@@ -76,19 +80,12 @@ export default function SettingsDropdown(): React.JSX.Element {
       createdAt: formatDateTime(Date.now()),
     };
 
-    // 現在の状態をローカルストレージに追加
-    let savedSettings = [];
-    const settingsList = localStorage.getItem(LOCAL_STORAGE_KEY) as string | null;
-    if (settingsList === null) {
-      savedSettings = [curSettings];
-    } else {
-      savedSettings = [...JSON.parse(settingsList), curSettings];
-    }
-
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(savedSettings));
+    const settingsList = getSettingsList();
+    const mergedSettings = getMergedSettings(settingsList, curSettings);
+    setLocalStorage(mergedSettings);
   };
 
-  const resetSettings = () => {
+  const handleClickResetSettings: ReactEventHandler = () => {
     // デフォルト設定
     setReplaceObject({ from: "", to: "" });
     setIsRemoveBr(false);
@@ -133,7 +130,7 @@ export default function SettingsDropdown(): React.JSX.Element {
             <li>
               <button
                 className="block px-4 py-2 w-full text-left hover:bg-gray-100"
-                onClick={resetSettings}
+                onClick={handleClickResetSettings}
               >
                 デフォルト設定
               </button>
@@ -152,7 +149,7 @@ export default function SettingsDropdown(): React.JSX.Element {
             <li>
               <button
                 className="block px-4 py-2 w-full text-left hover:bg-gray-100 text-blue-600 font-medium"
-                onClick={saveSettings}
+                onClick={handleClickSaveSettings}
               >
                 現在の設定を保存...
               </button>
