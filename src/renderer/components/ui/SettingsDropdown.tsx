@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, ReactEventHandler } from "react";
+import React, { useState, useRef, useEffect, ReactEventHandler, FocusEventHandler } from "react";
 import { useMyContext } from "../../hooks/useMyContext";
 import { ConvertSettings } from "../../../types";
 import {
@@ -32,6 +32,7 @@ export default function SettingsDropdown(): React.JSX.Element {
     setIsConversionSpace,
   } = useMyContext();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [settingsData, setSettingsData] = useState<ConvertSettings[] | null>(null);
 
   const handleToggleDropdown = () => setIsOpen((prev) => !prev);
 
@@ -62,10 +63,19 @@ export default function SettingsDropdown(): React.JSX.Element {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
+  useEffect(() => {
+    const settingsList = getSettingsList();
+
+    if (settingsList !== null) {
+      const listData = JSON.parse(settingsList);
+      setSettingsData(listData);
+    }
+  }, []);
+
   const handleClickSaveSettings = () => {
     const curSettings: ConvertSettings = {
       id: createId(),
-      name: "",
+      name: "test",
       settings: {
         replaceObject,
         isRemoveBr,
@@ -83,6 +93,7 @@ export default function SettingsDropdown(): React.JSX.Element {
     const settingsList = getSettingsList();
     const mergedSettings = getMergedSettings(settingsList, curSettings);
     setLocalStorage(mergedSettings);
+    setSettingsData(mergedSettings);
   };
 
   const handleClickResetSettings: ReactEventHandler = () => {
@@ -135,17 +146,22 @@ export default function SettingsDropdown(): React.JSX.Element {
                 デフォルト設定
               </button>
             </li>
-            {/* <li>
-              <button className="block px-4 py-2 w-full text-left hover:bg-gray-100">
-                コーディング用
-              </button>
-            </li>
-            <li>
-              <button className="block px-4 py-2 w-full text-left hover:bg-gray-100">
-                文書整形用
-              </button>
-            </li> */}
+
+            {settingsData &&
+              settingsData.map((li) => {
+                const { id, name } = li;
+
+                return (
+                  <li key={id}>
+                    <button id={id} className="block px-4 py-2 w-full text-left hover:bg-gray-100">
+                      {name}
+                    </button>
+                  </li>
+                );
+              })}
+
             <hr className="my-1" />
+
             <li>
               <button
                 className="block px-4 py-2 w-full text-left hover:bg-gray-100 text-blue-600 font-medium"
