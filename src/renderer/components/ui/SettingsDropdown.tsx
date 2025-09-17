@@ -110,6 +110,35 @@ export default function SettingsDropdown(): React.JSX.Element {
     setIsOpen(false);
   };
 
+  const handleClickLoadSettings = (id: string) => {
+    const settingsList = getSettingsList();
+    if (settingsList === null) return;
+
+    const parsedData = JSON.parse(settingsList);
+    const { settings } = parsedData.find((data: ConvertSettings) => data.id === id);
+
+    setReplaceObject(settings.replaceObject);
+    setIsRemoveBr(settings.isRemoveBr);
+    setIsRemoveSpace(settings.isRemoveSpace);
+    setConversionDirection(settings.conversionDirection);
+    setIsConversionAll(settings.isConversionAll);
+    setIsConversionEng(settings.isConversionEng);
+    setIsConversionNum(settings.isConversionNum);
+    setIsConversionSymbol(settings.isConversionSymbol);
+    setIsConversionSpace(settings.isConversionSpace);
+    setIsOpen(false);
+  };
+
+  const handleClickDeleteSettings = (id: string) => {
+    const settingsList = getSettingsList();
+    if (settingsList === null) return;
+
+    const parsedData = JSON.parse(settingsList);
+    const deletedData = parsedData.filter((data: ConvertSettings) => data.id !== id);
+    setLocalStorage(deletedData);
+    setSettingsData(deletedData);
+  };
+
   return (
     <div ref={componentRef} className="relative">
       <button
@@ -152,9 +181,19 @@ export default function SettingsDropdown(): React.JSX.Element {
                 const { id, name } = li;
 
                 return (
-                  <li key={id}>
-                    <button id={id} className="block px-4 py-2 w-full text-left hover:bg-gray-100">
+                  <li key={id} className="flex items-center">
+                    <button
+                      id={id}
+                      className="flex-1 block px-4 py-2 text-left hover:bg-gray-100"
+                      onClick={() => handleClickLoadSettings(id)}
+                    >
                       {name}
+                    </button>
+                    <button
+                      className="px-2 py-2 text-red-500 hover:bg-red-100 rounded"
+                      onClick={() => handleClickDeleteSettings(id)}
+                    >
+                      ×
                     </button>
                   </li>
                 );

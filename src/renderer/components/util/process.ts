@@ -152,7 +152,7 @@ export function formatDateTime(timestamp: number): string {
 };
 
 export function createId(): string {
-  return new Date().getTime().toString();
+  return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 }
 
 export function getSettingsList(): string | null {
