@@ -31,10 +31,10 @@ export default function SettingsDropdown(): React.JSX.Element {
     isConversionSpace,
     setIsConversionSpace,
   } = useMyContext();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpenDropdown, setIsOpenDropdown] = useState<boolean>(false);
   const [settingsData, setSettingsData] = useState<ConvertSettings[] | null>(null);
 
-  const handleToggleDropdown = () => setIsOpen((prev) => !prev);
+  const handleToggleDropdown = () => setIsOpenDropdown((prev) => !prev);
 
   /**
    * React がレンダリングを完了してブラウザに描画した後のタイミング
@@ -50,18 +50,18 @@ export default function SettingsDropdown(): React.JSX.Element {
        * refの要素が存在 && refの要素の子要素にクリックした要素が存在していない => refの要素の外側の要素
        */
       if (componentRef.current && !componentRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
+        setIsOpenDropdown(false);
       }
     };
 
     // ドロップダウンが開いているときだけ登録
-    if (isOpen) {
+    if (isOpenDropdown) {
       // documentの中でマウスをクリックした場合にそのeventを引数に持ってhandleClickOutsideが実行
       document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen]);
+  }, [isOpenDropdown]);
 
   useEffect(() => {
     const settingsList = getSettingsList();
@@ -107,7 +107,7 @@ export default function SettingsDropdown(): React.JSX.Element {
     setIsConversionNum(false);
     setIsConversionSymbol(false);
     setIsConversionSpace(false);
-    setIsOpen(false);
+    setIsOpenDropdown(false);
   };
 
   const handleClickLoadSettings = (id: string) => {
@@ -126,7 +126,7 @@ export default function SettingsDropdown(): React.JSX.Element {
     setIsConversionNum(settings.isConversionNum);
     setIsConversionSymbol(settings.isConversionSymbol);
     setIsConversionSpace(settings.isConversionSpace);
-    setIsOpen(false);
+    setIsOpenDropdown(false);
   };
 
   const handleClickDeleteSettings = (id: string) => {
@@ -164,7 +164,7 @@ export default function SettingsDropdown(): React.JSX.Element {
         </svg>
       </button>
 
-      {isOpen && (
+      {isOpenDropdown && (
         <div className="z-10 absolute bg-white mt-2 divide-y divide-gray-100 rounded shadow-lg w-48 border">
           <ul className="py-2 text-sm text-gray-700">
             <li>
