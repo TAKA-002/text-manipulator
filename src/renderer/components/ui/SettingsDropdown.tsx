@@ -76,6 +76,11 @@ export default function SettingsDropdown(): React.JSX.Element {
   }, []);
 
   const handleClickSaveSettings = () => {
+    if (settingsName.trim() === "") {
+      alert("設定名を入力してください。");
+      return;
+    }
+
     const curSettings: ConvertSettings = {
       id: createId(),
       name: settingsName,

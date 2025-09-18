@@ -19,11 +19,11 @@ export default function SaveSettingsModal({
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-2xl shadow-lg p-6 w-80">
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">保存名を入力してください</h2>
+        <h2 className="text-lg font-semibold text-gray-800 mb-4">設定名を入力してください</h2>
 
         <input
           type="text"
-          placeholder="保存名"
+          placeholder="設定名"
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           onChange={handleChange}
         />
