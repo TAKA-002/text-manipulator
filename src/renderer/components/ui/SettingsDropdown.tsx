@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, ReactEventHandler, FocusEventHandler } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useMyContext } from "../../hooks/useMyContext";
 import { ConvertSettings } from "../../../types";
 import {
@@ -8,6 +8,7 @@ import {
   getMergedSettings,
   setLocalStorage,
 } from "../util/process";
+import SaveSettingsModal from "./SaveSettingsModal";
 
 export default function SettingsDropdown(): React.JSX.Element {
   const componentRef = useRef<HTMLDivElement | null>(null);
@@ -31,7 +32,9 @@ export default function SettingsDropdown(): React.JSX.Element {
     isConversionSpace,
     setIsConversionSpace,
   } = useMyContext();
+  const [settingsName, setSettingsName] = useState<string>("");
   const [isOpenDropdown, setIsOpenDropdown] = useState<boolean>(false);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [settingsData, setSettingsData] = useState<ConvertSettings[] | null>(null);
 
   const handleToggleDropdown = () => setIsOpenDropdown((prev) => !prev);
@@ -75,7 +78,7 @@ export default function SettingsDropdown(): React.JSX.Element {
   const handleClickSaveSettings = () => {
     const curSettings: ConvertSettings = {
       id: createId(),
-      name: "test",
+      name: settingsName,
       settings: {
         replaceObject,
         isRemoveBr,
@@ -94,9 +97,10 @@ export default function SettingsDropdown(): React.JSX.Element {
     const mergedSettings = getMergedSettings(settingsList, curSettings);
     setLocalStorage(mergedSettings);
     setSettingsData(mergedSettings);
+    setIsOpenModal(false);
   };
 
-  const handleClickResetSettings: ReactEventHandler = () => {
+  const handleClickResetSettings: React.MouseEventHandler<HTMLButtonElement> = (): void => {
     // デフォルト設定
     setReplaceObject({ from: "", to: "" });
     setIsRemoveBr(false);
@@ -110,7 +114,7 @@ export default function SettingsDropdown(): React.JSX.Element {
     setIsOpenDropdown(false);
   };
 
-  const handleClickLoadSettings = (id: string) => {
+  const handleClickLoadSettings = (id: string): void => {
     const settingsList = getSettingsList();
     if (settingsList === null) return;
 
@@ -129,7 +133,7 @@ export default function SettingsDropdown(): React.JSX.Element {
     setIsOpenDropdown(false);
   };
 
-  const handleClickDeleteSettings = (id: string) => {
+  const handleClickDeleteSettings = (id: string): void => {
     const settingsList = getSettingsList();
     if (settingsList === null) return;
 
@@ -217,13 +221,22 @@ export default function SettingsDropdown(): React.JSX.Element {
             <li>
               <button
                 className="block px-4 py-2 w-full text-left hover:bg-gray-100 text-blue-600 font-medium"
-                onClick={handleClickSaveSettings}
+                onClick={() => setIsOpenModal(true)}
               >
                 現在の設定を保存...
               </button>
             </li>
           </ul>
         </div>
+      )}
+
+      {isOpenModal && (
+        <SaveSettingsModal
+          setIsOpenDropdown={setIsOpenDropdown}
+          setIsOpenModal={setIsOpenModal}
+          setSettingsName={setSettingsName}
+          handleClickSaveSettings={handleClickSaveSettings}
+        />
       )}
     </div>
   );
