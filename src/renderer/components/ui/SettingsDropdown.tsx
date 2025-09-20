@@ -61,7 +61,18 @@ export default function SettingsDropdown(): React.JSX.Element {
   }, [isOpenDropdown]);
 
   const handleClickSaveSettings = () => {
-    saveSettings();
+    const curSettings = {
+      replaceObject,
+      isRemoveBr,
+      isRemoveSpace,
+      conversionDirection,
+      isConversionAll,
+      isConversionEng,
+      isConversionNum,
+      isConversionSymbol,
+      isConversionSpace,
+    };
+    saveSettings(curSettings);
     setIsOpenModal(false);
   };
 

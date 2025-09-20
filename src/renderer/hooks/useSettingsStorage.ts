@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { useMyContext } from "./useMyContext";
-import { ConvertSettings } from "../../types";
+import { ConvertSettings, SettingsType } from "../../types";
 import {
   formatDateTime,
   createId,
@@ -12,17 +11,6 @@ import {
 export const useSettingsStorage = () => {
   const [settingsName, setSettingsName] = useState<string>("");
   const [settingsData, setSettingsData] = useState<ConvertSettings[] | null>(null);
-  const {
-    replaceObject,
-    isRemoveBr,
-    isRemoveSpace,
-    conversionDirection,
-    isConversionAll,
-    isConversionEng,
-    isConversionNum,
-    isConversionSymbol,
-    isConversionSpace,
-  } = useMyContext();
 
   // 初期読み込み
   useEffect(() => {
@@ -35,33 +23,22 @@ export const useSettingsStorage = () => {
   }, []);
 
   // 保存
-  const saveSettings = () => {
+  const saveSettings = (curSettings: SettingsType) => {
 
     if (settingsName.trim() === "") {
       alert("設定名を入力してください。");
       return;
     }
 
-
-    const curSettings: ConvertSettings = {
+    const convertSettings: ConvertSettings = {
       id: createId(),
       name: settingsName,
-      settings: {
-        replaceObject,
-        isRemoveBr,
-        isRemoveSpace,
-        conversionDirection,
-        isConversionAll,
-        isConversionEng,
-        isConversionNum,
-        isConversionSymbol,
-        isConversionSpace,
-      },
+      settings: curSettings,
       createdAt: formatDateTime(Date.now()),
     };
 
     const settingsList = getSettingsList();
-    const mergedSettings = getMergedSettings(settingsList, curSettings);
+    const mergedSettings = getMergedSettings(settingsList, convertSettings);
     setLocalStorage(mergedSettings);
     setSettingsData(mergedSettings);
   }
