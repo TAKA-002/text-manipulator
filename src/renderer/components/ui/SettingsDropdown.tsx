@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useMyContext } from "../../hooks/useMyContext";
 import { ConvertSettings } from "../../../types";
 import { useSettingsStorage } from "../../hooks/useSettingsStorage";
-import { getSettingsList, setLocalStorage } from "../util/process";
+import { getSettingsList } from "../util/process";
 import SaveSettingsModal from "./SaveSettingsModal";
 
 export default function SettingsDropdown(): React.JSX.Element {
@@ -29,7 +29,7 @@ export default function SettingsDropdown(): React.JSX.Element {
   } = useMyContext();
   const [isOpenDropdown, setIsOpenDropdown] = useState<boolean>(false);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const { settingsData, setSettingsData, saveSettings, setSettingsName } = useSettingsStorage();
+  const { settingsData, saveSettings, setSettingsName, deleteSettings } = useSettingsStorage();
 
   const handleToggleDropdown = () => setIsOpenDropdown((prev) => !prev);
 
@@ -109,16 +109,6 @@ export default function SettingsDropdown(): React.JSX.Element {
     setIsOpenDropdown(false);
   };
 
-  const handleClickDeleteSettings = (id: string): void => {
-    const settingsList = getSettingsList();
-    if (settingsList === null) return;
-
-    const parsedData = JSON.parse(settingsList);
-    const deletedData = parsedData.filter((data: ConvertSettings) => data.id !== id);
-    setLocalStorage(deletedData);
-    setSettingsData(deletedData);
-  };
-
   return (
     <div ref={componentRef} className="relative">
       <button
@@ -171,7 +161,7 @@ export default function SettingsDropdown(): React.JSX.Element {
                     </button>
                     <button
                       className="px-2 py-2 text-red-500 hover:bg-red-100 rounded"
-                      onClick={() => handleClickDeleteSettings(id)}
+                      onClick={() => deleteSettings(id)}
                     >
                       <svg
                         className="w-4 h-4"

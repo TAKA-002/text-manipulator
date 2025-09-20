@@ -22,8 +22,7 @@ export const useSettingsStorage = () => {
     }
   }, []);
 
-  // 保存
-  const saveSettings = (curSettings: SettingsType) => {
+  const saveSettings = (curSettings: SettingsType): void => {
 
     if (settingsName.trim() === "") {
       alert("設定名を入力してください。");
@@ -43,5 +42,15 @@ export const useSettingsStorage = () => {
     setSettingsData(mergedSettings);
   }
 
-  return { settingsData, setSettingsData, saveSettings, setSettingsName }
+  const deleteSettings = (id: string): void => {
+    const settingsList = getSettingsList();
+    if (settingsList === null) return;
+
+    const parsedData = JSON.parse(settingsList);
+    const deletedData = parsedData.filter((data: ConvertSettings) => data.id !== id);
+    setLocalStorage(deletedData);
+    setSettingsData(deletedData);
+  }
+
+  return { settingsData, saveSettings, setSettingsName, deleteSettings }
 }
