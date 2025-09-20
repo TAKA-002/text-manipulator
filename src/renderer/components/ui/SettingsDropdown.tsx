@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useMyContext } from "../../hooks/useMyContext";
 import { ConvertSettings } from "../../../types";
+import { useSettingsStorage } from "../../hooks/useSettingsStorage";
 import {
   formatDateTime,
   createId,
@@ -35,7 +36,7 @@ export default function SettingsDropdown(): React.JSX.Element {
   const [settingsName, setSettingsName] = useState<string>("");
   const [isOpenDropdown, setIsOpenDropdown] = useState<boolean>(false);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const [settingsData, setSettingsData] = useState<ConvertSettings[] | null>(null);
+  const { settingsData, setSettingsData } = useSettingsStorage();
 
   const handleToggleDropdown = () => setIsOpenDropdown((prev) => !prev);
 
@@ -65,15 +66,6 @@ export default function SettingsDropdown(): React.JSX.Element {
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpenDropdown]);
-
-  useEffect(() => {
-    const settingsList = getSettingsList();
-
-    if (settingsList !== null) {
-      const listData = JSON.parse(settingsList);
-      setSettingsData(listData);
-    }
-  }, []);
 
   const handleClickSaveSettings = () => {
     if (settingsName.trim() === "") {
