@@ -2,13 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useMyContext } from "../../hooks/useMyContext";
 import { ConvertSettings } from "../../../types";
 import { useSettingsStorage } from "../../hooks/useSettingsStorage";
-import {
-  formatDateTime,
-  createId,
-  getSettingsList,
-  getMergedSettings,
-  setLocalStorage,
-} from "../util/process";
+import { getSettingsList, setLocalStorage } from "../util/process";
 import SaveSettingsModal from "./SaveSettingsModal";
 
 export default function SettingsDropdown(): React.JSX.Element {
@@ -33,10 +27,9 @@ export default function SettingsDropdown(): React.JSX.Element {
     isConversionSpace,
     setIsConversionSpace,
   } = useMyContext();
-  const [settingsName, setSettingsName] = useState<string>("");
   const [isOpenDropdown, setIsOpenDropdown] = useState<boolean>(false);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const { settingsData, setSettingsData } = useSettingsStorage();
+  const { settingsData, setSettingsData, saveSettings, setSettingsName } = useSettingsStorage();
 
   const handleToggleDropdown = () => setIsOpenDropdown((prev) => !prev);
 
@@ -68,32 +61,7 @@ export default function SettingsDropdown(): React.JSX.Element {
   }, [isOpenDropdown]);
 
   const handleClickSaveSettings = () => {
-    if (settingsName.trim() === "") {
-      alert("設定名を入力してください。");
-      return;
-    }
-
-    const curSettings: ConvertSettings = {
-      id: createId(),
-      name: settingsName,
-      settings: {
-        replaceObject,
-        isRemoveBr,
-        isRemoveSpace,
-        conversionDirection,
-        isConversionAll,
-        isConversionEng,
-        isConversionNum,
-        isConversionSymbol,
-        isConversionSpace,
-      },
-      createdAt: formatDateTime(Date.now()),
-    };
-
-    const settingsList = getSettingsList();
-    const mergedSettings = getMergedSettings(settingsList, curSettings);
-    setLocalStorage(mergedSettings);
-    setSettingsData(mergedSettings);
+    saveSettings();
     setIsOpenModal(false);
   };
 
