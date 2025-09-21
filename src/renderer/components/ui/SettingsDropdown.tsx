@@ -43,7 +43,7 @@ export default function SettingsDropdown(): React.JSX.Element {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpenDropdown]);
 
-  const handleClickSaveSettings = () => {
+  const clickSaveSettings = (): void => {
     saveSettings({
       replaceObject: myContext.replaceObject,
       isRemoveBr: myContext.isRemoveBr,
@@ -165,7 +165,7 @@ export default function SettingsDropdown(): React.JSX.Element {
           setIsOpenDropdown={setIsOpenDropdown}
           setIsOpenModal={setIsOpenModal}
           setSettingsName={setSettingsName}
-          handleClickSaveSettings={handleClickSaveSettings}
+          clickSaveSettings={clickSaveSettings}
         />
       )}
     </div>
