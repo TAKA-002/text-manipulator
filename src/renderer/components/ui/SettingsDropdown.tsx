@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useMyContext } from "../../hooks/useMyContext";
 import { ConvertSettings } from "../../../types";
 import { useSettingsStorage } from "../../hooks/useSettingsStorage";
+import { useSettingsRestore } from "../../hooks/useSettingsRestore";
 import { getSettingsList } from "../util/process";
 import SaveSettingsModal from "./SaveSettingsModal";
 
@@ -11,6 +12,7 @@ export default function SettingsDropdown(): React.JSX.Element {
   const [isOpenDropdown, setIsOpenDropdown] = useState<boolean>(false);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const { settingsData, saveSettings, setSettingsName, deleteSettings } = useSettingsStorage();
+  const { restoreSettings, resetToDefaultSettings } = useSettingsRestore();
 
   const handleToggleDropdown = () => setIsOpenDropdown((prev) => !prev);
 
@@ -42,7 +44,7 @@ export default function SettingsDropdown(): React.JSX.Element {
   }, [isOpenDropdown]);
 
   const handleClickSaveSettings = () => {
-    const curSettings = {
+    saveSettings({
       replaceObject: myContext.replaceObject,
       isRemoveBr: myContext.isRemoveBr,
       isRemoveSpace: myContext.isRemoveSpace,
@@ -52,22 +54,12 @@ export default function SettingsDropdown(): React.JSX.Element {
       isConversionNum: myContext.isConversionNum,
       isConversionSymbol: myContext.isConversionSymbol,
       isConversionSpace: myContext.isConversionSpace,
-    };
-    saveSettings(curSettings);
+    });
     setIsOpenModal(false);
   };
 
   const handleClickResetSettings: React.MouseEventHandler<HTMLButtonElement> = (): void => {
-    // デフォルト設定
-    myContext.setReplaceObject({ from: "", to: "" });
-    myContext.setIsRemoveBr(false);
-    myContext.setIsRemoveSpace(false);
-    myContext.setConversionDirection("fullToHalf");
-    myContext.setIsConversionAll(false);
-    myContext.setIsConversionEng(false);
-    myContext.setIsConversionNum(false);
-    myContext.setIsConversionSymbol(false);
-    myContext.setIsConversionSpace(false);
+    resetToDefaultSettings();
     setIsOpenDropdown(false);
   };
 
@@ -77,16 +69,7 @@ export default function SettingsDropdown(): React.JSX.Element {
 
     const parsedData = JSON.parse(settingsList);
     const { settings } = parsedData.find((data: ConvertSettings) => data.id === id);
-
-    myContext.setReplaceObject(settings.replaceObject);
-    myContext.setIsRemoveBr(settings.isRemoveBr);
-    myContext.setIsRemoveSpace(settings.isRemoveSpace);
-    myContext.setConversionDirection(settings.conversionDirection);
-    myContext.setIsConversionAll(settings.isConversionAll);
-    myContext.setIsConversionEng(settings.isConversionEng);
-    myContext.setIsConversionNum(settings.isConversionNum);
-    myContext.setIsConversionSymbol(settings.isConversionSymbol);
-    myContext.setIsConversionSpace(settings.isConversionSpace);
+    restoreSettings(settings);
     setIsOpenDropdown(false);
   };
 
