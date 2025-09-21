@@ -1,22 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useMyContext } from "../../hooks/useMyContext";
+import { ConvertSettings } from "../../../types";
+import { useSettingsStorage } from "../../hooks/useSettingsStorage";
+import { useSettingsRestore } from "../../hooks/useSettingsRestore";
+import { getSettingsList } from "../util/process";
+import SaveSettingsModal from "./SaveSettingsModal";
 
 export default function SettingsDropdown(): React.JSX.Element {
   const componentRef = useRef<HTMLDivElement | null>(null);
-  const {
-    setReplaceObject,
-    setIsRemoveBr,
-    setIsRemoveSpace,
-    setConversionDirection,
-    setIsConversionAll,
-    setIsConversionEng,
-    setIsConversionNum,
-    setIsConversionSymbol,
-    setIsConversionSpace,
-  } = useMyContext();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const myContext = useMyContext();
+  const [isOpenDropdown, setIsOpenDropdown] = useState<boolean>(false);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const { settingsData, saveSettings, setSettingsName, deleteSettings } = useSettingsStorage();
+  const { restoreSettings, resetToDefaultSettings } = useSettingsRestore();
 
-  const handleToggleDropdown = () => setIsOpen((prev) => !prev);
+  const handleToggleDropdown = () => setIsOpenDropdown((prev) => !prev);
 
   /**
    * React がレンダリングを完了してブラウザに描画した後のタイミング
@@ -32,31 +30,47 @@ export default function SettingsDropdown(): React.JSX.Element {
        * refの要素が存在 && refの要素の子要素にクリックした要素が存在していない => refの要素の外側の要素
        */
       if (componentRef.current && !componentRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
+        setIsOpenDropdown(false);
       }
     };
 
     // ドロップダウンが開いているときだけ登録
-    if (isOpen) {
+    if (isOpenDropdown) {
       // documentの中でマウスをクリックした場合にそのeventを引数に持ってhandleClickOutsideが実行
       document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen]);
+  }, [isOpenDropdown]);
 
-  // デフォルト設定
-  const resetSettings = () => {
-    setReplaceObject({ from: "", to: "" });
-    setIsRemoveBr(false);
-    setIsRemoveSpace(false);
-    setConversionDirection("fullToHalf");
-    setIsConversionAll(false);
-    setIsConversionEng(false);
-    setIsConversionNum(false);
-    setIsConversionSymbol(false);
-    setIsConversionSpace(false);
-    setIsOpen(false);
+  const clickSaveSettings = (): void => {
+    saveSettings({
+      replaceObject: myContext.replaceObject,
+      isRemoveBr: myContext.isRemoveBr,
+      isRemoveSpace: myContext.isRemoveSpace,
+      conversionDirection: myContext.conversionDirection,
+      isConversionAll: myContext.isConversionAll,
+      isConversionEng: myContext.isConversionEng,
+      isConversionNum: myContext.isConversionNum,
+      isConversionSymbol: myContext.isConversionSymbol,
+      isConversionSpace: myContext.isConversionSpace,
+    });
+    setIsOpenModal(false);
+  };
+
+  const handleClickResetSettings: React.MouseEventHandler<HTMLButtonElement> = (): void => {
+    resetToDefaultSettings();
+    setIsOpenDropdown(false);
+  };
+
+  const handleClickLoadSettings = (id: string): void => {
+    const settingsList = getSettingsList();
+    if (settingsList === null) return;
+
+    const parsedData = JSON.parse(settingsList);
+    const { settings } = parsedData.find((data: ConvertSettings) => data.id === id);
+    restoreSettings(settings);
+    setIsOpenDropdown(false);
   };
 
   return (
@@ -84,35 +98,75 @@ export default function SettingsDropdown(): React.JSX.Element {
         </svg>
       </button>
 
-      {isOpen && (
+      {isOpenDropdown && (
         <div className="z-10 absolute bg-white mt-2 divide-y divide-gray-100 rounded shadow-lg w-48 border">
           <ul className="py-2 text-sm text-gray-700">
             <li>
               <button
                 className="block px-4 py-2 w-full text-left hover:bg-gray-100"
-                onClick={resetSettings}
+                onClick={handleClickResetSettings}
               >
                 デフォルト設定
               </button>
             </li>
-            {/* <li>
-              <button className="block px-4 py-2 w-full text-left hover:bg-gray-100">
-                コーディング用
-              </button>
-            </li>
-            <li>
-              <button className="block px-4 py-2 w-full text-left hover:bg-gray-100">
-                文書整形用
-              </button>
-            </li> */}
+
+            {settingsData &&
+              settingsData.map((li) => {
+                const { id, name } = li;
+
+                return (
+                  <li key={id} className="flex items-center">
+                    <button
+                      id={id}
+                      className="flex-1 block px-4 py-2 text-left hover:bg-gray-100"
+                      onClick={() => handleClickLoadSettings(id)}
+                    >
+                      {name}
+                    </button>
+                    <button
+                      className="px-2 py-2 text-red-500 hover:bg-red-100 rounded"
+                      onClick={() => deleteSettings(id)}
+                    >
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                  </li>
+                );
+              })}
+
             <hr className="my-1" />
+
             <li>
-              <button className="block px-4 py-2 w-full text-left hover:bg-gray-100 text-blue-600 font-medium">
+              <button
+                className="block px-4 py-2 w-full text-left hover:bg-gray-100 text-blue-600 font-medium"
+                onClick={() => setIsOpenModal(true)}
+              >
                 現在の設定を保存...
               </button>
             </li>
           </ul>
         </div>
+      )}
+
+      {isOpenModal && (
+        <SaveSettingsModal
+          setIsOpenDropdown={setIsOpenDropdown}
+          setIsOpenModal={setIsOpenModal}
+          setSettingsName={setSettingsName}
+          clickSaveSettings={clickSaveSettings}
+        />
       )}
     </div>
   );
