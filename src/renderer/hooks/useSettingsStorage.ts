@@ -41,12 +41,12 @@ export const useSettingsStorage = () => {
   }
 
   const deleteSettings = (id: string): void => {
-    const data = getSettingsListFromStorage()
-    if (!data) return;
+    const storageData = getSettingsListFromStorage()
+    if (!storageData) return;
 
-    const deletedData = data.filter((d: ConvertSettings) => d.id !== id);
-    setLocalStorage(deletedData);
-    setSettingsData(deletedData);
+    const deletedSettings = storageData.filter((data: ConvertSettings) => data.id !== id);
+    setLocalStorage(deletedSettings);
+    setSettingsData(deletedSettings);
   }
 
   return { settingsData, saveSettings, setSettingsName, deleteSettings }
