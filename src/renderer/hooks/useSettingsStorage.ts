@@ -18,7 +18,6 @@ export const useSettingsStorage = () => {
     return JSON.parse(settingsList)
   }
 
-  // 初期読み込み
   useEffect(() => {
     const storageData = getSettingsListFromStorage()
     if (storageData) setSettingsData(storageData);
