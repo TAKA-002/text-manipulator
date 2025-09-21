@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 export default function SaveSettingsModal({
   setIsOpenDropdown,
@@ -11,6 +11,14 @@ export default function SaveSettingsModal({
   setSettingsName: React.Dispatch<React.SetStateAction<string>>;
   handleClickSaveSettings: React.MouseEventHandler;
 }): React.JSX.Element {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     const name = event.target.value;
     setSettingsName(name);
@@ -22,6 +30,7 @@ export default function SaveSettingsModal({
         <h2 className="text-lg font-semibold text-gray-800 mb-4">設定名を入力してください</h2>
 
         <input
+          ref={inputRef}
           type="text"
           placeholder="設定名"
           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
