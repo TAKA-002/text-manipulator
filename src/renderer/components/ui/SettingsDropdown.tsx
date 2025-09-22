@@ -79,6 +79,7 @@ export default function SettingsDropdown(): React.JSX.Element {
         type="button"
         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded text-sm px-5 py-2.5 text-center inline-flex items-center"
         onClick={handleToggleDropdown}
+        tabIndex={2}
       >
         設定管理
         <svg
@@ -105,6 +106,7 @@ export default function SettingsDropdown(): React.JSX.Element {
               <button
                 className="block px-4 py-2 w-full text-left hover:bg-gray-100"
                 onClick={handleClickResetSettings}
+                tabIndex={2}
               >
                 デフォルト設定
               </button>
@@ -120,6 +122,7 @@ export default function SettingsDropdown(): React.JSX.Element {
                       id={id}
                       className="flex-1 block px-4 py-2 text-left hover:bg-gray-100"
                       onClick={() => handleClickLoadSettings(id)}
+                      tabIndex={2}
                     >
                       {name}
                     </button>
@@ -152,6 +155,7 @@ export default function SettingsDropdown(): React.JSX.Element {
               <button
                 className="block px-4 py-2 w-full text-left hover:bg-gray-100 text-blue-600 font-medium"
                 onClick={() => setIsOpenModal(true)}
+                tabIndex={2}
               >
                 現在の設定を保存...
               </button>
