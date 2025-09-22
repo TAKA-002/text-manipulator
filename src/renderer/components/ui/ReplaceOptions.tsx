@@ -30,7 +30,7 @@ export default function ReplaceOptions(): React.JSX.Element {
           placeholder="※対象"
           value={replaceObject.from}
           onChange={handleReplaceObjectChange}
-          tabIndex={2}
+          tabIndex={3}
         />
         <span className="w-2/12 text-center">⇒</span>
         <input
@@ -40,7 +40,7 @@ export default function ReplaceOptions(): React.JSX.Element {
           placeholder="※置換後"
           value={replaceObject.to}
           onChange={handleReplaceObjectChange}
-          tabIndex={2}
+          tabIndex={3}
         />
       </div>
     </div>

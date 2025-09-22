@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 
 import InputArea from "./ui/InputArea";
+import SettingsDropdown from "./ui/SettingsDropdown";
 import RemoveOptions from "./ui/RemoveOptions";
 import ConversionOptions from "./ui/ConversionOptions";
 import ConversionButtons from "./ui/ConversionButtons";
 import OutputArea from "./ui/OutputArea";
-import CopyButton from "./ui/CopyButton";
-import ClearButton from "./ui/ClearButton";
+import ActionButton from "./ui/ActionButton";
 import ReplaceOptions from "./ui/ReplaceOptions";
 import { moveFocusToInit } from "./util/operation";
 
@@ -20,6 +20,7 @@ export function Container(): React.JSX.Element {
       <div className="flex flex-col md:flex-row gap-6">
         <div className="w-full md:w-1/2 space-y-6">
           <InputArea />
+          <SettingsDropdown />
           <ReplaceOptions />
           <RemoveOptions />
           <ConversionButtons />
@@ -27,8 +28,13 @@ export function Container(): React.JSX.Element {
         </div>
         <div className="w-full md:w-1/2 space-y-6">
           <OutputArea />
-          <CopyButton />
-          <ClearButton />
+          <ActionButton type="copyBtn" text="コピー" shortcut="Shift + Enter" tabIndex={5} />
+          <ActionButton
+            type="clearBtn"
+            text="入力エリアクリア"
+            shortcut="Shift + BS"
+            tabIndex={5}
+          />
         </div>
       </div>
     </div>
