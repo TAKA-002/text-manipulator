@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import Toast from "./ui/Toast";
 import Header from "./Header";
+import SubHeader from "./SubHeader";
 import Version from "./Version";
 import About from "./About";
 import Container from "./Container";
@@ -235,8 +236,10 @@ export function App() {
     >
       <Toast isToast={isToast} toastKind={toastKind} />
       <Header />
-      <Version />
-      <About />
+      <SubHeader>
+        <Version />
+        <About />
+      </SubHeader>
       <Container />
       <Footer />
     </MyContext.Provider>
