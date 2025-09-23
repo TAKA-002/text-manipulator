@@ -1,5 +1,5 @@
 import React from "react";
-const icon = require("../images/m_icon.png");
+const icon = require("../../images/m_icon.png");
 
 export default function Footer(): React.JSX.Element {
   return (

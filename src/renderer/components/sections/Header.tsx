@@ -1,6 +1,5 @@
 import React from "react";
-import Version from "./Version";
-const icon = require("../images/m_icon.png");
+const icon = require("../../images/m_icon.png");
 
 export default function Header(): React.JSX.Element {
   return (
