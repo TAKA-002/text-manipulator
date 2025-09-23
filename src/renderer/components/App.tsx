@@ -1,11 +1,11 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
-import Toast from "./ui/Toast";
-import Header from "./Header";
-import { FlexContainer as SubHeader } from "./layout/FlexContainer";
-import Version from "./Version";
-import About from "./About";
 import Container from "./Container";
-import Footer from "./Footer";
+import { FlexContainer as SubHeader } from "./layout/FlexContainer";
+import Header from "./sections/Header";
+import Footer from "./sections/Footer";
+import Toast from "./ui/Toast";
+import Version from "./ui/Version";
+import About from "./ui/About";
 import {
   convertFullWidthToHalfWidth,
   convertHalfWidthToFullWidth,
