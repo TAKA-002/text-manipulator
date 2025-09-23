@@ -1,9 +1,9 @@
 import React from "react";
 
-type SubHeaderProps = {
+type FlexContainerProps = {
   children: React.ReactNode;
 };
 
-export default function SubHeader({ children }: SubHeaderProps) {
+export function FlexContainer({ children }: FlexContainerProps) {
   return <div className="flex items-center justify-center gap-4">{children}</div>;
 }

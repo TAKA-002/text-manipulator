@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import Toast from "./ui/Toast";
 import Header from "./Header";
-import SubHeader from "./SubHeader";
+import { FlexContainer as SubHeader } from "./layout/FlexContainer";
 import Version from "./Version";
 import About from "./About";
 import Container from "./Container";
