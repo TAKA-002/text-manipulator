@@ -7,7 +7,33 @@ type AboutModalProps = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+const getPlatformStorageInfo = () => {
+  /**
+   * Electronかどうかの判定
+   *
+   * web ブラウザにも、electron環境にもwindowはあるので、window判定だけでは不十分。
+   * window.processは、electronのブラウザ+node.jsの環境にしかないので、その存在を確認して判定
+   */
+  const isElectron = typeof window !== "undefined" && window.process && window.process.type;
+
+  if (isElectron) {
+    return {
+      platform: "デスクトップアプリ版",
+      storage: "お使いのPCの専用フォルダ内にのみ保存されます",
+      exam: "例：/Users/[ユーザー名]/Library/Application Support/Text Manipulator/",
+    };
+  } else {
+    return {
+      platform: "Webアプリ版",
+      storage: "お使いのブラウザ内のローカルストレージという機能にのみ保存されます",
+      exam: "",
+    };
+  }
+};
+
 export default function AboutModal({ setIsOpen }: AboutModalProps): React.JSX.Element {
+  const storageInfo = getPlatformStorageInfo();
+
   return (
     <div
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
@@ -47,8 +73,12 @@ export default function AboutModal({ setIsOpen }: AboutModalProps): React.JSX.El
               外部に送信されず、ブラウザ内のみで処理され、保存されません
             </li>
             <li>
-              <strong>設定保存機能:</strong>{" "}
-              お使いのブラウザ内のローカルストレージという機能にのみ保存されます
+              <strong>
+                設定保存機能:
+                <br /> {storageInfo.platform}
+              </strong>{" "}
+              {storageInfo.storage}
+              {storageInfo.exam && `（${storageInfo.exam}）`}
             </li>
             <li>
               <strong>サーバー送信:</strong> 使用に際してサーバーとの通信は行われません
