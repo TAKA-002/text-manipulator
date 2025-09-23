@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
-import { Heading } from "./heading";
+import { Header } from "./Header";
 import { Version } from "./version";
 import { Container } from "./Container";
 import {
@@ -233,7 +233,7 @@ export function App() {
       }}
     >
       <Toast isToast={isToast} toastKind={toastKind} />
-      <Heading />
+      <Header />
       <Version />
       <Container />
       <Footer />
