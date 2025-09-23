@@ -4,8 +4,8 @@ import { FlexContainer as SubHeader } from "./layout/FlexContainer";
 import Header from "./sections/Header";
 import Footer from "./sections/Footer";
 import Toast from "./ui/Toast";
-import Version from "./ui/Version";
-import About from "./ui/About";
+import Version from "./sections/Version";
+import About from "./sections/About";
 import {
   convertFullWidthToHalfWidth,
   convertHalfWidthToFullWidth,
