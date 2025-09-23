@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import { Header } from "./Header";
-import { Version } from "./version";
+import { Version } from "./Version";
 import { Container } from "./Container";
 import {
   convertFullWidthToHalfWidth,
