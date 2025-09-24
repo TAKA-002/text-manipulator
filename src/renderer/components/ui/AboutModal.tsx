@@ -1,6 +1,6 @@
 import React from "react";
 import { X, Lock, MonitorSmartphone } from "lucide-react";
-import { APP_VERSION } from "../util/constants";
+import { APP_VERSION, LATEST_UPDATE_DAY } from "../util/constants";
 const icon = require("../../images/m_icon.png");
 
 type AboutModalProps = {
@@ -95,6 +95,9 @@ export default function AboutModal({ setIsOpen }: AboutModalProps): React.JSX.El
           <ul className="space-y-4 text-sm text-gray-600">
             <li className="mt-4">
               <strong>バージョン:</strong> ver {APP_VERSION}
+            </li>
+            <li>
+              <strong>最新アップデート:</strong> {LATEST_UPDATE_DAY}
             </li>
             <li>
               <strong>機能:</strong> テキストの全角半角変換、改行・スペース削除、文字置換、設定保存
