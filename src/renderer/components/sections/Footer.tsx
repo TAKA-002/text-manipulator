@@ -1,7 +1,7 @@
 import React from "react";
-const icon = require("../images/m_icon.png");
+const icon = require("../../images/m_icon.png");
 
-export function Footer(): React.JSX.Element {
+export default function Footer(): React.JSX.Element {
   return (
     <footer className="flex items-center justify-center gap-3 mt-12 py-3 bg-neutral-300 text-stone-500">
       <figure className="aspect-square max-w-[min(3.7vw,28px)] h-full">

@@ -10,7 +10,7 @@ import ActionButton from "./ui/ActionButton";
 import ReplaceOptions from "./ui/ReplaceOptions";
 import { moveFocusToInit } from "./util/operation";
 
-export function Container(): React.JSX.Element {
+export default function Container(): React.JSX.Element {
   useEffect(() => {
     moveFocusToInit();
   }, []);
