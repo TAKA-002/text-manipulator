@@ -1,7 +1,11 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
-import { Heading } from "./heading";
-import { Version } from "./version";
-import { Container } from "./Container";
+import Container from "./Container";
+import { FlexContainer as SubHeader } from "./layout/FlexContainer";
+import Header from "./sections/Header";
+import Footer from "./sections/Footer";
+import Toast from "./ui/Toast";
+import Version from "./sections/Version";
+import About from "./sections/About";
 import {
   convertFullWidthToHalfWidth,
   convertHalfWidthToFullWidth,
@@ -11,8 +15,6 @@ import {
 } from "./util/process";
 import { moveFocusToInit } from "./util/operation";
 import { TYPING_DONE_INTERVAL } from "./util/constants";
-import Toast from "./ui/Toast";
-import { Footer } from "./footer";
 import { ReplaceObjectType, DirectionType, ToastKindType } from "../../types";
 
 type MyContextType = {
@@ -233,8 +235,11 @@ export function App() {
       }}
     >
       <Toast isToast={isToast} toastKind={toastKind} />
-      <Heading />
-      <Version />
+      <Header />
+      <SubHeader>
+        <Version />
+        <About />
+      </SubHeader>
       <Container />
       <Footer />
     </MyContext.Provider>
