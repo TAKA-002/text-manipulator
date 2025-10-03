@@ -1,4 +1,4 @@
-import { performReplace } from "./process";
+import { performReplace, formatDateTime } from "./process";
 
 describe("文字列置換", () => {
   const FROM = "4";
@@ -39,4 +39,21 @@ describe("文字列置換", () => {
 
     expect(actual).toBe(expected);
   });
+});
+
+describe("タイムスタンプフォーマットテスト", () => {
+  type timestampFormatTestcaseType = { timestamp: number, expected: string };
+  const testcase: Array<timestampFormatTestcaseType> = [
+    { timestamp: 1519211809934, expected: "2018-02-21 20:16:49" },
+    { timestamp: 1319333810454, expected: "2011-10-23 10:36:50" },
+    { timestamp: 1231151515015, expected: "2009-01-05 19:31:55" },
+    { timestamp: 1759478162000, expected: "2025-10-03 16:56:02" }
+  ];
+  
+  it.each(testcase)(
+    "timestamp=$timestamp, expected=$expected",
+    ({ timestamp, expected }) => {
+      const actual = formatDateTime(timestamp);
+      expect(actual).toBe(expected);
+    })
 });
