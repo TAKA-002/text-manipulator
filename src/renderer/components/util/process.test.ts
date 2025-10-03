@@ -1,4 +1,4 @@
-import { performReplace } from "../../util/process";
+import { performReplace } from "./process";
 
 describe("文字列置換", () => {
   const FROM = "4";
