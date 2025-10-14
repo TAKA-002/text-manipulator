@@ -1,129 +1,52 @@
 type BreaksAndSpacesRemoveCaseType = {
   subject: string,
+  input: string,
   isRemoveBr: boolean | undefined,
   isRemoveSpace: boolean | undefined,
-  isToBeExpected: boolean
+  expected: string,
 };
-
-export const breaksRemoveCases: BreaksAndSpacesRemoveCaseType[] = [
-  {
-    subject: "CRLF削除 期待値になる",
-    isRemoveBr: true,
-    isRemoveSpace: true,
-    isToBeExpected: true,
-  },
-  {
-    subject: "CRLF削除 期待値になる",
-    isRemoveBr: true,
-    isRemoveSpace: false,
-    isToBeExpected: true,
-  },
-  {
-    subject: "CRLF削除 期待値になる",
-    isRemoveBr: true,
-    isRemoveSpace: undefined,
-    isToBeExpected: true,
-  },
-  {
-    subject: "CRLF削除 期待値になる",
-    isRemoveBr: undefined,
-    isRemoveSpace: true,
-    isToBeExpected: true,
-  },
-  {
-    subject: "CRLF削除 期待値にならない",
-    isRemoveBr: false,
-    isRemoveSpace: true,
-    isToBeExpected: false,
-  },
-  {
-    subject: "CRLF削除 期待値にならない",
-    isRemoveBr: false,
-    isRemoveSpace: false,
-    isToBeExpected: false,
-  },
-  {
-    subject: "CRLF削除 期待値にならない",
-    isRemoveBr: false,
-    isRemoveSpace: undefined,
-    isToBeExpected: false
-  },
-];
-
-export const spacesRemoveCases: BreaksAndSpacesRemoveCaseType[] = [
-  {
-    subject: "全角半角スペース削除 期待値になる",
-    isRemoveBr: true,
-    isRemoveSpace: true,
-    isToBeExpected: true
-  },
-  {
-    subject: "全角半角スペース削除 期待値になる",
-    isRemoveBr: false,
-    isRemoveSpace: true,
-    isToBeExpected: true
-  },
-  {
-    subject: "全角半角スペース削除 期待値になる",
-    isRemoveBr: undefined,
-    isRemoveSpace: true,
-    isToBeExpected: true
-  },
-  {
-    subject: "全角半角スペース削除 期待値になる",
-    isRemoveBr: undefined,
-    isRemoveSpace: undefined,
-    isToBeExpected: true
-  },
-  {
-    subject: "全角半角スペース削除 期待値にならない",
-    isRemoveBr: true,
-    isRemoveSpace: false,
-    isToBeExpected: false,
-  },
-  {
-    subject: "全角半角スペース削除 期待値にならない",
-    isRemoveBr: false,
-    isRemoveSpace: false,
-    isToBeExpected: false,
-  },
-  {
-    subject: "全角半角スペース削除 期待値にならない",
-    isRemoveBr: undefined,
-    isRemoveSpace: false,
-    isToBeExpected: false,
-  },
-];
 
 export const breaksAndSpacesRemoveCases: BreaksAndSpacesRemoveCaseType[] = [
   {
-    subject: "改行・全角半角スペース削除 期待値になる",
+    subject: "isRemoveBr=true, isRemoveSpace=trueの場合、全角半角スペース、CRLF改行すべて削除",
+    input: "\r＄おyワ\n\n\rと C春T　uヌ",
     isRemoveBr: true,
     isRemoveSpace: true,
-    isToBeExpected: true
+    expected: "＄おyワとC春Tuヌ",
   },
   {
-    subject: "改行・全角半角スペース削除 期待値になる",
+    subject: "isRemoveBr=false, isRemoveSpace=trueの場合、全角半角スペースのみ削除",
+    input: "\r＄おyワ\n\n\rと C春T　uヌ",
+    isRemoveBr: false,
+    isRemoveSpace: true,
+    expected: "\r＄おyワ\n\n\rとC春Tuヌ",
+  },
+  {
+    subject: "isRemoveBr=true, isRemoveSpace=falseの場合、CRLF改行だけ削除",
+    input: "\r＄おyワ\n\n\rと C春T　uヌ",
+    isRemoveBr: true,
+    isRemoveSpace: false,
+    expected: "＄おyワと C春T　uヌ",
+  },
+  {
+    subject: "isRemoveBr=false, isRemoveSpace=falseの場合、入力値のまま",
+    input: "\r＄おyワ\n\n\rと C春T　uヌ",
+    isRemoveBr: false,
+    isRemoveSpace: false,
+    expected: "\r＄おyワ\n\n\rと C春T　uヌ",
+  },
+  {
+    subject: "isRemoveBr=デフォルト値, isRemoveSpace=trueの場合、全角半角スペース、CRLF改行すべて削除",
+    input: "\r＄おyワ\n\n\rと C春T　uヌ",
     isRemoveBr: undefined,
-    isRemoveSpace: undefined,
-    isToBeExpected: true
-  },
-  {
-    subject: "改行・全角半角スペース削除 期待値にならない",
-    isRemoveBr: false,
     isRemoveSpace: true,
-    isToBeExpected: false
+    expected: "＄おyワとC春Tuヌ",
   },
   {
-    subject: "改行・全角半角スペース削除 期待値にならない",
-    isRemoveBr: false,
-    isRemoveSpace: false,
-    isToBeExpected: false
-  },
-  {
-    subject: "改行・全角半角スペース削除 期待値にならない",
+    subject: "isRemoveBr=true, isRemoveSpace=デフォルト値の場合、全角半角スペース、CRLF改行すべて削除",
+    input: "\r＄おyワ\n\n\rと C春T　uヌ",
     isRemoveBr: true,
-    isRemoveSpace: false,
-    isToBeExpected: false
+    isRemoveSpace: undefined,
+    expected: "＄おyワとC春Tuヌ",
   },
 ];

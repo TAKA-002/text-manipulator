@@ -1,5 +1,5 @@
 import { performReplace, formatDateTime, removeLineBreaksAndSpaces } from "../process";
-import { breaksRemoveCases, spacesRemoveCases, breaksAndSpacesRemoveCases } from "./process.testcase"
+import { breaksAndSpacesRemoveCases } from "./process.testcase"
 
 //
 // ===== 文字列置換テスト =====
@@ -56,64 +56,13 @@ describe("タイムスタンプフォーマットテスト", () => {
 // ===== 改行、スペース削除テスト =====
 //
 describe("改行、スペース削除テスト", () => {
-
-  it.each(breaksRemoveCases)("$subject -> 【設定】改行削除:$isRemoveBr, スペース削除:$isRemoveSpace", ({
+  it.each(breaksAndSpacesRemoveCases)("$subject", ({
+    input,
     isRemoveBr,
     isRemoveSpace,
-    isToBeExpected
+    expected
   }) => {
-    const testIO: { input: string, output: string } = {
-      input: "MやなANﾙやサp\rんｦｦケおテりb＜2＋ｿﾐかシ新j×\nモみﾜロ）。へ外テｸ前らﾏ、ふか日【ちﾘ3【ｸ",
-      output: "MやなANﾙやサpんｦｦケおテりb＜2＋ｿﾐかシ新j×モみﾜロ）。へ外テｸ前らﾏ、ふか日【ちﾘ3【ｸ",
-    }
-
-    const actual = removeLineBreaksAndSpaces(testIO.input, isRemoveBr, isRemoveSpace);
-
-    if (isToBeExpected) {
-      expect(actual).toBe(testIO.output);
-    }
-    else {
-      expect(actual).not.toBe(testIO.output);
-    }
-  });
-
-  it.each(spacesRemoveCases)("$subject -> 【設定】改行削除:$isRemoveBr, スペース削除:$isRemoveSpace", ({
-    isRemoveBr,
-    isRemoveSpace,
-    isToBeExpected
-  }) => {
-    const testIO: { input: string, output: string } = {
-      input: "ﾁﾃﾓは 8ナ木ｳｹ＋んさこAト ひほXIAきZよ】cつQれNナ上チﾕqYq　ルB＝　』ﾌsチほ3J西モyヒ水スゆ後ラしﾆけハタs　UQまj月ろNQなヒB上ﾎ wﾍZア＝小ｼ×きﾆメヌ上東x。rそMセｿﾕ8ナzｽ",
-      output: "ﾁﾃﾓは8ナ木ｳｹ＋んさこAトひほXIAきZよ】cつQれNナ上チﾕqYqルB＝』ﾌsチほ3J西モyヒ水スゆ後ラしﾆけハタsUQまj月ろNQなヒB上ﾎwﾍZア＝小ｼ×きﾆメヌ上東x。rそMセｿﾕ8ナzｽ",
-    };
-
-    const actual = removeLineBreaksAndSpaces(testIO.input, isRemoveBr, isRemoveSpace);
-
-    if (isToBeExpected) {
-      expect(actual).toBe(testIO.output);
-    }
-    else {
-      expect(actual).not.toBe(testIO.output);
-    }
-  });
-
-  it.each(breaksAndSpacesRemoveCases)("$subject -> 【設定】改行削除:$isRemoveBr, スペース削除:$isRemoveSpace", ({
-    isRemoveBr,
-    isRemoveSpace,
-    isToBeExpected
-  }) => {
-    const testIO: { input: string, output: string } = {
-      input: "へつﾝをSwマ高＜Uと はAたヤサユニﾔ【たン7ロ\n  ｴおfろｽｽへｺJ B\r pﾋ　ｴヘおコﾊﾚm高左人I　　イ、Qヤ÷南もlrﾕR　\n\rヲクよ1スアお  \n\r\njGネ＊ヌﾘﾍPﾖル\n\n\n　ﾇひフZなﾖﾘ低4めCﾍしﾐ｝Fう下ｱﾁ天ルﾙh",
-      output: "へつﾝをSwマ高＜UとはAたヤサユニﾔ【たン7ロｴおfろｽｽへｺJBpﾋｴヘおコﾊﾚm高左人Iイ、Qヤ÷南もlrﾕRヲクよ1スアおjGネ＊ヌﾘﾍPﾖルﾇひフZなﾖﾘ低4めCﾍしﾐ｝Fう下ｱﾁ天ルﾙh",
-    };
-
-    const actual = removeLineBreaksAndSpaces(testIO.input, isRemoveBr, isRemoveSpace);
-
-    if (isToBeExpected) {
-      expect(actual).toBe(testIO.output);
-    }
-    else {
-      expect(actual).not.toBe(testIO.output);
-    }
+    const actual = removeLineBreaksAndSpaces(input, isRemoveBr, isRemoveSpace);
+    expect(actual).toBe(expected);
   });
 })
