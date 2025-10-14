@@ -8,7 +8,8 @@
     "build": "webpack --config webpack.config.js --mode production",
     "fmt": "prettier --write \"src/**/*.{js,jsx,css,html}\" && prettier --write package.json postcss.config.js prettier.config.js tailwind.config.js webpack.config.js",
     "package-mac-intel": "NODE_ENV=production electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=release-builds-intel --icon=src/assets/icon.icns --app-name=\"Text Manipulator\"",
-    "package-mac-arm64": "NODE_ENV=production electron-packager . --overwrite --platform=darwin --arch=arm64 --prune=true --out=release-builds-m --icon=src/assets/icon.icns --app-name=\"Text Manipulator\""
+    "package-mac-arm64": "NODE_ENV=production electron-packager . --overwrite --platform=darwin --arch=arm64 --prune=true --out=release-builds-m --icon=src/assets/icon.icns --app-name=\"Text Manipulator\"",
+    "test": "jest src/renderer/components/**/*.test.ts"
   },
   "keywords": [
     "text",
