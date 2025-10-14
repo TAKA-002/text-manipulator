@@ -1,4 +1,4 @@
-import { performReplace, formatDateTime, removeLineBreaksAndSpaces } from "./process";
+import { performReplace, formatDateTime, removeLineBreaksAndSpaces } from "../process";
 import { breaksRemoveCases, spacesRemoveCases, breaksAndSpacesRemoveCases } from "./process.testcase"
 
 //
