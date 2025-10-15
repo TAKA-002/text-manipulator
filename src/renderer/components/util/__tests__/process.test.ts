@@ -1,4 +1,5 @@
-import { performReplace, formatDateTime } from "./process";
+import { performReplace, formatDateTime, removeLineBreaksAndSpaces } from "../process";
+import { breaksAndSpacesRemoveCases } from "./process.testcase"
 
 //
 // ===== 文字列置換テスト =====
@@ -50,3 +51,18 @@ describe("タイムスタンプフォーマットテスト", () => {
     }
   );
 });
+
+//
+// ===== 改行、スペース削除テスト =====
+//
+describe("改行、スペース削除テスト", () => {
+  it.each(breaksAndSpacesRemoveCases)("$subject", ({
+    input,
+    isRemoveBr,
+    isRemoveSpace,
+    expected
+  }) => {
+    const actual = removeLineBreaksAndSpaces(input, isRemoveBr, isRemoveSpace);
+    expect(actual).toBe(expected);
+  });
+})
