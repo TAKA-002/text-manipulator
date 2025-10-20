@@ -50,3 +50,29 @@ export const breaksAndSpacesRemoveCases: BreaksAndSpacesRemoveCaseType[] = [
     expected: "＄おyワとC春Tuヌ",
   },
 ];
+
+type convertFullWidthToHalfWidthCaseType = {
+  subject: string,
+  str: string,
+  options: {
+    convertAlphabet: boolean,
+    convertNumber: boolean,
+    convertSymbol: boolean,
+    convertSpace: boolean,
+  },
+  expected: string
+};
+
+export const convertFullWidthToHalfWidthCases: convertFullWidthToHalfWidthCaseType[] = [
+  {
+    subject: "全角英字 -> 半角英字",
+    str: "",
+    options: {
+      convertAlphabet: true,
+      convertNumber: false,
+      convertSymbol: false,
+      convertSpace: false,
+    },
+    expected: ""
+  }
+]
