@@ -65,14 +65,113 @@ type convertFullWidthToHalfWidthCaseType = {
 
 export const convertFullWidthToHalfWidthCases: convertFullWidthToHalfWidthCaseType[] = [
   {
-    subject: "全角英字 -> 半角英字",
-    str: "",
+    subject: "英字 のみ",
+    str: "ＢＤａｎｄＳＤsaert15382１７４３",
     options: {
       convertAlphabet: true,
       convertNumber: false,
       convertSymbol: false,
       convertSpace: false,
     },
+    expected: "BDandSDsaert15382１７４３"
+  },
+  {
+    subject: "数字 のみ",
+    str: "ＢＤａｎｄＳＤsaert15382１７４３",
+    options: {
+      convertAlphabet: false,
+      convertNumber: true,
+      convertSymbol: false,
+      convertSpace: false,
+    },
+    expected: "ＢＤａｎｄＳＤsaert153821743"
+  },
+  {
+    subject: "記号 のみ（！〜／など）",
+    str: "！＂＃＄％＆’（）＊＋，－．／：；＜＝＞？＠［＼］＾＿｀｛｜｝～",
+    options: {
+      convertAlphabet: false,
+      convertNumber: false,
+      convertSymbol: true,
+      convertSpace: false,
+    },
+    expected: "!\"#$%&’()*+,-./:;<=>?@[\\]^_`{|}~"
+  },
+  {
+    subject: "スペース のみ",
+    str: "Ａ　Ｂ　Ｃ　１　２　３",
+    options: {
+      convertAlphabet: false,
+      convertNumber: false,
+      convertSymbol: false,
+      convertSpace: true,
+    },
+    expected: "Ａ B Ｃ １ ２ ３"
+  },
+  {
+    subject: "全変換（全オプションtrue）",
+    str: "ＡＢＣ　１２３　！＃＄",
+    options: {
+      convertAlphabet: true,
+      convertNumber: true,
+      convertSymbol: true,
+      convertSpace: true,
+    },
+    expected: "ABC 123 !#$"
+  },
+  {
+    subject: "全オプションfalse（何も変換しない）",
+    str: "ＡＢＣ　１２３　！＃＄",
+    options: {
+      convertAlphabet: false,
+      convertNumber: false,
+      convertSymbol: false,
+      convertSpace: false,
+    },
+    expected: "ＡＢＣ　１２３　！＃＄"
+  },
+  {
+    subject: "変換対象が含まれない場合（すでに半角）",
+    str: "ABC 123 !#$",
+    options: {
+      convertAlphabet: true,
+      convertNumber: true,
+      convertSymbol: true,
+      convertSpace: true,
+    },
+    expected: "ABC 123 !#$"
+  },
+  {
+    subject: "空文字列（境界値）",
+    str: "",
+    options: {
+      convertAlphabet: true,
+      convertNumber: true,
+      convertSymbol: true,
+      convertSpace: true,
+    },
     expected: ""
+  },
+  {
+    subject: "混在（英字と数字のみ変換）",
+    str: "ＡＢＣ　１２３　！＃＄",
+    options: {
+      convertAlphabet: true,
+      convertNumber: true,
+      convertSymbol: false,
+      convertSpace: false,
+    },
+    expected: "ABC 123　！＃＄"
+  },
+  {
+    subject: "境界記号（記号範囲の端を含む）",
+    str: "！／：＠［｀｛～",
+    options: {
+      convertAlphabet: false,
+      convertNumber: false,
+      convertSymbol: true,
+      convertSpace: false,
+    },
+    expected: "!/:@[`{~"
   }
 ]
