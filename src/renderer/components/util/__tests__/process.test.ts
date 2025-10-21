@@ -4,7 +4,7 @@ import { breaksAndSpacesRemoveCases, convertFullWidthToHalfWidthCases } from "./
 //
 // ===== 文字列置換テスト =====
 //
-describe("文字列置換", () => {
+describe("文字列置換: performReplace()", () => {
   type ReplaceTestCase = {
     subject: string;
     input: string;
@@ -33,7 +33,7 @@ describe("文字列置換", () => {
 //
 // ===== タイムスタンプフォーマットテスト =====
 //
-describe("タイムスタンプフォーマットテスト", () => {
+describe("タイムスタンプフォーマットテスト: formatDateTime()", () => {
   type TimestampTestCase = { timestamp: number; expected: string };
 
   const timestampCases: TimestampTestCase[] = [
@@ -55,7 +55,7 @@ describe("タイムスタンプフォーマットテスト", () => {
 //
 // ===== 改行、スペース削除テスト =====
 //
-describe("改行、スペース削除テスト", () => {
+describe("改行、スペース削除テスト: removeLineBreaksAndSpaces()", () => {
   it.each(breaksAndSpacesRemoveCases)("$subject", ({
     input,
     isRemoveBr,
@@ -70,7 +70,7 @@ describe("改行、スペース削除テスト", () => {
 //
 // ===== 全角 -> 半角 テスト =====
 //
-describe("全角文字列 -> 半角文字列 変換テスト", () => {
+describe("全角文字列 -> 半角文字列 変換テスト: convertFullWidthToHalfWidth()", () => {
   it.each(convertFullWidthToHalfWidthCases)("$subject", ({
     str,
     options,
