@@ -106,7 +106,7 @@ export const convertFullWidthToHalfWidthCases: convertFullWidthToHalfWidthCaseTy
       convertSymbol: false,
       convertSpace: true,
     },
-    expected: "Ａ B Ｃ １ ２ ３"
+    expected: "Ａ Ｂ Ｃ １ ２ ３",
   },
   {
     subject: "全変換（全オプションtrue）",
@@ -161,7 +161,7 @@ export const convertFullWidthToHalfWidthCases: convertFullWidthToHalfWidthCaseTy
       convertSymbol: false,
       convertSpace: false,
     },
-    expected: "ABC 123　！＃＄"
+    expected: "ABC　123　！＃＄"
   },
   {
     subject: "境界記号（記号範囲の端を含む）",
