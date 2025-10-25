@@ -3,3 +3,6 @@ dist
 .DS_Store
 release-builds-m
 release-builds-intel
+/coverage
+/coverage-html
+*.lcov
