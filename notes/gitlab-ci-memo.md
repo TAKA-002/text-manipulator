@@ -142,3 +142,42 @@ deploy（手動実行）
 | `$FTP_HOST` | FTPホスト |
 | `$FTP_PATH` | 本番デプロイ先パス |
 | `$FTP_STAGING_PATH` | ステージングデプロイ先パス |
+
+> **注意**: GitLab CI/CD 変数は **Protected をオフ** にすること。
+> Protected 変数はProtectedブランチ・タグにしか渡されないため、
+> 通常のタグpushでは変数が空になりデプロイが失敗する。
+
+---
+
+## デプロイ手順
+
+### 1. コミット・プッシュ
+
+```bash
+git add .
+git commit -m "コミットメッセージ"
+git push gitlab main && git push origin main
+```
+
+### 2. タグを作成してプッシュ
+
+| 環境 | タグ形式 | 例 |
+|---|---|---|
+| ステージング | `staging-yyyymmdd-n` | `staging-20260219-1` |
+| 本番 | `production-yyyymmdd-n` | `production-20260219-1` |
+
+タグ名の末尾には自由に文字列を追加できる（例: `staging-20260219-1-hotfix`）。
+
+```bash
+# タグ作成（-a でメッセージ付きアノテーションタグ）
+git tag -a staging-20260219-1 -m "メッセージ"
+
+# GitLabとGitHubの両方にプッシュ
+git push gitlab staging-20260219-1 && git push origin staging-20260219-1
+```
+
+### 3. GitLabでデプロイを手動実行
+
+1. GitLab のパイプライン画面を開く
+2. `test` → `build` が完了するのを待つ
+3. `deploy-staging` または `deploy-production` の実行ボタンを押す
