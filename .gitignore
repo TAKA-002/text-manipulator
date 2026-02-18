@@ -1,5 +1,14 @@
+# 依存パッケージ
 node_modules
+# ビルド成果物
 dist
+# macOSのメタデータファイル
 .DS_Store
+# Electronアプリのパッケージング出力先（Apple Silicon）
 release-builds-m
+# Electronアプリのパッケージング出力先（Intel）
 release-builds-intel
+# Jestのカバレッジレポート
+/coverage
+/coverage-html
+*.lcov
