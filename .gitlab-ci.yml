@@ -14,7 +14,7 @@ stages:
 .node_base:
   image: node:20.11.1
   before_script:
-    - npm install
+    - npm ci
 
 # デプロイジョブの共通設定
 .deploy_base:
