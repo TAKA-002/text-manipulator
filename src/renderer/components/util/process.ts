@@ -142,6 +142,7 @@ export const copyToClipboard = async (text: string) => {
 export function formatDateTime(timestamp: number): string {
   const date = new Date(timestamp);
   return date.toLocaleString('ja-JP', {
+    timeZone: 'Asia/Tokyo',
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
