@@ -1,15 +1,24 @@
 # stagesは、パイプラインの実行順序を明示している
-# buildのstageが完了しなければ、deployのstageは実行されない。
+# 上から順に実行され、前のstageが完了しなければ次のstageは実行されない。
 stages:
+  - test
   - build
   - deploy
 
+# staging-yyyymmdd-n または production-yyyymmdd-n のタグpush時のみパイプラインを実行する
 workflow:
   rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_TAG =~ /^(staging|production)-\d{8}-\d+$/
 
-build: # ここはjob名
-  stage: build # ここが上に書いているstagesの中の名前に該当する
+test:
+  stage: test
+  image: node:20.11.1
+  script:
+    - npm install
+    - npm test
+
+build:
+  stage: build
   image: node:20.11.1
   script:
     - npm install
@@ -18,8 +27,22 @@ build: # ここはjob名
     paths:
       - dist/ # buildの結果出力されるファイルの出力先。buildがwebpackの設定に基づくから、webpack.config.js記載の出力先にする。
 
-deploy:
+# staging-yyyymmdd-n のタグpushでステージングへデプロイ（手動実行）
+deploy-staging:
   stage: deploy
+  when: manual
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^staging-\d{8}-\d+$/
+  script:
+    - apt-get update -qq && apt-get install -y -qq lftp
+    - lftp -c "open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; set ssl:verify-certificate no; mirror -Rev dist/ $FTP_STAGING_PATH --ignore-time --parallel=10 --exclude-glob .git* --exclude .git/"
+
+# production-yyyymmdd-n のタグpushで本番へデプロイ（手動実行）
+deploy-production:
+  stage: deploy
+  when: manual
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^production-\d{8}-\d+$/
   script:
     - apt-get update -qq && apt-get install -y -qq lftp
     - lftp -c "open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST; set ssl:verify-certificate no; mirror -Rev dist/ $FTP_PATH --ignore-time --parallel=10 --exclude-glob .git* --exclude .git/"
