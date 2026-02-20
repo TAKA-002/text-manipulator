@@ -10,7 +10,7 @@ export default function Footer(): React.JSX.Element {
           src={icon}
           width="400"
           height="400"
-          alt="Text Manipulater App Logo"
+          alt="Text Manipulator App Logo"
         />
       </figure>
       <small className="text-[min(3.2vw,12px)]">

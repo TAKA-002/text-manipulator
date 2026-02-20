@@ -51,7 +51,7 @@ export default function AboutModal({ setIsOpen }: AboutModalProps): React.JSX.El
                 src={icon}
                 width="400"
                 height="400"
-                alt="Text Manipulater App Logo"
+                alt="Text Manipulator App Logo"
               />
             </figure>
             <h2 className="text-xl font-bold text-gray-800">Text Manipulator について</h2>

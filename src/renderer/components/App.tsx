@@ -77,7 +77,7 @@ export function App() {
   const [isToast, setIsToast] = useState<boolean>(false);
 
   // stateが変更されるたび再レンダリングされるが、コンポーネント内で定義された関数も一緒に再作成されるが、関数は変化がないので無駄。
-  // だからuseCallbackをしようして、関数のメモ化を実施。
+  // だからuseCallbackを使用して、関数のメモ化を実施。
   const handleCopy = useCallback(async (textToCopy: string) => {
     const success = await copyToClipboard(textToCopy);
     if (success) {

@@ -10,10 +10,10 @@ export default function Header(): React.JSX.Element {
           src={icon}
           width="400"
           height="400"
-          alt="Text Manipulater App Logo"
+          alt="Text Manipulator App Logo"
         />
       </figure>
-      <h1 className="text-[min(5.3vw,30px)] font-bold text-gray-600">Text Manipulater App</h1>
+      <h1 className="text-[min(5.3vw,30px)] font-bold text-gray-600">Text Manipulator App</h1>
     </header>
   );
 }
