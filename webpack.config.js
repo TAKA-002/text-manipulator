@@ -56,7 +56,10 @@ module.exports = [
         favicon: "./src/assets/icon.ico",
       }),
       new CopyWebpackPlugin({
-        patterns: [{ from: "public", to: "." }],
+        patterns: [
+          { from: "public", to: "." },
+          { from: "src/assets/ogp.jpg", to: "ogp.jpg" },
+        ],
       }),
     ],
     resolve: {
