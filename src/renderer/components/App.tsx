@@ -12,10 +12,11 @@ import {
   removeLineBreaksAndSpaces,
   performReplace,
   copyToClipboard,
+  convertTextCase,
 } from "./util/process";
 import { moveFocusToInit } from "./util/operation";
 import { TYPING_DONE_INTERVAL } from "./util/constants";
-import { ReplaceObjectType, DirectionType, ToastKindType } from "../../types";
+import { ReplaceObjectType, DirectionType, ToastKindType, CaseConversionType } from "../../types";
 
 type MyContextType = {
   inputValue: string;
@@ -40,6 +41,8 @@ type MyContextType = {
   setIsRemoveBr: React.Dispatch<React.SetStateAction<boolean>>;
   isRemoveSpace: boolean;
   setIsRemoveSpace: React.Dispatch<React.SetStateAction<boolean>>;
+  caseConversionType: CaseConversionType;
+  setCaseConversionType: React.Dispatch<React.SetStateAction<CaseConversionType>>;
   handleCopy: (textToCopy: string) => Promise<void>;
   handleClear: () => void;
 };
@@ -71,6 +74,9 @@ export function App() {
   const [isConversionNum, setIsConversionNum] = useState<boolean>(false);
   const [isConversionSymbol, setIsConversionSymbol] = useState<boolean>(false);
   const [isConversionSpace, setIsConversionSpace] = useState<boolean>(false);
+
+  // テキスト変換タイプ
+  const [caseConversionType, setCaseConversionType] = useState<CaseConversionType>("none");
 
   // トースト通知
   const [toastKind, setToastKind] = useState<ToastKindType>("");
@@ -154,6 +160,8 @@ export function App() {
       }
     }
 
+    result = convertTextCase(result, caseConversionType);
+
     setConvertedValue(result);
   }, [
     inputValue,
@@ -161,6 +169,7 @@ export function App() {
     isReplace,
     replaceObject,
     conversionDirection,
+    caseConversionType,
     isConversionAll,
     isConversionEng,
     isConversionNum,
@@ -230,6 +239,8 @@ export function App() {
         setIsRemoveBr,
         isRemoveSpace,
         setIsRemoveSpace,
+        caseConversionType,
+        setCaseConversionType,
         handleCopy,
         handleClear,
       }}
