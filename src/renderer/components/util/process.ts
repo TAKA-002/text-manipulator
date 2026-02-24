@@ -1,5 +1,6 @@
-import { ReplaceObjectType, ConvertSettings } from "../../../types";
+import { ReplaceObjectType, ConvertSettings, CaseConversionType } from "../../../types";
 import { TEXT_MANIPULATOR_SETTINGS_KEY } from "./constants";
+import { CASE_CONVERSION_TYPES } from "./constants";
 
 type Options = {
   convertAlphabet: boolean,
@@ -80,6 +81,30 @@ export function convertHalfWidthToFullWidth(
   }
 
   return result;
+}
+
+export function convertTextCase(
+  str: string,
+  option: CaseConversionType = "none"
+): string {
+
+  switch (option) {
+    case CASE_CONVERSION_TYPES.NO_CONVERT:
+      return str;
+
+    case CASE_CONVERSION_TYPES.UPPER_CASE:
+      return str.toUpperCase();
+
+    case CASE_CONVERSION_TYPES.LOWER_CASE:
+      return str.toLowerCase();
+
+    case CASE_CONVERSION_TYPES.TITLE_CASE:
+      return str;
+
+    default:
+      return str;
+  }
+
 }
 
 export function removeLineBreaksAndSpaces(
