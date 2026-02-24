@@ -98,9 +98,6 @@ export function convertTextCase(
     case CASE_CONVERSION_TYPES.LOWER_CASE:
       return str.toLowerCase();
 
-    case CASE_CONVERSION_TYPES.TITLE_CASE:
-      return str;
-
     default:
       return str;
   }

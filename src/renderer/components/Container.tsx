@@ -9,6 +9,7 @@ import OutputArea from "./ui/OutputArea";
 import ActionButton from "./ui/ActionButton";
 import ReplaceOptions from "./ui/ReplaceOptions";
 import { moveFocusToInit } from "./util/operation";
+import CaseConversionButtons from "./ui/CaseConversionButtons";
 
 export default function Container(): React.JSX.Element {
   useEffect(() => {
@@ -24,6 +25,7 @@ export default function Container(): React.JSX.Element {
           <ReplaceOptions />
           <RemoveOptions />
           <ConversionButtons />
+          <CaseConversionButtons />
           <ConversionOptions />
         </div>
         <div className="w-full md:w-1/2 space-y-6">

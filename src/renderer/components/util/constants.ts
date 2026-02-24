@@ -7,7 +7,6 @@ export const TEXT_MANIPULATOR_SETTINGS_KEY = "Text-Manipulator-settings";
 export const CASE_CONVERSION_TYPES: Record<string, CaseConversionType> = {
   NO_CONVERT: "none",
   UPPER_CASE: "upper",
-  LOWER_CASE: "lower",
-  TITLE_CASE: "title"
+  LOWER_CASE: "lower"
 }
 
