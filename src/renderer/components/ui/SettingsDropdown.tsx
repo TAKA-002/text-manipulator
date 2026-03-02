@@ -54,6 +54,7 @@ export default function SettingsDropdown(): React.JSX.Element {
       isConversionNum: myContext.isConversionNum,
       isConversionSymbol: myContext.isConversionSymbol,
       isConversionSpace: myContext.isConversionSpace,
+      caseConversionType: myContext.caseConversionType,
     });
     setIsOpenModal(false);
   };

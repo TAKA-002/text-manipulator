@@ -14,6 +14,7 @@ export const useSettingsRestore = () => {
     myContext.setIsConversionNum(settings.isConversionNum);
     myContext.setIsConversionSymbol(settings.isConversionSymbol);
     myContext.setIsConversionSpace(settings.isConversionSpace);
+    myContext.setCaseConversionType(settings.caseConversionType);
   }
 
   const resetToDefaultSettings = () => {
@@ -27,6 +28,7 @@ export const useSettingsRestore = () => {
       isConversionNum: false,
       isConversionSymbol: false,
       isConversionSpace: false,
+      caseConversionType: "none",
     })
   }
 
