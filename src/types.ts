@@ -3,6 +3,7 @@
 export type ReplaceObjectType = { from: string; to: string };
 export type DirectionType = "fullToHalf" | "halfToFull";
 export type ToastKindType = "success" | "failed" | "clear" | "";
+export type CaseConversionType = "none" | "upper" | "lower";
 
 export interface SettingsType {
   replaceObject: ReplaceObjectType,
@@ -14,6 +15,7 @@ export interface SettingsType {
   isConversionNum: boolean,
   isConversionSymbol: boolean,
   isConversionSpace: boolean,
+  caseConversionType: CaseConversionType,
 }
 
 export interface ConvertSettings {
